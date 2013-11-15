@@ -16,6 +16,7 @@ import org.jsfml.graphics.Text;
 import org.jsfml.graphics.Vertex;
 import org.jsfml.graphics.VertexArray;
 import org.jsfml.system.Vector2f;
+import org.jsfml.window.Mouse;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
@@ -34,16 +35,14 @@ public class App implements TuioListener {
 	RenderWindow window;
 	TuioClient tuioClient;
 	Font font;
-
-
-
-
+	
+	
 	App() throws IOException
 	{
 		window= new RenderWindow();
 		window.create(new VideoMode(LARGEUR,HAUTEUR),"Tuio");
 		window.setVerticalSyncEnabled(true);
-				
+		
 		verbose = true;
 		fullscreen = false;
 		running = false;
@@ -70,16 +69,20 @@ public class App implements TuioListener {
 		{
 			
 			drawObjects();
+			drawButtons();
 			window.display();
 			processEvents();
-			Thread.sleep(40);
 			window.clear();
 
 		}
 		tuioClient.disconnect();
 		window.close();
 	}
-	void drawObjects()
+	
+/**
+ * 
+ */
+void drawObjects()
 	{
 		//-------------------
 		// 	Trajectoire
@@ -90,7 +93,7 @@ public class App implements TuioListener {
 		//le Curseur courant
 		TuioCursor cursor;
 		//la position du cuseur
-		Vector2f DerP = null;
+		
 		//boucle qui traite chun des curseurs ( un apres l'autre)
 		for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
 
@@ -109,12 +112,12 @@ public class App implements TuioListener {
 				List<TuioPoint> c_path = new ArrayList<TuioPoint>();
 				c_path.addAll(path);
 
-
-				for (TuioPoint point : c_path)
+				
+				for (TuioPoint point_tuio : c_path)
 				{
 					//les point tuio ont des coordonnées en % ( entre 0 et 1)
-					DerP=new Vector2f(point.getX()*window.getSize().x,point.getY()*window.getSize().y);
-					list_p.add(new Vertex(DerP));
+					Vector2f point_sfml = new Vector2f(point_tuio.getX()*window.getSize().x,point_tuio.getY()*window.getSize().y);
+					list_p.add(new Vertex(point_sfml));
 
 					//la taille maximun de vertex array est 1024
 					if(list_p.size()>1023)
@@ -133,7 +136,7 @@ public class App implements TuioListener {
 			CircleShape cur= new CircleShape(4);
 			cur.setOrigin(2,2);
 			cur.setFillColor(Color.GREEN);
-			cur.move(DerP);
+			cur.move(cursor.getPosition().getX()*window.getSize().x,cursor.getPosition().getY()*window.getSize().y);
 			drawString(Integer.toString(cursor.getCursorID()),cur.getPosition().x-5,cur.getPosition().y-20);
 			window.draw(cur);
 
@@ -209,6 +212,18 @@ public class App implements TuioListener {
 
 	}
 
+	void drawButtons()
+	{
+		Text txt = new Text("bouton",font);
+		txt.setCharacterSize(20);
+		Vector2f curseur = new Vector2f(Mouse.getPosition(window));
+		if (txt.getGlobalBounds().contains(curseur))
+			txt.setColor(Color.RED);
+		else
+			txt.setColor(Color.WHITE);
+		window.draw(txt);
+	}
+	
 	void toggleFullscreen()
 	{
 

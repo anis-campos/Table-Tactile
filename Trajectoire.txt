@@ -1,0 +1,27 @@
+			//trajectoire du curseur
+			Vector<TuioPoint> path = cursor.getPath();
+
+			//liste de lignes chainées : la liggne suivante va se coller au bout de la précedente
+			VertexArray list_p = new VertexArray(PrimitiveType.LINE_STRIP);
+			if (path.size()>0)
+			{
+				//copie de la trajectoire ( pour eviter l'exeption ConcurrentModificationException )
+				List<TuioPoint> c_path = new ArrayList<TuioPoint>();
+				c_path.addAll(path);
+
+				
+				for (TuioPoint point_tuio : c_path)
+				{
+					//les point tuio ont des coordonnées en % ( entre 0 et 1)
+					Vector2f point_sfml = new Vector2f(point_tuio.getX()*window.getSize().x,point_tuio.getY()*window.getSize().y);
+					list_p.add(new Vertex(point_sfml));
+
+					//la taille maximun de vertex array est 1024
+					if(list_p.size()>1023)
+						list_p.clear();
+				}
+				window.draw(list_p);
+				list_p.clear();
+
+
+			}
