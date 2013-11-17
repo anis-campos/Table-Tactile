@@ -2,7 +2,15 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry exported="true" kind="lib" path="jsfml.jar" sourcepath="F:/Users/TheKing973/Documents/GitHub/JSFML/src/java"/>
-	<classpathentry exported="true" kind="lib" path="libTUIO.jar" sourcepath="F:/Users/TheKing973/Downloads/TUIO_JAVA-1.4/TUIO_JAVA/src"/>
+	<classpathentry exported="true" kind="lib" path="jsfml.jar" sourcepath="F:/Users/TheKing973/Documents/GitHub/JSFML/src/java">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/F:/Users/TheKing973/Downloads/jsfml-test-Jul31_2013.zip!/javadoc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="libTUIO.jar" sourcepath="F:/Users/TheKing973/Downloads/TUIO_JAVA-1.4/TUIO_JAVA/src">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/F:/Users/TheKing973/Downloads/TUIO_JAVA-1.4%20(1).zip!/TUIO_JAVA/doc"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
