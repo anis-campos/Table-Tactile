@@ -4,6 +4,7 @@ import gesture.Geste;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import org.jsfml.graphics.CircleShape;
@@ -29,35 +30,32 @@ import TUIO.TuioTime;
 public class App implements TuioListener {
 	final static int LARGEUR = 900;
 	final static int HAUTEUR = 600;
-	Sprite image; 
 	boolean verbose,fullscreen,running;
 	RenderWindow window;
 	Vector2i screen;
 	TuioClient tuioClient;
 	Font font;
-	Geste test;
+	
+
+	Vector<Sprite> listImage;
+	Geste  test;
+	Geste  test2;
 	Thread thread ;
+	Thread thread2 ;
 
 	App() 
 	{
 		screen = new Vector2i(LARGEUR,HAUTEUR);
-		window= new RenderWindow();
-		window.create(new VideoMode(LARGEUR,HAUTEUR),"Tuio");
+		window= new RenderWindow(new VideoMode(LARGEUR,HAUTEUR),"Tuio",WindowStyle.DEFAULT-WindowStyle.RESIZE);
+		//window.create(new VideoMode(LARGEUR,HAUTEUR),"Tuio");
 		window.setVerticalSyncEnabled(true);
+		
 
 		verbose = false;
 		fullscreen = false;
 		running = false;
 		
-		Texture t = new Texture();
-		try {
-			t.loadFromFile(Paths.get("images/Pikachu.png"));
-		} catch (IOException e1) {
-			System.out.println("Erreur texture");
-		}
-		image = new Sprite(t);
-		image.setOrigin(new Vector2f(Vector2i.div(t.getSize(), 2)));
-		image.move(new Vector2f(Vector2i.div(screen, 2)));
+	
 		tuioClient = new TuioClient();
 		tuioClient.addTuioListener(this);
 		tuioClient.connect();;
@@ -66,9 +64,36 @@ public class App implements TuioListener {
 			window.close();
 			return;
 		}
-		test = new Geste(image, screen,tuioClient);
+		
+		Texture t = new Texture();
+		try {
+			t.loadFromFile(Paths.get("images/Pikachu.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
+		
+		Sprite image = new Sprite(t);
+		image.setOrigin(new Vector2f(Vector2i.div(t.getSize(), 2)));
+		image.move(new Vector2f(Vector2i.div(screen, 2)));
+		image.scale(0.5f,0.5f);
+		
+		Sprite image2 = new Sprite(t);
+		image2.setOrigin(new Vector2f(Vector2i.div(t.getSize(), 2)));
+		image2.move(new Vector2f(Vector2i.div(screen, 4)));
+		image2.scale(0.3f,0.5f);
+		
+		listImage=new Vector<Sprite>();
+		listImage.add(image);
+		listImage.add(image2);
+		
+		test = new Geste(listImage.get(0), screen,tuioClient);
 		thread = new Thread( test );
 		thread.start();
+	
+		test2 = new Geste(listImage.get(1), screen,tuioClient);
+		thread2 = new Thread( test2 );
+		thread2.start();		
+		
 		font = new Font();
 		try {
 			font.loadFromFile(Paths.get("rcs/sansation.ttf"));
@@ -85,7 +110,8 @@ public class App implements TuioListener {
 		running=true;
 		while (running)
 		{
-			window.draw(image);
+			for(Iterator<Sprite> iter=listImage.iterator();iter.hasNext();)
+				window.draw(iter.next());
 			drawCursors();
 			drawObjects();
 			drawButtons();
@@ -97,7 +123,15 @@ public class App implements TuioListener {
 		}
 		tuioClient.disconnect();
 		window.close();
-		thread.stop();
+		test.running=false;
+		test2.running=false;
+		try {
+			thread.join();
+			thread2.join();
+		} catch (InterruptedException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
 	}
 
 
@@ -127,7 +161,9 @@ public class App implements TuioListener {
 
 		for (Iterator<TuioObject> iter2 = objectList.iterator(); iter2.hasNext();)
 		{
+			
 			TuioObject tuioObject = iter2.next();
+	
 			Vector2f ecran  = new Vector2f(window.getSize().x,window.getSize().y);
 			Vector2f taille = Vector2f.div(ecran, 20.0f);
 			Vector2f position = new Vector2f(tuioObject.getX(),tuioObject.getY());
@@ -178,6 +214,8 @@ public class App implements TuioListener {
 					break;
 				case F:
 					this.toggleFullscreen();
+					test.screen = window.getSize();
+					test2.screen = window.getSize();
 					break;
 
 				default :
@@ -189,7 +227,11 @@ public class App implements TuioListener {
 				window.close();
 				running=false;
 				break;
-
+				
+			case RESIZED:
+				test.screen = window.getSize();
+				test2.screen = window.getSize();
+				break;
 			default :
 				break;
 			}
@@ -206,7 +248,7 @@ public class App implements TuioListener {
 			window.create(VideoMode.getDesktopMode(), "Tuio",WindowStyle.FULLSCREEN);
 
 		else
-			window.create(new VideoMode(LARGEUR,HAUTEUR ),"Tuio",WindowStyle.DEFAULT);
+			window.create(new VideoMode(LARGEUR,HAUTEUR ),"Tuio",WindowStyle.DEFAULT-WindowStyle.RESIZE);
 
 		window.setVerticalSyncEnabled(true);
 		fullscreen = !fullscreen;
