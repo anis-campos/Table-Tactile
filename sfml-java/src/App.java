@@ -4,7 +4,6 @@ import gesture.Geste;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 import org.jsfml.graphics.CircleShape;
@@ -36,7 +35,7 @@ public class App implements TuioListener {
 	TuioClient tuioClient;
 	Font font;
 	
-
+	
 	Vector<Sprite> listImage;
 	Geste  test;
 	Geste  test2;
@@ -47,7 +46,6 @@ public class App implements TuioListener {
 	{
 		screen = new Vector2i(LARGEUR,HAUTEUR);
 		window= new RenderWindow(new VideoMode(LARGEUR,HAUTEUR),"Tuio",WindowStyle.DEFAULT-WindowStyle.RESIZE);
-		//window.create(new VideoMode(LARGEUR,HAUTEUR),"Tuio");
 		window.setVerticalSyncEnabled(true);
 		
 
@@ -58,7 +56,7 @@ public class App implements TuioListener {
 	
 		tuioClient = new TuioClient();
 		tuioClient.addTuioListener(this);
-		tuioClient.connect();;
+		tuioClient.connect();
 		if (!tuioClient.isConnected())
 		{
 			window.close();
