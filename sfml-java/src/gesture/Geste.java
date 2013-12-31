@@ -1,8 +1,10 @@
 package gesture;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.List;
 
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
@@ -24,6 +26,8 @@ public class Geste implements Runnable {
 	public boolean running=true;
 	double distance=0;
 	float scale = 1;
+	
+	static List<Integer> curseurAttribué = new ArrayList<Integer>();
 
 	void zoom (TuioCursor c1, TuioCursor c2){
 
@@ -77,6 +81,7 @@ public class Geste implements Runnable {
 
 	boolean inImage(TuioCursor cursor)
 	{
+		
 		Vector2f point1 = new Vector2f(cursor.getPosition().getScreenX(screen.x),
 				cursor.getPosition().getScreenY(screen.y));
 		return image.getGlobalBounds().contains(point1);
@@ -98,19 +103,33 @@ public class Geste implements Runnable {
 		Vector<TuioCursor> cursorInImage = new Vector<TuioCursor>();
 		for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
 			cursor = iter.next();
+			synchronized (Geste.class) {
+				if ( curseurAttribué.contains(new Integer(cursor.getCursorID())))
+					continue;
+			}
+			
+			
 			if (inImage(cursor))
 			{
 				cursorInImage.add(cursor);
+				synchronized (Geste.class) {
+					curseurAttribué.add(new Integer(cursor.getCursorID()));
+				}
 			}
 		}
 		switch (cursorInImage.size()){
 		case 1:
+			move(cursorInImage.get(0));
 			synchronized (Geste.class) {
-				move(cursorInImage.get(0));
-			}	
+				curseurAttribué.remove(new Integer(cursorInImage.get(0).getCursorID()));		
+			}
 			break;
 		case 2:
 			zoom(cursorInImage.get(0), cursorInImage.get(1));
+			synchronized (Geste.class) {
+				curseurAttribué.remove(new Integer(cursorInImage.get(0).getCursorID()));
+				curseurAttribué.remove(new Integer(cursorInImage.get(1).getCursorID()));
+			}
 			break;
 
 		default :

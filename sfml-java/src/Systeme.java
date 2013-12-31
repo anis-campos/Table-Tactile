@@ -26,7 +26,7 @@ import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
-public class App implements TuioListener {
+public class Systeme implements TuioListener {
 	final static int LARGEUR = 900;
 	final static int HAUTEUR = 600;
 	boolean verbose,fullscreen,running;
@@ -42,7 +42,7 @@ public class App implements TuioListener {
 	Thread thread ;
 	Thread thread2 ;
 
-	App() 
+	Systeme() 
 	{
 		screen = new Vector2i(LARGEUR,HAUTEUR);
 		window= new RenderWindow(new VideoMode(LARGEUR,HAUTEUR),"Tuio",WindowStyle.DEFAULT-WindowStyle.RESIZE);
