@@ -3,58 +3,62 @@ package gesture;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
 import java.util.List;
+import java.util.Vector;
 
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
 
-import TUIO.TuioClient;
 import TUIO.TuioCursor;
+import application.Systeme;
 
 /**
  * @author TheKing973
  *
  */
-public class Geste implements Runnable {
+public class Geste implements Runnable {	
 
-	TuioClient tuioClient;
-	public Vector2i screen;
 	Sprite image;
-	boolean enzoom = false;
+
 	public boolean running=true;
-	double distance=0;
-	float scale = 1;
-	
+
+	Vector2f scale ;
+	float rotation;
+
 	static List<Integer> curseurAttribué = new ArrayList<Integer>();
 
-	void zoom (TuioCursor c1, TuioCursor c2){
+	void zoom (TuioCursor cursor1, TuioCursor cursor2){
+		double distance=0;
+		boolean enzoom = false;
+		while (cursor1.getTuioState()!=4 && cursor2.getTuioState()!=4)
+		{ 
+			Vector2f point1 = cursorToPoint(cursor1);
+			Vector2f point2 = cursorToPoint(cursor2);
 
-		Vector2f point1 = new Vector2f(c1.getPosition().getScreenX(screen.x),
-				c1.getPosition().getScreenY(screen.y));
-		Vector2f point2 = new Vector2f(c2.getPosition().getScreenX(screen.x),
-				c2.getPosition().getScreenY(screen.y));
-		double tmp = Point.distance(point1.x, point1.y, point2.x, point2.y);
-		if (image.getGlobalBounds().contains(point1) && image.getGlobalBounds().contains(point2) && !enzoom )
-		{	enzoom=true;
-		distance = tmp;
-		}
-		else if (enzoom  )
-		{
+			double tmp = Point.distance(point1.x, point1.y, point2.x, point2.y);
 
-			if ( tmp - distance >3 )
-			{
-				scale=scale+0.1f;
-				image.setScale(scale,scale);
+			if (inImage(point1) && inImage(point2) && !enzoom )
+			{	
+				enzoom=true;
+				distance = tmp;
 			}
-			if (distance - tmp >3 && scale>0.1)
+			else if (enzoom )
 			{
-				scale=scale-0.1f;
-				image.setScale(scale, scale);
-			}
-			enzoom=false;
 
+				if ( tmp - distance >3 )
+				{
+					scale=Vector2f.add(scale, new Vector2f(0.1f,0.1f));
+					image.setScale(scale);
+				}
+				if (distance - tmp >3 && scale.x>0.2)
+				{
+					scale=Vector2f.sub(scale, new Vector2f(0.1f,0.1f));
+					image.setScale(scale);
+				}
+				enzoom=false;
+
+			}
+			pause(20);
 		}
 	}
 
@@ -63,42 +67,79 @@ public class Geste implements Runnable {
 
 		while (curseur.getTuioState()!=4)
 		{
-			
-			Vector2f posCurseur_av = new Vector2f(curseur.getPosition().getScreenX(screen.x),curseur.getPosition().getScreenY(screen.y));
-            try {
-                    Thread.sleep(50);
-            } catch (InterruptedException e) {
-                    e.printStackTrace();
-            }
-            Vector2f posCurseur_ap = new Vector2f(curseur.getPosition().getScreenX(screen.x),curseur.getPosition().getScreenY(screen.y));
-            Vector2f deplacement =Vector2f.sub(posCurseur_ap,posCurseur_av);
-            Vector2f posImage = Vector2f.add(deplacement,image.getPosition());
-            if ( posImage.x>0 && posImage.y>0 &&
-                     posImage.x<screen.x && posImage.y<screen.y)
-            image.setPosition(posImage);
+
+			Vector2f posCurseur_av = cursorToPoint(curseur);
+
+			pause(50);
+
+			Vector2f posCurseur_ap = cursorToPoint(curseur);
+			Vector2f deplacement =Vector2f.sub(posCurseur_ap,posCurseur_av);
+			Vector2f posImage = Vector2f.add(deplacement,image.getPosition());
+
+			if ( posImage.x>0 && posImage.y>0 && posImage.x<Systeme.screen.x && posImage.y<Systeme.screen.y)
+				image.setPosition(posImage);
 		}
+	}
+
+	void pivoter(TuioCursor cursor1, TuioCursor cursor2, TuioCursor cursor3){
+		double angle=0;
+		Vector2f droite1;
+		Vector2f droite2;
+		while (cursor1.getTuioState()!=4 || cursor2.getTuioState()!=4 || cursor3.getTuioState()!=4)
+		{ 
+
+
+			droite1 = equationDroite(cursorToPoint(cursor1), cursorToPoint(cursor2));
+			pause(30);
+			droite2 = equationDroite(cursorToPoint(cursor1), cursorToPoint(cursor2));
+
+			angle = angle2Droite(droite1, droite2);
+
+			rotation=(float) (rotation + angle*50);
+			image.setRotation(rotation);
+
+
+		}
+	}
+
+	void pause(int temps){
+		try 
+		{
+			Thread.sleep(temps);
+		} 
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	boolean inImage(Vector2f point)
+	{
+		return image.getGlobalBounds().contains(point);	
 	}
 
 	boolean inImage(TuioCursor cursor)
 	{
-		
-		Vector2f point1 = new Vector2f(cursor.getPosition().getScreenX(screen.x),
-				cursor.getPosition().getScreenY(screen.y));
-		return image.getGlobalBounds().contains(point1);
+
+		Vector2f point = cursorToPoint(cursor);
+		return inImage(point);
 
 	}
 
-	public Geste (Sprite sprite,Vector2i screen, TuioClient tuioClient)
+	Vector2f cursorToPoint(TuioCursor cursor)
+	{
+		return new Vector2f(cursor.getPosition().getScreenX(Systeme.screen.x),cursor.getPosition().getScreenY(Systeme.screen.y));
+	}
+
+	public Geste (Sprite sprite)
 	{
 		image = sprite;
-		this.screen=screen;
-		this.tuioClient = tuioClient; 
-		if (!tuioClient.isConnected())
-			return;
+		this.scale=image.getScale();
+		this.rotation=image.getRotation();
 	}
 
 	void event(){
-		Vector<TuioCursor> cursorList = tuioClient.getTuioCursors();
+		Vector<TuioCursor> cursorList = Systeme.tuioClient.getTuioCursors();
 		TuioCursor cursor;
 		Vector<TuioCursor> cursorInImage = new Vector<TuioCursor>();
 		for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
@@ -107,8 +148,9 @@ public class Geste implements Runnable {
 				if ( curseurAttribué.contains(new Integer(cursor.getCursorID())))
 					continue;
 			}
-			
-			
+
+
+
 			if (inImage(cursor))
 			{
 				cursorInImage.add(cursor);
@@ -116,24 +158,28 @@ public class Geste implements Runnable {
 					curseurAttribué.add(new Integer(cursor.getCursorID()));
 				}
 			}
+			
 		}
 		switch (cursorInImage.size()){
 		case 1:
 			move(cursorInImage.get(0));
-			synchronized (Geste.class) {
-				curseurAttribué.remove(new Integer(cursorInImage.get(0).getCursorID()));		
-			}
 			break;
+
 		case 2:
 			zoom(cursorInImage.get(0), cursorInImage.get(1));
-			synchronized (Geste.class) {
-				curseurAttribué.remove(new Integer(cursorInImage.get(0).getCursorID()));
-				curseurAttribué.remove(new Integer(cursorInImage.get(1).getCursorID()));
-			}
+			break;
+
+		case 3:
+			pivoter(cursorInImage.get(0), cursorInImage.get(1),cursorInImage.get(2));
 			break;
 
 		default :
 			break;
+		}
+
+		synchronized (Geste.class) {
+			for (TuioCursor c : cursorInImage)
+				curseurAttribué.remove(new Integer(c.getCursorID()));		
 		}
 	}
 
@@ -142,15 +188,27 @@ public class Geste implements Runnable {
 		while (running)
 		{
 			event();
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			pause(10);
 		}
 
 	}
 
+	Vector2f equationDroite(Vector2f p1, Vector2f p2) {
+		if (p1.x == p2.x) return null;
+		float a = (p2.y-p1.y) / (p2.x-p1.x);
+		float b = p1.y - a * p1.x;
+		return new Vector2f(a,b);
+	}
+
+	
+	float angle2Droite( Vector2f d1, Vector2f d2){
+		float angle;
+		if ( d1 == null || d2 == null)
+			angle = 0;
+		else 
+			angle = (float) Math.atan((d2.x -d1.x)/(1+d2.x*d1.x));
+		return angle;
+	}
 
 
 

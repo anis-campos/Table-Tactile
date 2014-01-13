@@ -1,6 +1,7 @@
+package application;
 
 import gesture.Geste;
-
+import image.ListeImage;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -31,12 +32,15 @@ public class Systeme implements TuioListener {
 	final static int HAUTEUR = 600;
 	boolean verbose,fullscreen,running;
 	RenderWindow window;
-	Vector2i screen;
-	TuioClient tuioClient;
+	static public Vector2i screen;
+	static public  TuioClient tuioClient;
 	Font font;
 	
 	
 	Vector<Sprite> listImage;
+	
+	ListeImage listImage2;
+	
 	Geste  test;
 	Geste  test2;
 	Thread thread ;
@@ -73,22 +77,32 @@ public class Systeme implements TuioListener {
 		Sprite image = new Sprite(t);
 		image.setOrigin(new Vector2f(Vector2i.div(t.getSize(), 2)));
 		image.move(new Vector2f(Vector2i.div(screen, 2)));
-		image.scale(0.5f,0.5f);
+		image.scale(0.3f,0.3f);
 		
 		Sprite image2 = new Sprite(t);
 		image2.setOrigin(new Vector2f(Vector2i.div(t.getSize(), 2)));
 		image2.move(new Vector2f(Vector2i.div(screen, 4)));
-		image2.scale(0.3f,0.5f);
+		image2.scale(0.3f,0.3f);
 		
 		listImage=new Vector<Sprite>();
 		listImage.add(image);
 		listImage.add(image2);
 		
-		test = new Geste(listImage.get(0), screen,tuioClient);
+		listImage2=new ListeImage();
+		for (int i=0;i<15;i++){
+			listImage2.ajouter("images/Pikachu.png");
+			listImage2.listImage.get(i).image.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
+		}
+
+		
+		
+		
+		
+		test = new Geste(listImage.get(0));
 		thread = new Thread( test );
 		thread.start();
 	
-		test2 = new Geste(listImage.get(1), screen,tuioClient);
+		test2 = new Geste(listImage.get(1));
 		thread2 = new Thread( test2 );
 		thread2.start();		
 		
@@ -110,13 +124,13 @@ public class Systeme implements TuioListener {
 		{
 			for(Iterator<Sprite> iter=listImage.iterator();iter.hasNext();)
 				window.draw(iter.next());
+			//window.draw(listImage2);
 			drawCursors();
 			drawObjects();
 			drawButtons();
 			
 			window.display();
 			processEvents();
-			test.screen = window.getSize();
 			window.clear();
 		}
 		tuioClient.disconnect();
@@ -212,8 +226,6 @@ public class Systeme implements TuioListener {
 					break;
 				case F:
 					this.toggleFullscreen();
-					test.screen = window.getSize();
-					test2.screen = window.getSize();
 					break;
 
 				default :
@@ -227,8 +239,6 @@ public class Systeme implements TuioListener {
 				break;
 				
 			case RESIZED:
-				test.screen = window.getSize();
-				test2.screen = window.getSize();
 				break;
 			default :
 				break;
@@ -247,7 +257,7 @@ public class Systeme implements TuioListener {
 
 		else
 			window.create(new VideoMode(LARGEUR,HAUTEUR ),"Tuio",WindowStyle.DEFAULT-WindowStyle.RESIZE);
-
+		screen=window.getSize();
 		window.setVerticalSyncEnabled(true);
 		fullscreen = !fullscreen;
 	}
