@@ -25,7 +25,7 @@ public class Geste implements Runnable {
 	Vector2f scale ;
 	float rotation;
 
-	static List<Integer> curseurAttribué = new ArrayList<Integer>();
+	static List<Integer> curseurAttribue = new ArrayList<Integer>();
 
 	void zoom (TuioCursor cursor1, TuioCursor cursor2){
 		double distance=0;
@@ -145,7 +145,7 @@ public class Geste implements Runnable {
 		for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
 			cursor = iter.next();
 			synchronized (Geste.class) {
-				if ( curseurAttribué.contains(new Integer(cursor.getCursorID())))
+				if ( curseurAttribue.contains(new Integer(cursor.getCursorID())))
 					continue;
 			}
 
@@ -155,7 +155,7 @@ public class Geste implements Runnable {
 			{
 				cursorInImage.add(cursor);
 				synchronized (Geste.class) {
-					curseurAttribué.add(new Integer(cursor.getCursorID()));
+					curseurAttribue.add(new Integer(cursor.getCursorID()));
 				}
 			}
 			
@@ -179,7 +179,7 @@ public class Geste implements Runnable {
 
 		synchronized (Geste.class) {
 			for (TuioCursor c : cursorInImage)
-				curseurAttribué.remove(new Integer(c.getCursorID()));		
+				curseurAttribue.remove(new Integer(c.getCursorID()));		
 		}
 	}
 
