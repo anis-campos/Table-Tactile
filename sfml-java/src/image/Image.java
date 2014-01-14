@@ -1,5 +1,7 @@
 package image;
 
+import gesture.Geste;
+
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -15,6 +17,8 @@ import application.Systeme;
 
 public class Image implements Cloneable, Drawable{
 	public Sprite image;
+	public Geste  gesture;
+	public Thread thread ;
 
 	static Vector2f position = new Vector2f(100f,100f);
 	static int compteur=0;
@@ -38,6 +42,11 @@ public class Image implements Cloneable, Drawable{
 			position = new Vector2f(100+compteur*150,100);
 		}
 		image.scale((float)200/taille.x,(float)200/taille.y);
+		
+
+		gesture = new Geste(image);
+		thread = new Thread( gesture );
+		thread.start();
 	}
 	
 	public Image clone () {

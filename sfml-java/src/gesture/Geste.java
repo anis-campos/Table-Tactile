@@ -102,10 +102,10 @@ public class Geste implements Runnable {
 		}
 	}
 
-	void pause(int temps){
+	void pause(int milliseconde){
 		try 
 		{
-			Thread.sleep(temps);
+			Thread.sleep(milliseconde);
 		} 
 		catch (InterruptedException e) 
 		{

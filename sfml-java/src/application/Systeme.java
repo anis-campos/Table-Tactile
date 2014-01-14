@@ -1,7 +1,7 @@
 package application;
 
-import gesture.Geste;
 import image.ListeImage;
+
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -12,9 +12,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
-import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Text;
-import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
@@ -35,16 +33,9 @@ public class Systeme implements TuioListener {
 	static public Vector2i screen;
 	static public  TuioClient tuioClient;
 	Font font;
+
+	ListeImage listImage;
 	
-	
-	Vector<Sprite> listImage;
-	
-	ListeImage listImage2;
-	
-	Geste  test;
-	Geste  test2;
-	Thread thread ;
-	Thread thread2 ;
 
 	Systeme() 
 	{
@@ -67,45 +58,12 @@ public class Systeme implements TuioListener {
 			return;
 		}
 		
-		Texture t = new Texture();
-		try {
-			t.loadFromFile(Paths.get("images/Pikachu.png"));
-		} catch (IOException e1) {
-			System.out.println("Erreur texture");
-		}
-		
-		Sprite image = new Sprite(t);
-		image.setOrigin(new Vector2f(Vector2i.div(t.getSize(), 2)));
-		image.move(new Vector2f(Vector2i.div(screen, 2)));
-		image.scale(0.3f,0.3f);
-		
-		Sprite image2 = new Sprite(t);
-		image2.setOrigin(new Vector2f(Vector2i.div(t.getSize(), 2)));
-		image2.move(new Vector2f(Vector2i.div(screen, 4)));
-		image2.scale(0.3f,0.3f);
-		
-		listImage=new Vector<Sprite>();
-		listImage.add(image);
-		listImage.add(image2);
-		
-		listImage2=new ListeImage();
-		for (int i=0;i<15;i++){
-			listImage2.ajouter("images/Pikachu.png");
-			listImage2.listImage.get(i).image.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
+		listImage=new ListeImage();
+		for (int i=0;i<5;i++){
+			listImage.ajouter("images/Pikachu.png");
+			listImage.listImage.get(i).image.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
 		}
 
-		
-		
-		
-		
-		test = new Geste(listImage.get(0));
-		thread = new Thread( test );
-		thread.start();
-	
-		test2 = new Geste(listImage.get(1));
-		thread2 = new Thread( test2 );
-		thread2.start();		
-		
 		font = new Font();
 		try {
 			font.loadFromFile(Paths.get("rcs/sansation.ttf"));
@@ -122,28 +80,18 @@ public class Systeme implements TuioListener {
 		running=true;
 		while (running)
 		{
-			for(Iterator<Sprite> iter=listImage.iterator();iter.hasNext();)
-				window.draw(iter.next());
-			//window.draw(listImage2);
+
+			window.draw(listImage);
 			drawCursors();
 			drawObjects();
-			drawButtons();
 			
 			window.display();
 			processEvents();
 			window.clear();
 		}
+		listImage.arreter();
 		tuioClient.disconnect();
 		window.close();
-		test.running=false;
-		test2.running=false;
-		try {
-			thread.join();
-			thread2.join();
-		} catch (InterruptedException e) {
-			// TODO Bloc catch généré automatiquement
-			e.printStackTrace();
-		}
 	}
 
 
