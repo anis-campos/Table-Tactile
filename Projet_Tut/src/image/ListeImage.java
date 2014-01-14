@@ -1,6 +1,8 @@
 package image;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
@@ -8,11 +10,11 @@ import org.jsfml.graphics.RenderTarget;
 
 public class ListeImage implements Drawable {
 
-	public Vector<Image> listImage;
+	public List<Image> listImage;
 
 
 	public ListeImage() {
-		listImage=new Vector<Image>();
+		listImage=new ArrayList<Image>();
 	}
 
 	public void ajouter(String path){
@@ -40,6 +42,7 @@ public class ListeImage implements Drawable {
 
 	@Override
 	public void draw(RenderTarget target, RenderStates states) {
+		Collections.sort(listImage);
 		for ( Image image : listImage)
 			image.draw(target, states);
 

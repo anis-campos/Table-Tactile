@@ -61,7 +61,7 @@ public class Systeme implements TuioListener {
 		listImage=new ListeImage();
 		for (int i=0;i<5;i++){
 			listImage.ajouter("images/Pikachu.png");
-			listImage.listImage.get(i).image.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
+			listImage.listImage.get(i).sprite.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
 		}
 
 		font = new Font();

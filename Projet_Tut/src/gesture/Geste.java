@@ -1,12 +1,13 @@
 package gesture;
 
+import image.Image;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
 import TUIO.TuioCursor;
@@ -18,13 +19,13 @@ import application.Systeme;
  */
 public class Geste implements Runnable {	
 
-	Sprite image;
+	Image monimage;
 
 	public boolean running=true;
 
 	Vector2f scale ;
 	float rotation;
-
+	
 	static List<Integer> curseurAttribue = new ArrayList<Integer>();
 
 	void zoom (TuioCursor cursor1, TuioCursor cursor2){
@@ -48,12 +49,12 @@ public class Geste implements Runnable {
 				if ( tmp - distance >3 )
 				{
 					scale=Vector2f.add(scale, new Vector2f(0.1f,0.1f));
-					image.setScale(scale);
+					monimage.sprite.setScale(scale);
 				}
 				if (distance - tmp >3 && scale.x>0.2)
 				{
 					scale=Vector2f.sub(scale, new Vector2f(0.1f,0.1f));
-					image.setScale(scale);
+					monimage.sprite.setScale(scale);
 				}
 				enzoom=false;
 
@@ -74,10 +75,10 @@ public class Geste implements Runnable {
 
 			Vector2f posCurseur_ap = cursorToPoint(curseur);
 			Vector2f deplacement =Vector2f.sub(posCurseur_ap,posCurseur_av);
-			Vector2f posImage = Vector2f.add(deplacement,image.getPosition());
+			Vector2f posImage = Vector2f.add(deplacement,monimage.sprite.getPosition());
 
 			if ( posImage.x>0 && posImage.y>0 && posImage.x<Systeme.screen.x && posImage.y<Systeme.screen.y)
-				image.setPosition(posImage);
+				monimage.sprite.setPosition(posImage);
 		}
 	}
 
@@ -96,7 +97,7 @@ public class Geste implements Runnable {
 			angle = angle2Droite(droite1, droite2);
 
 			rotation=(float) (rotation + angle*50);
-			image.setRotation(rotation);
+			monimage.sprite.setRotation(rotation);
 
 
 		}
@@ -115,7 +116,7 @@ public class Geste implements Runnable {
 
 	boolean inImage(Vector2f point)
 	{
-		return image.getGlobalBounds().contains(point);	
+		return monimage.sprite.getGlobalBounds().contains(point);	
 	}
 
 	boolean inImage(TuioCursor cursor)
@@ -131,11 +132,12 @@ public class Geste implements Runnable {
 		return new Vector2f(cursor.getPosition().getScreenX(Systeme.screen.x),cursor.getPosition().getScreenY(Systeme.screen.y));
 	}
 
-	public Geste (Sprite sprite)
+	public Geste (Image image)
 	{
-		image = sprite;
-		this.scale=image.getScale();
-		this.rotation=image.getRotation();
+		
+		monimage = image; 
+		this.scale=monimage.sprite.getScale();
+		this.rotation=monimage.sprite.getRotation();
 	}
 
 	void event(){
@@ -160,16 +162,20 @@ public class Geste implements Runnable {
 			}
 			
 		}
+		
 		switch (cursorInImage.size()){
 		case 1:
+			monimage.dernierAcces=System.currentTimeMillis();
 			move(cursorInImage.get(0));
 			break;
 
 		case 2:
+			monimage.dernierAcces=System.currentTimeMillis();
 			zoom(cursorInImage.get(0), cursorInImage.get(1));
 			break;
 
 		case 3:
+			monimage.dernierAcces=System.currentTimeMillis();
 			pivoter(cursorInImage.get(0), cursorInImage.get(1),cursorInImage.get(2));
 			break;
 
