@@ -97,7 +97,10 @@ public class Geste implements Runnable {
 			angle = angle2Droite(droite1, droite2);
 
 			rotation=(float) (rotation + angle*50);
+			rotation=(rotation>360)?rotation-360:rotation;
+			rotation=(rotation<-360)?rotation+360:rotation;
 			monimage.sprite.setRotation(rotation);
+		
 
 
 		}
@@ -141,7 +144,9 @@ public class Geste implements Runnable {
 	}
 
 	void event(){
+		
 		Vector<TuioCursor> cursorList = Systeme.tuioClient.getTuioCursors();
+		
 		TuioCursor cursor;
 		Vector<TuioCursor> cursorInImage = new Vector<TuioCursor>();
 		for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
