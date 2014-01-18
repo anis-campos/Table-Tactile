@@ -1,3 +1,16 @@
+/*
+  * 		Projet Tutoré : Table tactile
+ * 
+ * Sujet : Application gestion image
+ * 
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
+ * 			 DIALLO Amadou
+ * 			 BENKIRAN Mohamed
+ * 
+ * Date : 2013-2014
+ *  
+ */
 package application;
 
 import image.ListeImage;
@@ -25,18 +38,41 @@ import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class Systeme.
+ */
 public class Systeme implements TuioListener {
+	
+	/** The Constant LARGEUR. */
 	final static int LARGEUR = 900;
+	
+	/** The Constant HAUTEUR. */
 	final static int HAUTEUR = 600;
+	
+	/** The running. */
 	boolean verbose,fullscreen,running;
+	
+	/** The window. */
 	RenderWindow window;
+	
+	/** The screen. */
 	static public Vector2i screen;
+	
+	/** The tuio client. */
 	static public  TuioClient tuioClient;
+	
+	/** The font. */
 	Font font;
 
+	/** The list image. */
 	ListeImage listImage;
 	
 
+	/**
+	 * Instantiates a new systeme.
+	 */
 	Systeme() 
 	{
 		screen = new Vector2i(LARGEUR,HAUTEUR);
@@ -74,6 +110,9 @@ public class Systeme implements TuioListener {
 
 	}
 
+	/**
+	 * Run.
+	 */
 	public void run()
 	{
 		
@@ -95,6 +134,9 @@ public class Systeme implements TuioListener {
 	}
 
 
+	/**
+	 * Draw cursors.
+	 */
 	void drawCursors()
 	{
 		// Liste des curseurs
@@ -114,6 +156,9 @@ public class Systeme implements TuioListener {
 		
 	}
 
+	/**
+	 * Draw objects.
+	 */
 	void drawObjects()
 	{
 		//Liste des Objets
@@ -136,6 +181,9 @@ public class Systeme implements TuioListener {
 		}
 	}
 
+	/**
+	 * Draw buttons.
+	 */
 	void drawButtons()
 	{
 		Text txt = new Text("bouton",font);
@@ -149,6 +197,13 @@ public class Systeme implements TuioListener {
 	}
 
 
+	/**
+	 * Draw string.
+	 *
+	 * @param str the str
+	 * @param x the x
+	 * @param y the y
+	 */
 	void drawString(String str,float x,float y)
 	{
 		Text txt = new Text(str,font);
@@ -158,6 +213,9 @@ public class Systeme implements TuioListener {
 		window.draw(txt);
 	}
 
+	/**
+	 * Process events.
+	 */
 	void processEvents()
 	{
 		for(Event event : window.pollEvents())
@@ -197,6 +255,9 @@ public class Systeme implements TuioListener {
 
 
 
+	/**
+	 * Toggle fullscreen.
+	 */
 	void toggleFullscreen()
 	{
 
@@ -210,6 +271,9 @@ public class Systeme implements TuioListener {
 		fullscreen = !fullscreen;
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioObject(TUIO.TuioObject)
+	 */
 	@Override
 	public void addTuioObject(TuioObject tobj)
 	{
@@ -217,6 +281,10 @@ public class Systeme implements TuioListener {
 			System.out.println("add obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());
 
 	}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioObject(TUIO.TuioObject)
+	 */
 	@Override
 	public void removeTuioObject(TuioObject tobj)
 	{
@@ -224,6 +292,10 @@ public class Systeme implements TuioListener {
 		if (verbose)
 			System.out.println("del obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+")");
 	}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioCursor(TUIO.TuioCursor)
+	 */
 	@Override
 	public void addTuioCursor(TuioCursor tcur)
 	{
@@ -232,6 +304,10 @@ public class Systeme implements TuioListener {
 			System.out.println("add cur "+tcur.getCursorID()+" ("+ tcur.getSessionID()+") "+tcur.getX()+" "+tcur.getY());
 
 	}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioCursor(TUIO.TuioCursor)
+	 */
 	@Override
 	public void updateTuioCursor(TuioCursor tcur)
 	{
@@ -240,6 +316,10 @@ public class Systeme implements TuioListener {
 			System.out.println("set cur "+tcur.getCursorID()+" ("+ tcur.getSessionID()+") "+tcur.getX()+" "+tcur.getY()
 					+ " "+tcur.getMotionSpeed()+" "+tcur.getMotionAccel()+" ");
 	}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioCursor(TUIO.TuioCursor)
+	 */
 	@Override
 	public void removeTuioCursor(TuioCursor tcur)
 	{
@@ -247,11 +327,19 @@ public class Systeme implements TuioListener {
 		if (verbose)
 			System.out.println("del cur "+tcur.getCursorID()+" ("+ tcur.getSessionID()+")");
 	}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#refresh(TUIO.TuioTime)
+	 */
 	@Override
 	public void refresh(TuioTime arg0) {
 		// TODO Stub de la méthode généré automatiquement
 
 	}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioObject(TUIO.TuioObject)
+	 */
 	@Override
 	public void updateTuioObject(TuioObject arg0) {
 		// TODO Stub de la méthode généré automatiquement

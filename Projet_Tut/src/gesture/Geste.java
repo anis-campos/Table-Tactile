@@ -1,3 +1,16 @@
+/*
+ * 		Projet Tutoré : Table tactile
+ * 
+ * Sujet : Application gestion image
+ * 
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
+ * 			 DIALLO Amadou
+ * 			 BENKIRAN Mohamed
+ * 
+ * Date : 2013-2014
+ *  
+ */
 package gesture;
 
 import image.Image;
@@ -13,22 +26,42 @@ import org.jsfml.system.Vector2f;
 import TUIO.TuioCursor;
 import application.Systeme;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author TheKing973
+ * The Class Geste.
  *
+ * @author TheKing973
  */
 public class Geste implements Runnable {	
 
-	Image monimage;
+	/** The monimage. */
+	private Image monimage;
 
-	public boolean running=true;
+	/** The running. */
+	private boolean running=true;
 
-	Vector2f scale ;
-	float rotation;
+	/** The scale. */
+	private Vector2f scale ;
 	
-	static List<Integer> curseurAttribue = new ArrayList<Integer>();
+	/** The rotation. */
+	private float rotation;
 
+	/** The curseur attribue. */
+	static List<Integer> curseurAttribue = new ArrayList<Integer>();
+	 
+	
+	public void stop (){
+		 this.running=false;
+	 }
+	
+	/**
+	 * Zoom.
+	 *
+	 * @param cursor1 the cursor1
+	 * @param cursor2 the cursor2
+	 */
 	void zoom (TuioCursor cursor1, TuioCursor cursor2){
+
 		double distance=0;
 		boolean enzoom = false;
 		while (cursor1.getTuioState()!=4 && cursor2.getTuioState()!=4)
@@ -63,6 +96,11 @@ public class Geste implements Runnable {
 		}
 	}
 
+	/**
+	 * Move.
+	 *
+	 * @param curseur the curseur
+	 */
 	void move(TuioCursor curseur)
 	{
 
@@ -82,6 +120,13 @@ public class Geste implements Runnable {
 		}
 	}
 
+	/**
+	 * Pivoter.
+	 *
+	 * @param cursor1 the cursor1
+	 * @param cursor2 the cursor2
+	 * @param cursor3 the cursor3
+	 */
 	void pivoter(TuioCursor cursor1, TuioCursor cursor2, TuioCursor cursor3){
 		double angle=0;
 		Vector2f droite1;
@@ -100,12 +145,17 @@ public class Geste implements Runnable {
 			rotation=(rotation>360)?rotation-360:rotation;
 			rotation=(rotation<-360)?rotation+360:rotation;
 			monimage.sprite.setRotation(rotation);
-		
+
 
 
 		}
 	}
 
+	/**
+	 * Pause.
+	 *
+	 * @param milliseconde the milliseconde
+	 */
 	void pause(int milliseconde){
 		try 
 		{
@@ -117,11 +167,23 @@ public class Geste implements Runnable {
 		}
 	}
 
+	/**
+	 * In image.
+	 *
+	 * @param point the point
+	 * @return true, if successful
+	 */
 	boolean inImage(Vector2f point)
 	{
 		return monimage.sprite.getGlobalBounds().contains(point);	
 	}
 
+	/**
+	 * In image.
+	 *
+	 * @param cursor the cursor
+	 * @return true, if successful
+	 */
 	boolean inImage(TuioCursor cursor)
 	{
 
@@ -130,44 +192,61 @@ public class Geste implements Runnable {
 
 	}
 
+	/**
+	 * Cursor to point.
+	 *
+	 * @param cursor the cursor
+	 * @return the vector2f
+	 */
 	Vector2f cursorToPoint(TuioCursor cursor)
 	{
 		return new Vector2f(cursor.getPosition().getScreenX(Systeme.screen.x),cursor.getPosition().getScreenY(Systeme.screen.y));
 	}
 
+	/**
+	 * Instantiates a new geste.
+	 *
+	 * @param image the image
+	 */
 	public Geste (Image image)
 	{
-		
+
 		monimage = image; 
 		this.scale=monimage.sprite.getScale();
 		this.rotation=monimage.sprite.getRotation();
 	}
 
+	/**
+	 * Event.
+	 */
 	void event(){
-		
+
 		Vector<TuioCursor> cursorList = Systeme.tuioClient.getTuioCursors();
-		
+
 		TuioCursor cursor;
 		Vector<TuioCursor> cursorInImage = new Vector<TuioCursor>();
-		for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
-			cursor = iter.next();
-			synchronized (Geste.class) {
+		synchronized (Geste.class) {
+			
+			for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
+				cursor = iter.next();
+
 				if ( curseurAttribue.contains(new Integer(cursor.getCursorID())))
 					continue;
-			}
 
 
 
-			if (inImage(cursor))
-			{
-				cursorInImage.add(cursor);
-				synchronized (Geste.class) {
+
+				if (inImage(cursor))
+				{
+					cursorInImage.add(cursor);
+
 					curseurAttribue.add(new Integer(cursor.getCursorID()));
+
 				}
+				
+
 			}
-			
-		}
-		
+		} 
 		switch (cursorInImage.size()){
 		case 1:
 			monimage.dernierAcces=System.currentTimeMillis();
@@ -190,10 +269,17 @@ public class Geste implements Runnable {
 
 		synchronized (Geste.class) {
 			for (TuioCursor c : cursorInImage)
-				curseurAttribue.remove(new Integer(c.getCursorID()));		
-		}
+				curseurAttribue.remove(new Integer(c.getCursorID()));	
+
+		} 
+
+
+
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		while (running)
@@ -204,6 +290,13 @@ public class Geste implements Runnable {
 
 	}
 
+	/**
+	 * Equation droite.
+	 *
+	 * @param p1 the p1
+	 * @param p2 the p2
+	 * @return the vector2f
+	 */
 	Vector2f equationDroite(Vector2f p1, Vector2f p2) {
 		if (p1.x == p2.x) return null;
 		float a = (p2.y-p1.y) / (p2.x-p1.x);
@@ -211,7 +304,14 @@ public class Geste implements Runnable {
 		return new Vector2f(a,b);
 	}
 
-	
+
+	/**
+	 * Angle2 droite.
+	 *
+	 * @param d1 the d1
+	 * @param d2 the d2
+	 * @return the float
+	 */
 	float angle2Droite( Vector2f d1, Vector2f d2){
 		float angle;
 		if ( d1 == null || d2 == null)

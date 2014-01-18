@@ -1,3 +1,16 @@
+/*
+ * 		Projet Tutoré : Table tactile
+ * 
+ * Sujet : Application gestion image
+ * 
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
+ * 			 DIALLO Amadou
+ * 			 BENKIRAN Mohamed
+ * 
+ * Date : 2013-2014
+ *  
+ */
 package image;
 
 import gesture.Geste;
@@ -15,16 +28,38 @@ import org.jsfml.system.Vector2i;
 
 import application.Systeme;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Image.
+ */
 public class Image implements Cloneable, Drawable,Comparable<Image>{
-	public Sprite sprite;
-	public Geste  gesture;
-	public Thread thread ;
 	
+	/** The sprite. */
+	public Sprite sprite;
+	
+	/** The gesture. */
+	private Geste  gesture;
+	
+	/** The thread. */
+	private Thread thread ;
+	
+	/** The dernier acces. */
 	public long dernierAcces = 0;
 
+	/** The position. */
 	static Vector2f position = new Vector2f(100f,100f);
+	
+	/** The compteur. */
 	static int compteur=0;
+	
+	/** The ecart. */
 	final Vector2f ecart = new Vector2f(50f,50f);
+	
+	/**
+	 * Instantiates a new image.
+	 *
+	 * @param path the path
+	 */
 	public Image (String path){
 		Texture texture = new Texture();
 		try {
@@ -50,6 +85,9 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 		thread.start();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	public Image clone () {
 		Image tmp = null;
 		try {
@@ -63,15 +101,35 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 		return tmp;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jsfml.graphics.Drawable#draw(org.jsfml.graphics.RenderTarget, org.jsfml.graphics.RenderStates)
+	 */
 	@Override
 	public void draw(RenderTarget target, RenderStates states) {
 		sprite.draw(target, states);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	@Override
 	public int compareTo(Image o) {
-		// TODO Auto-generated method stub
-		return (int) (this.dernierAcces-o.dernierAcces);
+		if (this.dernierAcces == o.dernierAcces)
+			return 0;
+		else if (this.dernierAcces < o.dernierAcces)
+			return -1;
+		else
+			return 1;
+	}
+	
+	public void stopThread (){
+		this.gesture.stop();
+		try {
+			this.thread.join();
+		} catch (InterruptedException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
 	}
 
 }
