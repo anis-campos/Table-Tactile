@@ -11,9 +11,7 @@
  * Date : 2013-2014
  *  
  */
-package gesture;
-
-import image.Image;
+package image;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ import application.Systeme;
  *
  * @author TheKing973
  */
-public class Geste implements Runnable {	
+public class GesteImage implements Runnable {	
 
 	/** The monimage. */
 	private Image monimage;
@@ -47,7 +45,7 @@ public class Geste implements Runnable {
 	private float rotation;
 
 	/** The curseur attribue. */
-	static List<Integer> curseurAttribue = new ArrayList<Integer>();
+	public static List<Integer> curseurAttribue = new ArrayList<Integer>();
 	 
 	
 	public void stop (){
@@ -208,7 +206,7 @@ public class Geste implements Runnable {
 	 *
 	 * @param image the image
 	 */
-	public Geste (Image image)
+	public GesteImage (Image image)
 	{
 
 		monimage = image; 
@@ -225,7 +223,7 @@ public class Geste implements Runnable {
 
 		TuioCursor cursor;
 		Vector<TuioCursor> cursorInImage = new Vector<TuioCursor>();
-		synchronized (Geste.class) {
+		synchronized (GesteImage.class) {
 			
 			for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
 				cursor = iter.next();
@@ -267,7 +265,7 @@ public class Geste implements Runnable {
 			break;
 		}
 
-		synchronized (Geste.class) {
+		synchronized (GesteImage.class) {
 			for (TuioCursor c : cursorInImage)
 				curseurAttribue.remove(new Integer(c.getCursorID()));	
 

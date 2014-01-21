@@ -13,6 +13,7 @@
  */
 package application;
 
+import gesture.GesteSysteme;
 import image.ListeImage;
 
 import java.io.IOException;
@@ -67,8 +68,10 @@ public class Systeme implements TuioListener {
 	Font font;
 
 	/** The list image. */
-	ListeImage listImage;
+	static public ListeImage listImage;
 	
+	GesteSysteme gestesys;
+	Thread thread;
 
 	/**
 	 * Instantiates a new systeme.
@@ -99,7 +102,11 @@ public class Systeme implements TuioListener {
 			listImage.ajouter("images/Pikachu.png");
 			listImage.listImage.get(i).sprite.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
 		}
-
+		
+		gestesys = new GesteSysteme();
+		thread = new Thread (gestesys);
+		thread.start();
+		
 		font = new Font();
 		try {
 			font.loadFromFile(Paths.get("rcs/sansation.ttf"));
@@ -127,6 +134,13 @@ public class Systeme implements TuioListener {
 			window.display();
 			processEvents();
 			window.clear();
+		}
+		gestesys.stop();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
 		}
 		listImage.arreter();
 		tuioClient.disconnect();
@@ -233,7 +247,7 @@ public class Systeme implements TuioListener {
 				case F:
 					this.toggleFullscreen();
 					break;
-
+				
 				default :
 					break;
 				}
@@ -253,7 +267,7 @@ public class Systeme implements TuioListener {
 
 	}
 
-
+	
 
 	/**
 	 * Toggle fullscreen.

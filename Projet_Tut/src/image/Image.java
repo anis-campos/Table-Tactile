@@ -13,8 +13,6 @@
  */
 package image;
 
-import gesture.Geste;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -38,7 +36,7 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 	public Sprite sprite;
 	
 	/** The gesture. */
-	private Geste  gesture;
+	private GesteImage  gesture;
 	
 	/** The thread. */
 	private Thread thread ;
@@ -80,7 +78,7 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 		sprite.scale((float)200/taille.x,(float)200/taille.y);
 		
 
-		gesture = new Geste(this);
+		gesture = new GesteImage(this);
 		thread = new Thread( gesture );
 		thread.start();
 	}
