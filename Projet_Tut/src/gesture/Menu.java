@@ -21,10 +21,15 @@ public class Menu implements Drawable{
 	CircleShape 	triangleDroit;
 	CircleShape 	triangleBas;
 	CircleShape 	triangleGauche;
+	
 	boolean visible = false;
 	Text text;
 	
 	public Menu() {
+		initialisation();
+	}
+	
+	public void initialisation(){
 		cercle = new CircleShape(3*taille);
 		cercle.setOrigin(3*taille, 3*taille);
 		cercle.setFillColor(new Color(255,255,255, 100));
@@ -62,7 +67,6 @@ public class Menu implements Drawable{
 		text.setOrigin(text.getGlobalBounds().width/2,text.getGlobalBounds().height/2);
 		text.setColor(Color.GREEN);
 		text.setStyle(Text.BOLD);
-		
 	}
 	
 	@Override

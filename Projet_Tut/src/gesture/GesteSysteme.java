@@ -70,19 +70,23 @@ public class GesteSysteme implements Runnable {
 		{
 		case 1:
 			TuioCursor c = Listcursor.get(0);
-			//ouvrir(Listcursor.get(0));
 			if(Systeme.menu.isVisible()){
 				if(Systeme.menu.isInsideToucheHaut(c)){
-					System.out.println("ToucheHaute");
+					ouvrir();
 				}else if(Systeme.menu.isInsideToucheDroit(c)){
 					System.out.println("ToucheDroite");
 				}else if(Systeme.menu.isInsideToucheBas(c)){
 					System.out.println("ToucheBas");
 				}else if(Systeme.menu.isInsideToucheGauche(c)){
-					System.out.println("ToucheGauche");
+					about(c);
 				}
 			}
-			menu(Listcursor.get(0));
+			if(Systeme.about.isVisible()){
+				about(Listcursor.get(0));
+			}else{
+				menu(Listcursor.get(0));
+			}
+			
 			break;
 
 		}
@@ -98,10 +102,10 @@ public class GesteSysteme implements Runnable {
 			while(c1.getTuioState()!=4){
 				if (position.getDistance(c1.getPosition())>0.01)
 					break;
-				if (temps.getElapsedTime().asMilliseconds()>2000)
+				if (temps.getElapsedTime().asMilliseconds()>1500)
 					 break;
 			 }
-			if (temps.getElapsedTime().asMilliseconds()<2000)
+			if (temps.getElapsedTime().asMilliseconds()<1500)
 				return;
 			
 			if(!Systeme.menu.isVisible()){
@@ -115,20 +119,31 @@ public class GesteSysteme implements Runnable {
 
 	}
 	
-	
-	void ouvrir (TuioCursor c1){
+	void about(TuioCursor c1){
 		Clock temps = new Clock();
 		TuioPoint position = c1.getPosition();
-		
 		while(c1.getTuioState()!=4){
-			if (position.getDistance(c1.getPosition())>0.1)
+			if (position.getDistance(c1.getPosition())>0.01)
 				break;
 			if (temps.getElapsedTime().asMilliseconds()>1000)
 				 break;
-			 
 		 }
 		if (temps.getElapsedTime().asMilliseconds()<1000)
 			return;
+		
+		if(!Systeme.about.isVisible()){
+			Systeme.about.setPosition(c1);
+			Systeme.about.setVisible(true);
+			Systeme.menu.setVisible(false);
+		}else{
+			if(Systeme.about.isInsideCarre(c1)){
+				Systeme.about.setVisible(false);
+			}
+		}
+	}
+	
+void ouvrir (){
+		
 		Systeme.tuioClient.disconnect();
 		
  		TuioMouse mouse = new TuioMouse();

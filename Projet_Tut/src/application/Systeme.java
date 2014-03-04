@@ -13,6 +13,7 @@
  */
 package application;
 
+import gesture.About;
 import gesture.GesteSysteme;
 import gesture.Menu;
 import image.ListeImage;
@@ -74,6 +75,9 @@ public class Systeme implements TuioListener {
 	/** Menu */
 	static public Menu menu;
 	
+	/** A propos */
+	static public About about;
+	
 	GesteSysteme gestesys;
 	Thread thread;
 
@@ -120,6 +124,7 @@ public class Systeme implements TuioListener {
 			return;
 		}
 		menu = new Menu();
+		about = new About();
 	}
 
 	/**
@@ -134,6 +139,7 @@ public class Systeme implements TuioListener {
 
 			window.draw(listImage);
 			window.draw(menu);
+			window.draw(about);
 			
 			drawCursors();
 			drawObjects();
