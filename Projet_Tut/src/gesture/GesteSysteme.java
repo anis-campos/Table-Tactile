@@ -69,7 +69,8 @@ public class GesteSysteme implements Runnable {
 		switch (Listcursor.size())
 		{
 		case 1:
-			ouvrir(Listcursor.get(0));
+			//ouvrir(Listcursor.get(0));
+			menu(Listcursor.get(0));
 			break;
 
 		}
@@ -78,6 +79,35 @@ public class GesteSysteme implements Runnable {
 
 	}
 
+	void menu(TuioCursor c1){
+		
+			Clock temps = new Clock();
+			TuioPoint position = c1.getPosition();
+			
+			while(c1.getTuioState()!=4){
+				if (position.getDistance(c1.getPosition())>0.01)
+					break;
+				if (temps.getElapsedTime().asMilliseconds()>2000)
+					 break;
+			 }
+			if (temps.getElapsedTime().asMilliseconds()<2000)
+				return;
+			
+			if(!Systeme.menu.isVisible()){
+				Systeme.menu.setPosition(c1);
+				Systeme.menu.setVisible(true);
+			}else{
+				if(Systeme.menu.isInside(c1)){
+					Systeme.menu.setVisible(false);
+				}
+			}
+			
+		
+		
+		
+	}
+	
+	
 	void ouvrir (TuioCursor c1){
 		Clock temps = new Clock();
 		TuioPoint position = c1.getPosition();

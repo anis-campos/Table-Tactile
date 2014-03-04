@@ -1,5 +1,5 @@
 /*
- * 		Projet Tutoré : Table tactile
+ * 		Projet Tutore : Table tactile
  * 
  * Sujet : Application gestion image
  * 
@@ -125,7 +125,7 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 		try {
 			this.thread.join();
 		} catch (InterruptedException e) {
-			// TODO Bloc catch généré automatiquement
+			// TODO Bloc catch genere automatiquement
 			e.printStackTrace();
 		}
 	}

@@ -1,5 +1,5 @@
 /*
-  * 		Projet Tutoré : Table tactile
+  * 		Projet Tutore : Table tactile
  * 
  * Sujet : Application gestion image
  * 
@@ -14,6 +14,7 @@
 package application;
 
 import gesture.GesteSysteme;
+import gesture.Menu;
 import image.ListeImage;
 
 import java.io.IOException;
@@ -65,10 +66,13 @@ public class Systeme implements TuioListener {
 	static public  TuioClient tuioClient;
 	
 	/** The font. */
-	Font font;
+	static public Font font;
 
 	/** The list image. */
 	static public ListeImage listImage;
+	
+	/** Menu */
+	static public Menu menu;
 	
 	GesteSysteme gestesys;
 	Thread thread;
@@ -87,7 +91,8 @@ public class Systeme implements TuioListener {
 		fullscreen = false;
 		running = false;
 		
-	
+		
+		
 		tuioClient = new TuioClient();
 		tuioClient.addTuioListener(this);
 		tuioClient.connect();
@@ -114,7 +119,7 @@ public class Systeme implements TuioListener {
 			System.out.println("Impossible d'ouvrir le fichier font !");
 			return;
 		}
-
+		menu = new Menu();
 	}
 
 	/**
@@ -128,6 +133,8 @@ public class Systeme implements TuioListener {
 		{
 
 			window.draw(listImage);
+			window.draw(menu);
+			
 			drawCursors();
 			drawObjects();
 			
@@ -139,7 +146,7 @@ public class Systeme implements TuioListener {
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			// TODO Bloc catch généré automatiquement
+			// TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
 			e.printStackTrace();
 		}
 		listImage.arreter();
@@ -347,7 +354,7 @@ public class Systeme implements TuioListener {
 	 */
 	@Override
 	public void refresh(TuioTime arg0) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la mï¿½thode gï¿½nï¿½rï¿½ automatiquement
 
 	}
 	
@@ -356,7 +363,7 @@ public class Systeme implements TuioListener {
 	 */
 	@Override
 	public void updateTuioObject(TuioObject arg0) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la mï¿½thode gï¿½nï¿½rï¿½ automatiquement
 
 	}
 

@@ -1,5 +1,5 @@
 /*
- * 		Projet Tutoré : Table tactile
+ * 		Projet Tutore : Table tactile
  * 
  * Sujet : Application gestion image
  * 
