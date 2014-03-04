@@ -15,48 +15,51 @@ import TUIO.TuioCursor;
 public class Menu implements Drawable{
 	
 	RectangleShape 	carre;
+	float 			taille = 25;
 	CircleShape 	cercle;
-	CircleShape 	triangle1;
-	CircleShape 	triangle2;
-	CircleShape 	triangle3;
-	CircleShape 	triangle4;
+	CircleShape 	triangleHaut;
+	CircleShape 	triangleDroit;
+	CircleShape 	triangleBas;
+	CircleShape 	triangleGauche;
 	boolean visible = false;
 	Text text;
 	
 	public Menu() {
-		cercle = new CircleShape(150);
-		cercle.setOrigin(150, 150);
+		cercle = new CircleShape(3*taille);
+		cercle.setOrigin(3*taille, 3*taille);
 		cercle.setFillColor(new Color(255,255,255, 100));
-		cercle.setOutlineThickness(4);
+		cercle.setOutlineThickness(3);
 		cercle.setOutlineColor(Color.WHITE);
 		
-		carre = new RectangleShape(new Vector2f(100, 100));
-		carre.setOrigin(50, 50);
-		
-		triangle1 = new CircleShape(50, 3);
-		triangle1.setOrigin(50, 50);
-		triangle1.setFillColor(Color.CYAN);
-		
-		triangle2 = new CircleShape(50, 3);
-		triangle2.setOrigin(50, 50);
-		triangle2.setFillColor(Color.CYAN);
-		triangle2.setRotation(90);
-		
-		triangle3 = new CircleShape(50, 3);
-		triangle3.setOrigin(50, 50);
-		triangle3.setFillColor(Color.CYAN);
-		triangle3.setRotation(180);
-		
-		triangle4 = new CircleShape(50, 3);
-		triangle4.setOrigin(50, 50);
-		triangle4.setFillColor(Color.CYAN);
-		triangle4.setRotation(-90);
-		
+		carre = new RectangleShape(new Vector2f(2*taille, 2*taille));
+		carre.setOrigin(taille, taille);
 		carre.setOutlineColor(Color.BLUE);
-		carre.setOutlineThickness(10);
+		carre.setOutlineThickness(taille/10);
 		carre.setFillColor(Color.TRANSPARENT);
+		
+		triangleHaut = new CircleShape(taille, 3);
+		triangleHaut.setOrigin(taille, taille);
+		triangleHaut.setFillColor(Color.CYAN);
+		
+		triangleDroit = new CircleShape(taille, 3);
+		triangleDroit.setOrigin(taille, taille);
+		triangleDroit.setFillColor(Color.CYAN);
+		triangleDroit.setRotation(90);
+		
+		triangleBas = new CircleShape(taille, 3);
+		triangleBas.setOrigin(taille, taille);
+		triangleBas.setFillColor(Color.CYAN);
+		triangleBas.setRotation(180);
+		
+		triangleGauche = new CircleShape(taille, 3);
+		triangleGauche.setOrigin(taille, taille);
+		triangleGauche.setFillColor(Color.CYAN);
+		triangleGauche.setRotation(-90);
+		
+		
 		text = new Text("MENU",Systeme.font);
-		text.setCharacterSize(20);
+		text.setCharacterSize((int)(taille*2)/5);
+		text.setOrigin(text.getGlobalBounds().width/2,text.getGlobalBounds().height/2);
 		text.setColor(Color.GREEN);
 		text.setStyle(Text.BOLD);
 		
@@ -69,10 +72,10 @@ public class Menu implements Drawable{
 			cercle.draw(arg0, arg1);
 			carre.draw(arg0, arg1);
 			
-			triangle1.draw(arg0, arg1);
-			triangle2.draw(arg0, arg1);
-			triangle3.draw(arg0, arg1);
-			triangle4.draw(arg0, arg1);
+			triangleHaut.draw(arg0, arg1);
+			triangleDroit.draw(arg0, arg1);
+			triangleBas.draw(arg0, arg1);
+			triangleGauche.draw(arg0, arg1);
 			
 			text.draw(arg0, arg1);
 		}	
@@ -82,13 +85,13 @@ public class Menu implements Drawable{
 	public void setPosition(TuioCursor cursor){
 		carre.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 		cercle.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
-		triangle1.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y-100);
-		triangle2.setPosition(cursor.getX()*Systeme.screen.x+100, cursor.getY()*Systeme.screen.y);
-		triangle3.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y+100);
-		triangle4.setPosition(cursor.getX()*Systeme.screen.x-100, cursor.getY()*Systeme.screen.y);
+		triangleHaut.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y-(2*taille));
+		triangleDroit.setPosition(cursor.getX()*Systeme.screen.x+(2*taille), cursor.getY()*Systeme.screen.y);
+		triangleBas.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y+(2*taille));
+		triangleGauche.setPosition(cursor.getX()*Systeme.screen.x-(2*taille), cursor.getY()*Systeme.screen.y);
 		
-		text.setPosition(cursor.getX()*Systeme.screen.x-30, cursor.getY()*Systeme.screen.y-10);
-		
+		//text.setPosition(cursor.getX()*Systeme.screen.x-((taille*15)/25), cursor.getY()*Systeme.screen.y-(taille/5));
+		text.setPosition(carre.getPosition());
 	}
 	
 	public void setVisible(boolean visible){
@@ -99,7 +102,20 @@ public class Menu implements Drawable{
 		return this.visible;
 	}
 	
-	public boolean isInside(TuioCursor cursor){
+	public boolean isInsideCarre(TuioCursor cursor){
 		return carre.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	}
+	
+	public boolean isInsideToucheHaut(TuioCursor cursor){
+		return triangleHaut.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	}
+	public boolean isInsideToucheDroit(TuioCursor cursor){
+		return triangleDroit.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	}
+	public boolean isInsideToucheBas(TuioCursor cursor){
+		return triangleBas.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	}
+	public boolean isInsideToucheGauche(TuioCursor cursor){
+		return triangleGauche.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
 }

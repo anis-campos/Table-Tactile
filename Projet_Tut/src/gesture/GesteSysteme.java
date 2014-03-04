@@ -69,7 +69,19 @@ public class GesteSysteme implements Runnable {
 		switch (Listcursor.size())
 		{
 		case 1:
+			TuioCursor c = Listcursor.get(0);
 			//ouvrir(Listcursor.get(0));
+			if(Systeme.menu.isVisible()){
+				if(Systeme.menu.isInsideToucheHaut(c)){
+					System.out.println("ToucheHaute");
+				}else if(Systeme.menu.isInsideToucheDroit(c)){
+					System.out.println("ToucheDroite");
+				}else if(Systeme.menu.isInsideToucheBas(c)){
+					System.out.println("ToucheBas");
+				}else if(Systeme.menu.isInsideToucheGauche(c)){
+					System.out.println("ToucheGauche");
+				}
+			}
 			menu(Listcursor.get(0));
 			break;
 
@@ -83,7 +95,6 @@ public class GesteSysteme implements Runnable {
 		
 			Clock temps = new Clock();
 			TuioPoint position = c1.getPosition();
-			
 			while(c1.getTuioState()!=4){
 				if (position.getDistance(c1.getPosition())>0.01)
 					break;
@@ -97,14 +108,11 @@ public class GesteSysteme implements Runnable {
 				Systeme.menu.setPosition(c1);
 				Systeme.menu.setVisible(true);
 			}else{
-				if(Systeme.menu.isInside(c1)){
+				if(Systeme.menu.isInsideCarre(c1)){
 					Systeme.menu.setVisible(false);
 				}
 			}
-			
-		
-		
-		
+
 	}
 	
 	
