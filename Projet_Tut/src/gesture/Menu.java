@@ -1,5 +1,8 @@
 package gesture;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Drawable;
@@ -7,6 +10,7 @@ import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Text;
+import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
 import application.Systeme;
@@ -15,12 +19,18 @@ import TUIO.TuioCursor;
 public class Menu implements Drawable{
 	
 	RectangleShape 	carre;
-	float 			taille = 25;
+	float 			taille = 40;
 	CircleShape 	cercle;
 	CircleShape 	triangleHaut;
 	CircleShape 	triangleDroit;
 	CircleShape 	triangleBas;
 	CircleShape 	triangleGauche;
+	
+	Texture textHaut;
+	
+	Texture textBas;
+	Texture textGauche;
+	
 	
 	boolean visible = false;
 	Text text;
@@ -30,8 +40,8 @@ public class Menu implements Drawable{
 	}
 	
 	public void initialisation(){
-		cercle = new CircleShape(3*taille);
-		cercle.setOrigin(3*taille, 3*taille);
+		cercle = new CircleShape(4*taille);
+		cercle.setOrigin(4*taille, 4*taille);
 		cercle.setFillColor(new Color(255,255,255, 100));
 		cercle.setOutlineThickness(3);
 		cercle.setOutlineColor(Color.WHITE);
@@ -42,24 +52,56 @@ public class Menu implements Drawable{
 		carre.setOutlineThickness(taille/10);
 		carre.setFillColor(Color.TRANSPARENT);
 		
+		
+		textHaut = new Texture();
+		try {
+			textHaut.loadFromFile(Paths.get("images/iconeAdd.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
+		
 		triangleHaut = new CircleShape(taille, 3);
 		triangleHaut.setOrigin(taille, taille);
-		triangleHaut.setFillColor(Color.CYAN);
+		triangleHaut.setOutlineColor(Color.BLACK);
+		triangleHaut.setOutlineThickness(2);
+		triangleHaut.setTexture(textHaut);
+		
+		
 		
 		triangleDroit = new CircleShape(taille, 3);
 		triangleDroit.setOrigin(taille, taille);
 		triangleDroit.setFillColor(Color.CYAN);
 		triangleDroit.setRotation(90);
 		
+		
+		textBas = new Texture();
+		try {
+			textBas.loadFromFile(Paths.get("images/iconeHelp.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
+		
 		triangleBas = new CircleShape(taille, 3);
 		triangleBas.setOrigin(taille, taille);
-		triangleBas.setFillColor(Color.CYAN);
+		triangleBas.setOutlineColor(Color.BLACK);
+		triangleBas.setOutlineThickness(2);
+		triangleBas.setTexture(textBas);
 		triangleBas.setRotation(180);
+		
+		
+		textGauche = new Texture();
+		try {
+			textGauche.loadFromFile(Paths.get("images/iconeApropos.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
 		
 		triangleGauche = new CircleShape(taille, 3);
 		triangleGauche.setOrigin(taille, taille);
-		triangleGauche.setFillColor(Color.CYAN);
+		triangleGauche.setOutlineColor(Color.BLACK);
+		triangleGauche.setOutlineThickness(2);
 		triangleGauche.setRotation(-90);
+		triangleGauche.setTexture(textGauche);
 		
 		
 		text = new Text("MENU",Systeme.font);
