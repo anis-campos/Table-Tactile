@@ -56,11 +56,6 @@ public class GesteSysteme implements Runnable {
 
 			if (GesteImage.curseurAttribue.contains(new Integer(cursor
 					.getCursorID()))){
-				if(Systeme.conteneur.isInsideConteneur(cursor)){
-					image.Image image = Systeme.listImage.listImage.get(2);
-					Systeme.conteneur.ajouterImage(image);
-					
-				}
 				continue;	
 			}
 				
