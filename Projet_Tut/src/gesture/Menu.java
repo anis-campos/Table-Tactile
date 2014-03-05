@@ -40,15 +40,15 @@ public class Menu implements Drawable{
 	}
 	
 	public void initialisation(){
-		cercle = new CircleShape(4*taille);
-		cercle.setOrigin(4*taille, 4*taille);
+		cercle = new CircleShape(3*taille);
+		cercle.setOrigin(3*taille, 3*taille);
 		cercle.setFillColor(new Color(255,255,255, 100));
 		cercle.setOutlineThickness(3);
 		cercle.setOutlineColor(Color.WHITE);
 		
 		carre = new RectangleShape(new Vector2f(2*taille, 2*taille));
 		carre.setOrigin(taille, taille);
-		carre.setOutlineColor(Color.BLUE);
+		carre.setOutlineColor(Color.WHITE);
 		carre.setOutlineThickness(taille/10);
 		carre.setFillColor(Color.TRANSPARENT);
 		
@@ -107,7 +107,7 @@ public class Menu implements Drawable{
 		text = new Text("MENU",Systeme.font);
 		text.setCharacterSize((int)(taille*2)/5);
 		text.setOrigin(text.getGlobalBounds().width/2,text.getGlobalBounds().height/2);
-		text.setColor(Color.GREEN);
+		text.setColor(Color.RED);
 		text.setStyle(Text.BOLD);
 	}
 	

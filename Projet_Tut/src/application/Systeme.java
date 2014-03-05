@@ -16,6 +16,7 @@ package application;
 import gesture.About;
 import gesture.GesteSysteme;
 import gesture.Menu;
+import image.Conteneur;
 import image.ListeImage;
 
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class Systeme implements TuioListener {
 	boolean verbose,fullscreen,running;
 	
 	/** The window. */
-	RenderWindow window;
+	static public RenderWindow window;
 	
 	/** The screen. */
 	static public Vector2i screen;
@@ -77,6 +78,9 @@ public class Systeme implements TuioListener {
 	
 	/** A propos */
 	static public About about;
+	
+	/** Conteneur des dossiers*/
+	static public Conteneur conteneur;
 	
 	GesteSysteme gestesys;
 	Thread thread;
@@ -107,8 +111,9 @@ public class Systeme implements TuioListener {
 		}
 		
 		listImage=new ListeImage();
-		for (int i=0;i<5;i++){
+		for (int i=0;i<4;i++){
 			listImage.ajouter("images/Pikachu.png");
+			listImage.ajouter("images/ptut.png");
 			listImage.listImage.get(i).sprite.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
 		}
 		
@@ -125,6 +130,7 @@ public class Systeme implements TuioListener {
 		}
 		menu = new Menu();
 		about = new About();
+		conteneur = new Conteneur();
 	}
 
 	/**
@@ -140,6 +146,7 @@ public class Systeme implements TuioListener {
 			window.draw(listImage);
 			window.draw(menu);
 			window.draw(about);
+			window.draw(conteneur);
 			
 			drawCursors();
 			drawObjects();
@@ -259,8 +266,19 @@ public class Systeme implements TuioListener {
 					break;
 				case F:
 					this.toggleFullscreen();
+					Systeme.conteneur.setSizeConteneur();
+					Systeme.conteneur.setPositionConteneur();
+					
 					break;
 				
+				case A:
+					if (about.isVisible()){
+						about.setVisible(false);
+					}else{
+						about.setVisible(true);
+						about.setPosition();
+					}
+					break;
 				default :
 					break;
 				}

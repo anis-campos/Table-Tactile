@@ -50,6 +50,10 @@ public class About implements Drawable{
 	public void setPosition(TuioCursor cursor){
 		carre.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
+	
+	public void setPosition(){
+		carre.setPosition(Systeme.window.getSize().x/2, Systeme.window.getSize().y/2);
+	}
 
 	public boolean isInsideCarre(TuioCursor cursor){
 		return carre.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
