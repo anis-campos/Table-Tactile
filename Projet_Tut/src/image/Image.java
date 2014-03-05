@@ -53,6 +53,12 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 	/** The ecart. */
 	final Vector2f ecart = new Vector2f(50f,50f);
 	
+	
+	
+	public void setSize(float width, float height){
+		sprite.setScale(width/sprite.getGlobalBounds().width, height/sprite.getGlobalBounds().height);
+	}
+	
 	/**
 	 * Instantiates a new image.
 	 *
