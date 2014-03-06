@@ -249,8 +249,11 @@ public class GesteImage implements Runnable {
 		case 1:
 			monimage.dernierAcces=System.currentTimeMillis();
 			if(Systeme.conteneur.isInsideConteneur(cursorInImage.get(0))){
-				Systeme.conteneur.ajouterImage(monimage);
+					Systeme.conteneur.ajouterImage(monimage);
+			}else if(!Systeme.conteneur.isInsideConteneur(cursorInImage.get(0))){
+				Systeme.conteneur.enleverImage(monimage);
 			}
+			
 			move(cursorInImage.get(0));
 			break;
 

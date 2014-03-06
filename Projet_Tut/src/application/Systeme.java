@@ -82,6 +82,9 @@ public class Systeme implements TuioListener {
 	/** Conteneur des dossiers*/
 	static public Conteneur conteneur;
 	
+	/** Texte afficher pour quitter */
+	static public Quitter quitter;
+	
 	GesteSysteme gestesys;
 	Thread thread;
 
@@ -91,7 +94,7 @@ public class Systeme implements TuioListener {
 	Systeme() 
 	{
 		screen = new Vector2i(LARGEUR,HAUTEUR);
-		window= new RenderWindow(new VideoMode(LARGEUR,HAUTEUR),"Tuio",WindowStyle.DEFAULT-WindowStyle.RESIZE);
+		window= new RenderWindow(new VideoMode(LARGEUR,HAUTEUR),"Picture 4 Table",WindowStyle.DEFAULT-WindowStyle.RESIZE);
 		window.setVerticalSyncEnabled(true);
 		
 
@@ -107,15 +110,21 @@ public class Systeme implements TuioListener {
 		if (!tuioClient.isConnected())
 		{
 			window.close();
-			return;
+			System.exit(0);
 		}
 		
 		listImage=new ListeImage();
-		for (int i=0;i<4;i++){
+		listImage.ajouter("images/Pikachu.png");
+		listImage.ajouter("images/ptut.png");
+		listImage.ajouter("images/Pikachu.png");
+		listImage.ajouter("images/ptut.png");
+		listImage.ajouter("images/boeing.jpg");
+		listImage.ajouter("images/iut.jpg");
+		/*for (int i=0;i<1;i++){
 			listImage.ajouter("images/Pikachu.png");
 			listImage.ajouter("images/ptut.png");
 			listImage.listImage.get(i).sprite.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
-		}
+		}*/
 		
 		gestesys = new GesteSysteme();
 		thread = new Thread (gestesys);
@@ -128,9 +137,11 @@ public class Systeme implements TuioListener {
 			System.out.println("Impossible d'ouvrir le fichier font !");
 			return;
 		}
-		menu = new Menu();
-		about = new About();
-		conteneur = new Conteneur();
+		
+		menu 		= new Menu();
+		about 		= new About();
+		conteneur 	= new Conteneur();
+		quitter 	= new Quitter();
 	}
 
 	/**
@@ -142,13 +153,15 @@ public class Systeme implements TuioListener {
 		running=true;
 		while (running)
 		{
-
 			window.draw(listImage);
 			window.draw(menu);
 			window.draw(about);
 			window.draw(conteneur);
+			window.draw(quitter);
 			
 			drawCursors();
+			
+			//Elle sert  a rien cette ligne !
 			drawObjects();
 			
 			window.display();
@@ -159,7 +172,6 @@ public class Systeme implements TuioListener {
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			// TODO Bloc catch g�n�r� automatiquement
 			e.printStackTrace();
 		}
 		listImage.arreter();
@@ -176,20 +188,65 @@ public class Systeme implements TuioListener {
 		// Liste des curseurs
 		Vector<TuioCursor> cursorList = tuioClient.getTuioCursors();
 		TuioCursor cursor;
-		//boucle qui traite chun des curseurs ( un apres l'autre)
+		//boucle qui traite chacun des curseurs ( un apres l'autre)
 		for (Iterator<TuioCursor> iter = cursorList.iterator();iter.hasNext();){
 			
 			cursor = iter.next();
 			CircleShape cur= new CircleShape(4);
+			//RectangleShape rectangle = new RectangleShape(new Vector2f(10, 10));
+			//rectangle.move(drawDeplacement(cursor));
+			//rectangle.setFillColor(Color.RED);
 			cur.setOrigin(2,2);
 			cur.setFillColor(Color.GREEN);
 			cur.move(cursor.getPosition().getX()*window.getSize().x,cursor.getPosition().getY()*window.getSize().y);
 			drawString(Integer.toString(cursor.getCursorID()),cur.getPosition().x-5,cur.getPosition().y-20);
 			window.draw(cur);
+			//while(rectangle.getSize().x < 20){
+			//	rectangle.setSize(new Vector2f(drawDeplacement(cursor).x+1,drawDeplacement(cursor).y));
+			//}
+			//window.draw(rectangle);
 		}
 		
 	}
-
+	
+/*	boolean deplacementDroite(TuioCursor c){
+		boolean droite = false;
+		if(c.getXSpeed() > 0){
+			droite = true;
+		}
+		return droite;
+	}
+	
+	boolean deplacementHaut(TuioCursor c){
+		boolean haut = false;
+		if(c.getYSpeed() < 0){
+			haut = true;
+		}
+		return haut;
+	}
+	
+	Vector2f drawDeplacement(TuioCursor c){
+		float x = c.getPosition().getX()*window.getSize().x;
+		float y = c.getPosition().getY()*window.getSize().y;
+		if(deplacementDroite(c)){
+			if(deplacementHaut(c)){
+				Vector2f v = new Vector2f(x-10, y+10);
+				return v;
+			}else{
+				Vector2f v = new Vector2f(x-10, y-10);
+				return v;
+			}
+		}else{
+			if(deplacementHaut(c)){
+				Vector2f v = new Vector2f(x+10, y+10);
+				return v;
+			}else{
+				Vector2f v = new Vector2f(x+10, y-10);
+				return v;
+			}
+		}
+	}*/
+	
 	/**
 	 * Draw objects.
 	 */
@@ -202,7 +259,6 @@ public class Systeme implements TuioListener {
 		{
 			
 			TuioObject tuioObject = iter2.next();
-	
 			Vector2f ecran  = new Vector2f(window.getSize().x,window.getSize().y);
 			Vector2f taille = Vector2f.div(ecran, 20.0f);
 			Vector2f position = new Vector2f(tuioObject.getX(),tuioObject.getY());
@@ -378,7 +434,6 @@ public class Systeme implements TuioListener {
 	 */
 	@Override
 	public void refresh(TuioTime arg0) {
-		// TODO Stub de la m�thode g�n�r� automatiquement
 
 	}
 	

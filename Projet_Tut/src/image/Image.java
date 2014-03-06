@@ -53,10 +53,12 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 	/** The ecart. */
 	final Vector2f ecart = new Vector2f(50f,50f);
 	
-	
+	/** Is in Conteneur*/
+	boolean isInConteneur = false;
 	
 	public void setSize(float width, float height){
 		sprite.setScale(width/sprite.getGlobalBounds().width, height/sprite.getGlobalBounds().height);
+		
 	}
 	
 	/**
@@ -87,6 +89,14 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 		gesture = new GesteImage(this);
 		thread = new Thread( gesture );
 		thread.start();
+	}
+	
+	public boolean isInConteneur(){
+		return isInConteneur;
+	}
+	
+	public void setIsInConteneur(boolean isInC){
+		isInConteneur = isInC;
 	}
 	
 	/* (non-Javadoc)

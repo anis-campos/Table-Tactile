@@ -1,7 +1,5 @@
 package gesture;
 
-import java.io.IOException;
-import java.nio.file.Paths;
 
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
@@ -53,53 +51,53 @@ public class Menu implements Drawable{
 		carre.setFillColor(Color.TRANSPARENT);
 		
 		
-		textHaut = new Texture();
+		/*textHaut = new Texture();
 		try {
 			textHaut.loadFromFile(Paths.get("images/iconeAdd.png"));
 		} catch (IOException e1) {
 			System.out.println("Erreur texture");
-		}
+		}*/
 		
 		triangleHaut = new CircleShape(taille, 3);
 		triangleHaut.setOrigin(taille, taille);
 		triangleHaut.setOutlineColor(Color.BLACK);
-		triangleHaut.setOutlineThickness(2);
+		triangleHaut.setOutlineThickness(1);
 		triangleHaut.setTexture(textHaut);
 		
 		
 		
 		triangleDroit = new CircleShape(taille, 3);
 		triangleDroit.setOrigin(taille, taille);
-		triangleDroit.setFillColor(Color.CYAN);
+		triangleDroit.setFillColor(Color.WHITE);
 		triangleDroit.setRotation(90);
 		
 		
-		textBas = new Texture();
+		/*textBas = new Texture();
 		try {
 			textBas.loadFromFile(Paths.get("images/iconeHelp.png"));
 		} catch (IOException e1) {
 			System.out.println("Erreur texture");
-		}
+		}*/
 		
 		triangleBas = new CircleShape(taille, 3);
 		triangleBas.setOrigin(taille, taille);
 		triangleBas.setOutlineColor(Color.BLACK);
-		triangleBas.setOutlineThickness(2);
+		triangleBas.setOutlineThickness(1);
 		triangleBas.setTexture(textBas);
 		triangleBas.setRotation(180);
 		
 		
-		textGauche = new Texture();
+		/*textGauche = new Texture();
 		try {
 			textGauche.loadFromFile(Paths.get("images/iconeApropos.png"));
 		} catch (IOException e1) {
 			System.out.println("Erreur texture");
-		}
+		}*/
 		
 		triangleGauche = new CircleShape(taille, 3);
 		triangleGauche.setOrigin(taille, taille);
 		triangleGauche.setOutlineColor(Color.BLACK);
-		triangleGauche.setOutlineThickness(2);
+		triangleGauche.setOutlineThickness(1);
 		triangleGauche.setRotation(-90);
 		triangleGauche.setTexture(textGauche);
 		
@@ -107,7 +105,7 @@ public class Menu implements Drawable{
 		text = new Text("MENU",Systeme.font);
 		text.setCharacterSize((int)(taille*2)/5);
 		text.setOrigin(text.getGlobalBounds().width/2,text.getGlobalBounds().height/2);
-		text.setColor(Color.RED);
+		text.setColor(Color.BLACK);
 		text.setStyle(Text.BOLD);
 	}
 	

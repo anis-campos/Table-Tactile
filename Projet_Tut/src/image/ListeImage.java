@@ -47,7 +47,11 @@ public class ListeImage implements Drawable {
 	public void ajouter(String path){
 		listImage.add(new Image(path));
 	}
-
+	
+	public void ajouter(Image i){
+		listImage.add(i);
+	}
+	
 	/**
 	 * Arreter.
 	 */

@@ -51,19 +51,18 @@ public class GesteSysteme implements Runnable {
 
 		TuioCursor cursor;
 		Vector<TuioCursor> Listcursor = new Vector<TuioCursor>();
-		for (Iterator<TuioCursor> iter = cursorList.iterator(); iter.hasNext();) {
+		for (Iterator<TuioCursor> iter = cursorList.iterator(); iter.hasNext(); ) {
 			cursor = iter.next();
 
 			if (GesteImage.curseurAttribue.contains(new Integer(cursor
 					.getCursorID()))){
 				continue;	
 			}
-				
-
+			
 			// GesteImage.curseurAttribue.add(cursor.getCursorID());
 			Listcursor.add(cursor);
-
 		}
+		
 		switch (Listcursor.size()) {
 		case 1:
 			TuioCursor c = Listcursor.get(0);
@@ -73,7 +72,14 @@ public class GesteSysteme implements Runnable {
 				} else if (Systeme.menu.isInsideToucheDroit(c)) {
 					System.out.println("ToucheDroite");
 				} else if (Systeme.menu.isInsideToucheBas(c)) {
-					System.out.println("ToucheBas");
+					Systeme.quitter.setVisible(true);
+					try {
+						Systeme.quitter.affiche();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.exit(0);
+					
 				} else if (Systeme.menu.isInsideToucheGauche(c)) {
 					about(c);
 				}
