@@ -70,13 +70,14 @@ public class GesteSysteme implements Runnable {
 		switch (Listcursor.size()) {
 		case 1:
 			TuioCursor c = Listcursor.get(0);
-			Systeme.menu.actionMenu(c);
 			if (Systeme.about.isVisible()) {
-				about(Listcursor.get(0));
+				about(c);
 			} else if (Systeme.clavier.isVisible()){
-				clavier(Listcursor.get(0));
-			}else {
-				menu(Listcursor.get(0));
+				System.out.println("curseur chez clavier");
+				clavier(c);
+			}else{
+				Systeme.menu.actionMenu(c);
+				menu(c);
 			}
 
 			break;
@@ -121,18 +122,40 @@ public class GesteSysteme implements Runnable {
 			while (c1.getTuioState() != 4) {
 				if (position.getDistance(c1.getPosition()) > 0.01)
 					break;
-				if (temps.getElapsedTime().asMilliseconds() > 1000)
+				if (temps.getElapsedTime().asMilliseconds() > 500)
 					break;
 			}
-			if (temps.getElapsedTime().asMilliseconds() < 1000)
+			if (temps.getElapsedTime().asMilliseconds() < 500)
 				return;
 			if (Systeme.clavier.isInsideFermer(c1)) {
-				Systeme.clavier.setVisible(false);
+					Systeme.clavier.setVisible(false);
+			}else{
+				if(Systeme.clavier.isValide()){
+					validation();
+				}else{
+					Systeme.clavier.saisie(c1);
+				}
+					
 			}
 		}
 	}
 	
+	public static void validation(){
+		System.out.println("Saisie valide !!");
+		System.out.println("Enregistrement en cours");
+		if(Systeme.clavier.isValide()){
+			try {
+				Systeme.conteneur.sauvegarder(Systeme.clavier.getUrl());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+		
+		Systeme.clavier.setVisible(false);
+	}
+	
 	static void about(TuioCursor c1) {
+		System.out.println("About a true");
 		if (!Systeme.about.isVisible()) {
 			Systeme.about.setPosition(c1);
 			Systeme.about.setVisible(true);

@@ -1,5 +1,6 @@
 package outils;
 
+
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -51,7 +52,6 @@ public class Clavier implements Drawable {
 	RectangleShape point;
 	RectangleShape tire;
 	RectangleShape trait;
-	RectangleShape espace;
 	RectangleShape fermer;
 	RectangleShape suppr;
 	RectangleShape barre;
@@ -86,12 +86,13 @@ public class Clavier implements Drawable {
 	Texture textpoint;
 	Texture texttire;
 	Texture texttrait;
-	Texture textespace;
 	Texture textfermer;
 	Texture textsuppr;
 	Texture textbarre;
 
 	Text 	textAfficher;
+	String 	url = "";
+	boolean validation = false;
 	
 	boolean visible = false;
 
@@ -479,18 +480,6 @@ public class Clavier implements Drawable {
 		trait.setTexture(texttrait);
 
 		
-		textespace = new Texture();
-		try {
-			textespace.loadFromFile(Paths.get("images/clavier/espace.png"));
-		} catch (IOException e1) {
-			System.out.println("Erreur texture");
-		}
-		
-		espace = new RectangleShape(new Vector2f(4 * taille, taille));
-		espace.setOrigin((4 * taille) / 2, (taille / 2));
-		espace.setTexture(textespace);
-
-		
 		textfermer = new Texture();
 		try {
 			textfermer.loadFromFile(Paths.get("images/clavier/fermer.png"));
@@ -570,8 +559,6 @@ public class Clavier implements Drawable {
 		entrer.setPosition(coorX + (19 * taille / 2), coorY - (3 * taille / 2));
 
 		fermer.setPosition(coorX + (taille / 2), coorY - (taille / 2));
-
-		espace.setPosition(coorX + (5 * taille ), coorY - (taille/2));
 		
 		suppr.setPosition(coorX + (19 * taille / 2), coorY- (9 * taille / 2));
 		
@@ -613,7 +600,6 @@ public class Clavier implements Drawable {
 			point.draw(arg0, arg1);
 			tire.draw(arg0, arg1);
 			trait.draw(arg0, arg1);
-			espace.draw(arg0, arg1);
 			fermer.draw(arg0, arg1);
 			suppr.draw(arg0, arg1);
 			barre.draw(arg0, arg1);
@@ -784,12 +770,6 @@ public class Clavier implements Drawable {
 				cursor.getY() * Systeme.screen.y);
 	}
 
-	public boolean isInsideEspace(TuioCursor cursor) {
-		return espace.getGlobalBounds().contains(
-				cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
 	public boolean isInsideFermer(TuioCursor cursor) {
 		return fermer.getGlobalBounds().contains(
 				cursor.getX() * Systeme.screen.x,
@@ -863,12 +843,36 @@ public class Clavier implements Drawable {
 				lettre = '-';
 			} else if (Systeme.clavier.isInsideTrait(cursor)) {
 				lettre = '_';
-			} else if (Systeme.clavier.isInsideEspace(cursor)) {
-				lettre = ' ';
+			} else if(Systeme.clavier.isInsideSuppr(cursor)){
+				lettre =' ';
+			} else if(Systeme.clavier.isInsideEntrer(cursor)){
+				lettre = '=';
 			}
 		} 
 		return lettre ;
 	}
 	
-	
+	public void saisie(TuioCursor cursor){
+		if(visible){
+			char c = actionClavier(cursor);
+			if(c == ' '){
+				if (url.length()>0){
+					url = url.substring(0, url.length()-1);
+				}
+			}else if (c == '='){
+			validation = true;
+			}else{
+				url = url + String.valueOf(c);
+			}
+			textAfficher.setString(url);
+		}
+	}
+
+	public boolean isValide(){
+		return this.validation;
+	}
+
+	public String getUrl(){
+		return this.url;
+	}
 }//end Clavier
