@@ -18,7 +18,7 @@ public class Menu implements Drawable{
 
 	/**  Attributs  */
 	
-	float 			taille = 50;
+	float 			taille = 100;
 	
 	RectangleShape 	ajouter;
 	Texture			textAjouter;
@@ -207,11 +207,13 @@ public class Menu implements Drawable{
 					e.printStackTrace();
 				}
 			} else if (Systeme.menu.isInsideEnregistrer(c)) {
-				try {
+				Systeme.clavier.setVisible(true);
+				Systeme.clavier.setPosition(c);
+				/*try {
 					Systeme.conteneur.sauvegarder("testImg");
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}*/
 			} else if (Systeme.menu.isInsideAide(c)) {
 				// TODO a remplir
 			}else if (Systeme.menu.isInsideAPropos(c)) {

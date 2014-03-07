@@ -39,6 +39,7 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
+import outils.Clavier;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
@@ -90,6 +91,9 @@ public class Systeme implements TuioListener, Serializable {
 	static public Conteneur conteneur;
 	static public ArrayList<String> leConteneur;
 	
+	/** CLAVIER */
+	static public Clavier clavier;
+
 	/** Texte afficher pour quitter */
 	static public Quitter quitter;
 	
@@ -151,6 +155,7 @@ public class Systeme implements TuioListener, Serializable {
 		conteneur 	= new Conteneur();
 		quitter 	= new Quitter();
 		leConteneur = new ArrayList<>();
+		clavier 	= new Clavier();
 	}
 
 	/**
@@ -167,6 +172,7 @@ public class Systeme implements TuioListener, Serializable {
 			window.draw(about);
 			window.draw(conteneur);
 			window.draw(quitter);
+			window.draw(clavier);
 			
 			drawCursors();
 			
