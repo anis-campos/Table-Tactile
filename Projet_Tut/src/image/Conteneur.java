@@ -134,13 +134,9 @@ public class Conteneur implements Drawable, Serializable {
 
 	public void sauvegarder(String nomFic)throws Exception{
         File f1=new File(nomFic); // declaration du fichier
-        System.out.println("Ouverture du fichier");
         FileOutputStream fs= new FileOutputStream(f1);
-        System.out.println("New ObjectOutputStream");
         ObjectOutputStream fsObj = new ObjectOutputStream(fs);
-        System.out.println("Ecriture du conteneur");
         fsObj.writeObject(Systeme.leConteneur);  // ecriture du conteneur
-        System.out.println("Close ecriture");
         fsObj.close(); //on ferme le flot
     }
 	
@@ -148,13 +144,9 @@ public class Conteneur implements Drawable, Serializable {
     @SuppressWarnings("unchecked")
     public void charger(String nomFic) throws Exception{
         File f1=new File(nomFic);
-        System.out.println("Ouverture du fichier");
         FileInputStream fe = new FileInputStream(f1);
-        System.out.println("New ObjectInputStream");
         ObjectInputStream feObj = new ObjectInputStream(fe);
-        System.out.println("feObj.readObject");
         Systeme.leConteneur=(ArrayList<String>) feObj.readObject();
-        System.out.println("close");
         feObj.close(); 
         if(!Systeme.leConteneur.isEmpty()) 
         {

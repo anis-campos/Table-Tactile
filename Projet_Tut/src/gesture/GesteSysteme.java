@@ -170,7 +170,6 @@ public class GesteSysteme implements Runnable {
 	}
 	
 	static void about(TuioCursor c1) {
-		System.out.println("About a true");
 		if (!Systeme.about.isVisible()) {
 			Systeme.about.setPosition(c1);
 			Systeme.about.setVisible(true);
@@ -191,6 +190,7 @@ public class GesteSysteme implements Runnable {
 			}
 		}
 	}
+	
 
 	static void ouvrir() {
 

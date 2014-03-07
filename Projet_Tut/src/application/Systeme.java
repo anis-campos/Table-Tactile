@@ -42,6 +42,7 @@ import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
 import outils.Clavier;
+import outils.GestionFiducial;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
@@ -128,17 +129,16 @@ public class Systeme implements TuioListener, Serializable {
 		}
 		
 		listImage=new ListeImage();
-		//listImage.ajouter("images/Pikachu.png");
 		//listImage.ajouter("images/ptut.png");
 		//listImage.ajouter("images/Pikachu.png");
 		//listImage.ajouter("images/ptut.png");
 		//listImage.ajouter("images/boeing.jpg");
 		//listImage.ajouter("images/iut.jpg");
-		for (int i=0;i<1;i++){
+		/*for (int i=0;i<1;i++){
 			listImage.ajouter("images/Pikachu.png");
 			listImage.ajouter("images/ptut.png");
 			listImage.listImage.get(i).sprite.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
-		}
+		}*/
 		
 		gestesys = new GesteSysteme();
 		thread = new Thread (gestesys);
@@ -395,9 +395,15 @@ public class Systeme implements TuioListener, Serializable {
 	@Override
 	public void addTuioObject(TuioObject tobj)
 	{
-		if (verbose)
-			System.out.println("add obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());
-
+		if (verbose){
+			System.out.println("add obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());	
+		}
+		try {
+			System.out.println("ajout d'un fiducial id = " +tobj.getSymbolID());
+			GestionFiducial.actionFiducial(tobj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/* (non-Javadoc)

@@ -258,10 +258,8 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 			monimage.dernierAcces=System.currentTimeMillis();
 			if(Systeme.conteneur.isInsideConteneur(cursorInImage.get(0))){
 					Systeme.conteneur.ajouterImage(monimage);
-					System.out.println("Ajout ID= " + monimage.getId() +" et nb image= " + Systeme.conteneur.nombreImage);
 			}else if(!Systeme.conteneur.isInsideConteneur(cursorInImage.get(0))){
 				Systeme.conteneur.enleverImage(monimage);
-				System.out.println("Suppression ID= " + monimage.getId() +" et nb image= " + Systeme.conteneur.nombreImage);
 			}
 			
 			move(cursorInImage.get(0));
@@ -333,7 +331,6 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 
 	@Override
 	public void addTuioObject(TuioObject tobj) {
-		// TODO Stub de la methode genere automatiquement
 		
 	}
 
