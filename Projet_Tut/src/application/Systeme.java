@@ -276,17 +276,27 @@ public class Systeme implements TuioListener, Serializable {
 
 		for (Iterator<TuioObject> iter2 = objectList.iterator(); iter2.hasNext();)
 		{
-			
 			TuioObject tuioObject = iter2.next();
-			Vector2f ecran  = new Vector2f(window.getSize().x,window.getSize().y);
-			Vector2f taille = Vector2f.div(ecran, 20.0f);
-			Vector2f position = new Vector2f(tuioObject.getX(),tuioObject.getY());
-			RectangleShape object = new RectangleShape(taille);
-			object.setOrigin(taille.x/2,taille.y/2);
-			object.move(Vector2f.componentwiseMul(position, ecran));
-			object.setRotation(tuioObject.getAngleDegrees());
-			drawString(Integer.toString(tuioObject.getSymbolID()),object.getPosition().x-15,object.getPosition().y-60);
-			window.draw(object);
+			if (tuioObject.getSymbolID() < 4){
+				Vector2f ecran  = new Vector2f(window.getSize().x,window.getSize().y);
+				Vector2f position = new Vector2f(tuioObject.getX(),tuioObject.getY());
+				RectangleShape object = new RectangleShape(new Vector2f(40, 40));
+				object.setOrigin(20/2,20/2);
+				object.move(Vector2f.componentwiseMul(position, ecran));
+				object.setRotation(tuioObject.getAngleDegrees());
+				drawString(Integer.toString(tuioObject.getSymbolID()),object.getPosition().x-20,object.getPosition().y-20);
+				window.draw(object);	
+			}else if(tuioObject.getSymbolID()>=4 && tuioObject.getSymbolID() < 8){
+				Vector2f ecran  = new Vector2f(window.getSize().x,window.getSize().y);
+				Vector2f position = new Vector2f(tuioObject.getX(),tuioObject.getY());
+				CircleShape object = new CircleShape(20);
+				object.setOrigin(20/2,20/2);
+				object.move(Vector2f.componentwiseMul(position, ecran));
+				object.setRotation(tuioObject.getAngleDegrees());
+				drawString(Integer.toString(tuioObject.getSymbolID()),object.getPosition().x-20,object.getPosition().y-20);
+				window.draw(object);
+			}
+			
 		}
 	}
 
