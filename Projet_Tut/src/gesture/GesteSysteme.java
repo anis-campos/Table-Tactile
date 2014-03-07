@@ -103,7 +103,7 @@ public class GesteSysteme implements Runnable {
 			Systeme.menu.setPosition(c1);
 			Systeme.menu.setVisible(true);
 		} else {
-			if (Systeme.menu.isInsideCarre(c1)) {
+			if (Systeme.menu.isInsideFermer(c1)) {
 				Systeme.menu.setVisible(false);
 			}
 		}

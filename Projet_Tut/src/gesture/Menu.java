@@ -1,13 +1,13 @@
 package gesture;
 
 
-import org.jsfml.graphics.CircleShape;
-import org.jsfml.graphics.Color;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
-import org.jsfml.graphics.Text;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
@@ -15,127 +15,148 @@ import application.Systeme;
 import TUIO.TuioCursor;
 
 public class Menu implements Drawable{
+
+	/**  Attributs  */
 	
-	RectangleShape 	carre;
-	float 			taille = 40;
-	CircleShape 	cercle;
-	CircleShape 	triangleHaut;
-	CircleShape 	triangleDroit;
-	CircleShape 	triangleBas;
-	CircleShape 	triangleGauche;
+	float 			taille = 50;
 	
-	Texture textHaut;
+	RectangleShape 	ajouter;
+	Texture			textAjouter;
 	
-	Texture textBas;
-	Texture textGauche;
+	RectangleShape 	ouvrir;
+	Texture			textOuvrir;
 	
+	RectangleShape 	enregistrer;
+	Texture			textEnregistrer;
+	
+	RectangleShape 	aide;
+	Texture			textAide;
+	
+	RectangleShape 	aPropos;
+	Texture			textAPropos;
+	
+	RectangleShape 	quitter;
+	Texture			textQuitter;
+	
+	RectangleShape 	fermer;
+	Texture			textFermer;
 	
 	boolean visible = false;
-	Text text;
 	
+	
+	/**  Constructeur  */
 	public Menu() {
 		initialisation();
 	}
 	
+	/**  Methodes  */
 	public void initialisation(){
-		cercle = new CircleShape(3*taille);
-		cercle.setOrigin(3*taille, 3*taille);
-		cercle.setFillColor(new Color(255,255,255, 100));
-		cercle.setOutlineThickness(3);
-		cercle.setOutlineColor(Color.WHITE);
 		
-		carre = new RectangleShape(new Vector2f(2*taille, 2*taille));
-		carre.setOrigin(taille, taille);
-		carre.setOutlineColor(Color.WHITE);
-		carre.setOutlineThickness(taille/10);
-		carre.setFillColor(Color.TRANSPARENT);
-		
-		
-		/*textHaut = new Texture();
+		textAjouter = new Texture();
 		try {
-			textHaut.loadFromFile(Paths.get("images/iconeAdd.png"));
+			textAjouter.loadFromFile(Paths.get("images/bouton/ajouter.png"));
 		} catch (IOException e1) {
 			System.out.println("Erreur texture");
-		}*/
+		}
 		
-		triangleHaut = new CircleShape(taille, 3);
-		triangleHaut.setOrigin(taille, taille);
-		triangleHaut.setOutlineColor(Color.BLACK);
-		triangleHaut.setOutlineThickness(1);
-		triangleHaut.setTexture(textHaut);
+		ajouter 	= new RectangleShape(new Vector2f(taille, taille));
+		ajouter.setOrigin(taille/2, taille/2);
+		ajouter.setTexture(textAjouter);
 		
 		
-		
-		triangleDroit = new CircleShape(taille, 3);
-		triangleDroit.setOrigin(taille, taille);
-		triangleDroit.setFillColor(Color.WHITE);
-		triangleDroit.setRotation(90);
-		
-		
-		/*textBas = new Texture();
+		textOuvrir = new Texture();
 		try {
-			textBas.loadFromFile(Paths.get("images/iconeHelp.png"));
+			textOuvrir.loadFromFile(Paths.get("images/bouton/ouvrir.png"));
 		} catch (IOException e1) {
 			System.out.println("Erreur texture");
-		}*/
-		
-		triangleBas = new CircleShape(taille, 3);
-		triangleBas.setOrigin(taille, taille);
-		triangleBas.setOutlineColor(Color.BLACK);
-		triangleBas.setOutlineThickness(1);
-		triangleBas.setTexture(textBas);
-		triangleBas.setRotation(180);
+		}
+		ouvrir		= new RectangleShape(new Vector2f(taille, taille));
+		ouvrir.setOrigin(taille/2, taille/2);
+		ouvrir.setTexture(textOuvrir);
 		
 		
-		/*textGauche = new Texture();
+		textEnregistrer = new Texture();
 		try {
-			textGauche.loadFromFile(Paths.get("images/iconeApropos.png"));
+			textEnregistrer.loadFromFile(Paths.get("images/bouton/enregistrer.png"));
 		} catch (IOException e1) {
 			System.out.println("Erreur texture");
-		}*/
-		
-		triangleGauche = new CircleShape(taille, 3);
-		triangleGauche.setOrigin(taille, taille);
-		triangleGauche.setOutlineColor(Color.BLACK);
-		triangleGauche.setOutlineThickness(1);
-		triangleGauche.setRotation(-90);
-		triangleGauche.setTexture(textGauche);
+		}
+		enregistrer	= new RectangleShape(new Vector2f(taille, taille));
+		enregistrer.setOrigin(taille/2, taille/2);
+		enregistrer.setTexture(textEnregistrer);
 		
 		
-		text = new Text("MENU",Systeme.font);
-		text.setCharacterSize((int)(taille*2)/5);
-		text.setOrigin(text.getGlobalBounds().width/2,text.getGlobalBounds().height/2);
-		text.setColor(Color.BLACK);
-		text.setStyle(Text.BOLD);
+		textAide = new Texture();
+		try {
+			textAide.loadFromFile(Paths.get("images/bouton/aide.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
+		aide		= new RectangleShape(new Vector2f(taille, taille));
+		aide.setOrigin(taille/2, taille/2);
+		aide.setTexture(textAide);
+		
+		textAPropos = new Texture();
+		try {
+			textAPropos.loadFromFile(Paths.get("images/bouton/about.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
+		aPropos		= new RectangleShape(new Vector2f(taille, taille));
+		aPropos.setOrigin(taille/2, taille/2);
+		aPropos.setTexture(textAPropos);
+		
+		textQuitter = new Texture();
+		try {
+			textQuitter.loadFromFile(Paths.get("images/bouton/quitter.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
+		quitter		= new RectangleShape(new Vector2f(taille, taille));
+		quitter.setOrigin(taille/2, taille/2);
+		quitter.setTexture(textQuitter);	
+		
+		textFermer = new Texture();
+		try {
+			textFermer.loadFromFile(Paths.get("images/bouton/fermer.png"));
+		} catch (IOException e1) {
+			System.out.println("Erreur texture");
+		}
+		
+		fermer 	= new RectangleShape(new Vector2f((0.4f*taille), (0.4f*taille)));
+		fermer.setOrigin((0.4f*taille)/2, (0.4f*taille)/2);
+		fermer.setTexture(textFermer);
+		
+		
 	}
 	
 	@Override
 	public void draw(RenderTarget arg0, RenderStates arg1) {
 		if (visible){
-			
-			cercle.draw(arg0, arg1);
-			carre.draw(arg0, arg1);
-			
-			triangleHaut.draw(arg0, arg1);
-			triangleDroit.draw(arg0, arg1);
-			triangleBas.draw(arg0, arg1);
-			triangleGauche.draw(arg0, arg1);
-			
-			text.draw(arg0, arg1);
+			ouvrir.draw(arg0, arg1);
+			ajouter.draw(arg0, arg1);
+			enregistrer.draw(arg0, arg1);
+			aide.draw(arg0, arg1);
+			aPropos.draw(arg0, arg1);
+			quitter.draw(arg0, arg1);
+			fermer.draw(arg0, arg1);
 		}	
 	}
 
 	
 	public void setPosition(TuioCursor cursor){
-		carre.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
-		cercle.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
-		triangleHaut.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y-(2*taille));
-		triangleDroit.setPosition(cursor.getX()*Systeme.screen.x+(2*taille), cursor.getY()*Systeme.screen.y);
-		triangleBas.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y+(2*taille));
-		triangleGauche.setPosition(cursor.getX()*Systeme.screen.x-(2*taille), cursor.getY()*Systeme.screen.y);
+		float x = cursor.getX()*Systeme.screen.x;
+		float y = cursor.getY()*Systeme.screen.y;
 		
-		//text.setPosition(cursor.getX()*Systeme.screen.x-((taille*15)/25), cursor.getY()*Systeme.screen.y-(taille/5));
-		text.setPosition(carre.getPosition());
+		ajouter.setPosition(x+taille/2,y-(3*taille)/2);
+		ouvrir.setPosition(x+(3*taille)/2, y-(3*taille)/2);
+		enregistrer.setPosition(x+(5*taille)/2, y-(3*taille)/2);
+		
+		aide.setPosition(x+taille/2, y-taille/2);
+		aPropos.setPosition(x+(3*taille)/2, y-taille/2);
+		quitter.setPosition(x+(5*taille)/2, y-taille/2);
+		
+		fermer.setPosition(x-(0.4f*taille)/2, y+(0.4f*taille)/2);
 	}
 	
 	public void setVisible(boolean visible){
@@ -146,35 +167,56 @@ public class Menu implements Drawable{
 		return this.visible;
 	}
 	
-	public boolean isInsideCarre(TuioCursor cursor){
-		return carre.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	public boolean isInsideAjouter(TuioCursor cursor){
+		return ajouter.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
 	
-	public boolean isInsideToucheHaut(TuioCursor cursor){
-		return triangleHaut.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	public boolean isInsideOuvrir(TuioCursor cursor){
+		return ouvrir.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
-	public boolean isInsideToucheDroit(TuioCursor cursor){
-		return triangleDroit.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	
+	public boolean isInsideEnregistrer(TuioCursor cursor){
+		return enregistrer.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
-	public boolean isInsideToucheBas(TuioCursor cursor){
-		return triangleBas.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	
+	public boolean isInsideAide(TuioCursor cursor){
+		return aide.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
-	public boolean isInsideToucheGauche(TuioCursor cursor){
-		return triangleGauche.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	
+	public boolean isInsideAPropos(TuioCursor cursor){
+		return aPropos.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
+	
+	public boolean isInsideQuitter(TuioCursor cursor){
+		return quitter.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	}
+	
+	public boolean isInsideFermer(TuioCursor cursor){
+		return fermer.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
+	}
+
 	
 	public void actionMenu(TuioCursor c){
 		if (Systeme.menu.isVisible()) {
-			if (Systeme.menu.isInsideToucheHaut(c)) {
+			if (Systeme.menu.isInsideAjouter(c)) {
 				GesteSysteme.ouvrir();
-			} else if (Systeme.menu.isInsideToucheDroit(c)) {
+			} else if (Systeme.menu.isInsideOuvrir(c)) {
 				try {
 					Systeme.conteneur.charger("testImg");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if (Systeme.menu.isInsideToucheBas(c)) {
+			} else if (Systeme.menu.isInsideEnregistrer(c)) {
+				try {
+					Systeme.conteneur.sauvegarder("testImg");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (Systeme.menu.isInsideAide(c)) {
+				// TODO a remplir
+			}else if (Systeme.menu.isInsideAPropos(c)) {
+				GesteSysteme.about(c);
+			}else if (Systeme.menu.isInsideQuitter(c)){
 				Systeme.quitter.setVisible(true);
 				try {
 					Systeme.quitter.affiche();
@@ -182,9 +224,6 @@ public class Menu implements Drawable{
 					e.printStackTrace();
 				}
 				System.exit(0);
-				
-			} else if (Systeme.menu.isInsideToucheGauche(c)) {
-				GesteSysteme.about(c);
 			}
 		}
 	}
