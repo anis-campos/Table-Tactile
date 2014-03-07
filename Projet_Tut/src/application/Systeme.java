@@ -20,7 +20,9 @@ import image.Conteneur;
 import image.ListeImage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -47,8 +49,13 @@ import TUIO.TuioTime;
 /**
  * The Class Systeme.
  */
-public class Systeme implements TuioListener {
+public class Systeme implements TuioListener, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2937976085789883674L;
+
 	/** The Constant LARGEUR. */
 	final static int LARGEUR = 900;
 	
@@ -81,6 +88,7 @@ public class Systeme implements TuioListener {
 	
 	/** Conteneur des dossiers*/
 	static public Conteneur conteneur;
+	static public ArrayList<String> leConteneur;
 	
 	/** Texte afficher pour quitter */
 	static public Quitter quitter;
@@ -114,12 +122,12 @@ public class Systeme implements TuioListener {
 		}
 		
 		listImage=new ListeImage();
-		listImage.ajouter("images/Pikachu.png");
-		listImage.ajouter("images/ptut.png");
-		listImage.ajouter("images/Pikachu.png");
-		listImage.ajouter("images/ptut.png");
-		listImage.ajouter("images/boeing.jpg");
-		listImage.ajouter("images/iut.jpg");
+		//listImage.ajouter("images/Pikachu.png");
+		//listImage.ajouter("images/ptut.png");
+		//listImage.ajouter("images/Pikachu.png");
+		//listImage.ajouter("images/ptut.png");
+		//listImage.ajouter("images/boeing.jpg");
+		//listImage.ajouter("images/iut.jpg");
 		/*for (int i=0;i<1;i++){
 			listImage.ajouter("images/Pikachu.png");
 			listImage.ajouter("images/ptut.png");
@@ -142,6 +150,7 @@ public class Systeme implements TuioListener {
 		about 		= new About();
 		conteneur 	= new Conteneur();
 		quitter 	= new Quitter();
+		leConteneur = new ArrayList<>();
 	}
 
 	/**

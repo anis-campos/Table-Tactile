@@ -14,6 +14,7 @@
 package image;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +31,13 @@ import application.Systeme;
  *
  * @author TheKing973
  */
-public class GesteImage implements Runnable {	
+public class GesteImage implements Runnable, Serializable {	
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2981768527400215076L;
 
 	/** The monimage. */
 	private Image monimage;
@@ -250,8 +257,10 @@ public class GesteImage implements Runnable {
 			monimage.dernierAcces=System.currentTimeMillis();
 			if(Systeme.conteneur.isInsideConteneur(cursorInImage.get(0))){
 					Systeme.conteneur.ajouterImage(monimage);
+					System.out.println("Ajout ID= " + monimage.getId() +" et nb image= " + Systeme.conteneur.nombreImage);
 			}else if(!Systeme.conteneur.isInsideConteneur(cursorInImage.get(0))){
 				Systeme.conteneur.enleverImage(monimage);
+				System.out.println("Suppression ID= " + monimage.getId() +" et nb image= " + Systeme.conteneur.nombreImage);
 			}
 			
 			move(cursorInImage.get(0));

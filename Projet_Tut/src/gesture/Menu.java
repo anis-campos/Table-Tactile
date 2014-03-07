@@ -162,4 +162,31 @@ public class Menu implements Drawable{
 	public boolean isInsideToucheGauche(TuioCursor cursor){
 		return triangleGauche.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
+	
+	public void actionMenu(TuioCursor c){
+		if (Systeme.menu.isVisible()) {
+			if (Systeme.menu.isInsideToucheHaut(c)) {
+				GesteSysteme.ouvrir();
+			} else if (Systeme.menu.isInsideToucheDroit(c)) {
+				try {
+					Systeme.conteneur.charger("testImg");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (Systeme.menu.isInsideToucheBas(c)) {
+				Systeme.quitter.setVisible(true);
+				try {
+					Systeme.quitter.affiche();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.exit(0);
+				
+			} else if (Systeme.menu.isInsideToucheGauche(c)) {
+				GesteSysteme.about(c);
+			}
+		}
+	}
+	
 }

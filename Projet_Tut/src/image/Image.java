@@ -14,6 +14,7 @@
 package image;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Paths;
 
 import org.jsfml.graphics.Drawable;
@@ -30,10 +31,19 @@ import application.Systeme;
 /**
  * The Class Image.
  */
-public class Image implements Cloneable, Drawable,Comparable<Image>{
+public class Image implements Cloneable, Drawable,Comparable<Image>, Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3268929958255928707L;
+
 	/** The sprite. */
 	public Sprite sprite;
+	
+	/** The path of the image*/
+	public String url;
 	
 	/** The gesture. */
 	private GesteImage  gesture;
@@ -49,6 +59,10 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 	
 	/** The compteur. */
 	static int compteur=0;
+	
+	/** Id image*/
+	static int dernierID=0;
+	String id;
 	
 	/** The ecart. */
 	final Vector2f ecart = new Vector2f(50f,50f);
@@ -67,6 +81,8 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 	 * @param path the path
 	 */
 	public Image (String path){
+		this.url = path;
+		this.id = "i"+String.valueOf(dernierID + 1);
 		Texture texture = new Texture();
 		try {
 			texture.loadFromFile(Paths.get(path));
@@ -89,6 +105,7 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 		gesture = new GesteImage(this);
 		thread = new Thread( gesture );
 		thread.start();
+		dernierID = dernierID + 1;
 	}
 	
 	public boolean isInConteneur(){
@@ -98,6 +115,15 @@ public class Image implements Cloneable, Drawable,Comparable<Image>{
 	public void setIsInConteneur(boolean isInC){
 		isInConteneur = isInC;
 	}
+
+	public String getId(){
+		return this.id;
+	}
+	
+	public String getPath(){
+		return this.url;
+	}
+	
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()

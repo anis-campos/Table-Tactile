@@ -32,7 +32,12 @@ public class GesteSysteme implements Runnable {
 	@Override
 	public void run() {
 		while (running) {
-			event();
+			try {
+				event();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			pause(10);
 		}
 
@@ -46,7 +51,7 @@ public class GesteSysteme implements Runnable {
 		}
 	}
 
-	void event() {
+	void event() throws Exception {
 		Vector<TuioCursor> cursorList = Systeme.tuioClient.getTuioCursors();
 
 		TuioCursor cursor;
@@ -66,24 +71,7 @@ public class GesteSysteme implements Runnable {
 		switch (Listcursor.size()) {
 		case 1:
 			TuioCursor c = Listcursor.get(0);
-			if (Systeme.menu.isVisible()) {
-				if (Systeme.menu.isInsideToucheHaut(c)) {
-					ouvrir();
-				} else if (Systeme.menu.isInsideToucheDroit(c)) {
-					System.out.println("ToucheDroite");
-				} else if (Systeme.menu.isInsideToucheBas(c)) {
-					Systeme.quitter.setVisible(true);
-					try {
-						Systeme.quitter.affiche();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.exit(0);
-					
-				} else if (Systeme.menu.isInsideToucheGauche(c)) {
-					about(c);
-				}
-			}
+			Systeme.menu.actionMenu(c);
 			if (Systeme.about.isVisible()) {
 				about(Listcursor.get(0));
 			} else {
@@ -122,7 +110,7 @@ public class GesteSysteme implements Runnable {
 
 	}
 
-	void about(TuioCursor c1) {
+	static void about(TuioCursor c1) {
 		if (!Systeme.about.isVisible()) {
 			Systeme.about.setPosition(c1);
 			Systeme.about.setVisible(true);
@@ -144,7 +132,7 @@ public class GesteSysteme implements Runnable {
 		}
 	}
 
-	void ouvrir() {
+	static void ouvrir() {
 
 		Systeme.tuioClient.disconnect();
 

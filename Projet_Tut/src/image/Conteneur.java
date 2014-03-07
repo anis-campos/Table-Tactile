@@ -1,5 +1,9 @@
 package image;
 
+
+import java.io.*;
+import java.util.ArrayList;
+
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RectangleShape;
@@ -10,7 +14,14 @@ import org.jsfml.system.Vector2f;
 import TUIO.TuioCursor;
 import application.Systeme;
 
-public class Conteneur implements Drawable {
+public class Conteneur implements Drawable, Serializable {
+
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8908896394581817566L;
 
 	/* Attributs */
 	RectangleShape conteneur;
@@ -22,6 +33,7 @@ public class Conteneur implements Drawable {
 	float height = Systeme.window.getSize().y;
 	float positionHeight = height - height / 10 + 2;
 
+	
 	int nombreImage = 0;
 
 	/* Constructeur */
@@ -76,6 +88,8 @@ public class Conteneur implements Drawable {
 			nombreImage = nombreImage + 1;
 			i.setSize(20, 20);
 			i.sprite.setPosition(nombreImage * 50, Systeme.window.getSize().y - 20);
+			Systeme.leConteneur.add(i.getPath());
+			System.out.println(Systeme.leConteneur.size());
 		}
 	}
 
@@ -84,6 +98,8 @@ public class Conteneur implements Drawable {
 			i.setIsInConteneur(false);
 			nombreImage = nombreImage - 1;
 			i.setSize(20, 20);
+			Systeme.leConteneur.remove(i.getPath());
+			System.out.println(Systeme.leConteneur.size());
 		}
 	}
 
@@ -101,4 +117,37 @@ public class Conteneur implements Drawable {
 		return visible;
 	}
 
+	public void sauvegarder(String nomFic)throws Exception{
+        File f1=new File(nomFic); // declaration du fichier
+        System.out.println("Ouverture du fichier");
+        FileOutputStream fs= new FileOutputStream(f1);
+        System.out.println("New ObjectOutputStream");
+        ObjectOutputStream fsObj = new ObjectOutputStream(fs);
+        System.out.println("Ecriture du conteneur");
+        fsObj.writeObject(Systeme.leConteneur);  // ecriture du conteneur
+        System.out.println("Close ecriture");
+        fsObj.close(); //on ferme le flot
+    }
+	
+	//suppression des warnings
+    @SuppressWarnings("unchecked")
+    public void charger(String nomFic) throws Exception{
+        File f1=new File(nomFic);
+        System.out.println("Ouverture du fichier");
+        FileInputStream fe = new FileInputStream(f1);
+        System.out.println("New ObjectInputStream");
+        ObjectInputStream feObj = new ObjectInputStream(fe);
+        System.out.println("feObj.readObject");
+        Systeme.leConteneur=(ArrayList<String>) feObj.readObject();
+        System.out.println("close");
+        feObj.close(); 
+        if(!Systeme.leConteneur.isEmpty()) 
+        {
+            for(String url : Systeme.leConteneur){
+           	Systeme.listImage.ajouter(url);
+            }
+        }
+        
+    }
+	
 }
