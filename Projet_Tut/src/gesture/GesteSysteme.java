@@ -35,7 +35,6 @@ public class GesteSysteme implements Runnable {
 			try {
 				event();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			pause(10);
@@ -74,7 +73,9 @@ public class GesteSysteme implements Runnable {
 			Systeme.menu.actionMenu(c);
 			if (Systeme.about.isVisible()) {
 				about(Listcursor.get(0));
-			} else {
+			} else if (Systeme.clavier.isVisible()){
+				clavier(Listcursor.get(0));
+			}else {
 				menu(Listcursor.get(0));
 			}
 
@@ -107,9 +108,30 @@ public class GesteSysteme implements Runnable {
 				Systeme.menu.setVisible(false);
 			}
 		}
-
 	}
 
+	static void clavier(TuioCursor c1) {
+		if (!Systeme.clavier.isVisible()) {
+			Systeme.clavier.setPosition(c1);
+			Systeme.clavier.setVisible(true);
+			Systeme.menu.setVisible(false);
+		} else {
+			Clock temps = new Clock();
+			TuioPoint position = c1.getPosition();
+			while (c1.getTuioState() != 4) {
+				if (position.getDistance(c1.getPosition()) > 0.01)
+					break;
+				if (temps.getElapsedTime().asMilliseconds() > 1000)
+					break;
+			}
+			if (temps.getElapsedTime().asMilliseconds() < 1000)
+				return;
+			if (Systeme.clavier.isInsideFermer(c1)) {
+				Systeme.clavier.setVisible(false);
+			}
+		}
+	}
+	
 	static void about(TuioCursor c1) {
 		if (!Systeme.about.isVisible()) {
 			Systeme.about.setPosition(c1);

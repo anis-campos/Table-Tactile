@@ -19,7 +19,7 @@ public class Clavier implements Drawable {
 
 	/** Attributs */
 
-	float taille = 40;
+	float taille = 50;
 
 	RectangleShape a;
 	RectangleShape b;
@@ -486,8 +486,8 @@ public class Clavier implements Drawable {
 			System.out.println("Erreur texture");
 		}
 		
-		espace = new RectangleShape(new Vector2f(3 * taille, taille / 2));
-		espace.setOrigin((3 * taille) / 2, (taille / 2));
+		espace = new RectangleShape(new Vector2f(4 * taille, taille));
+		espace.setOrigin((4 * taille) / 2, (taille / 2));
 		espace.setTexture(textespace);
 
 		
@@ -571,7 +571,7 @@ public class Clavier implements Drawable {
 
 		fermer.setPosition(coorX + (taille / 2), coorY - (taille / 2));
 
-		espace.setPosition(coorX + (9 * taille / 2), coorY - (taille/2));
+		espace.setPosition(coorX + (5 * taille ), coorY - (taille/2));
 		
 		suppr.setPosition(coorX + (19 * taille / 2), coorY- (9 * taille / 2));
 		
