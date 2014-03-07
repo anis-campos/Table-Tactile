@@ -132,11 +132,11 @@ public class Systeme implements TuioListener, Serializable {
 		//listImage.ajouter("images/ptut.png");
 		//listImage.ajouter("images/boeing.jpg");
 		//listImage.ajouter("images/iut.jpg");
-		/*for (int i=0;i<1;i++){
+		for (int i=0;i<1;i++){
 			listImage.ajouter("images/Pikachu.png");
 			listImage.ajouter("images/ptut.png");
 			listImage.listImage.get(i).sprite.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
-		}*/
+		}
 		
 		gestesys = new GesteSysteme();
 		thread = new Thread (gestesys);
