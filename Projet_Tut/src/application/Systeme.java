@@ -400,7 +400,7 @@ public class Systeme implements TuioListener, Serializable {
 		}
 		try {
 			System.out.println("ajout d'un fiducial id = " +tobj.getSymbolID());
-			GestionFiducial.actionFiducial(tobj);
+			GestionFiducial.actionFiducialAjout(tobj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -412,9 +412,15 @@ public class Systeme implements TuioListener, Serializable {
 	@Override
 	public void removeTuioObject(TuioObject tobj)
 	{
-
-		if (verbose)
+		if (verbose){
 			System.out.println("del obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+")");
+		}
+		try {
+			GestionFiducial.actionFiducialRetrait(tobj);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 	/* (non-Javadoc)

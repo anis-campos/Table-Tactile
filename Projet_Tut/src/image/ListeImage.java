@@ -23,6 +23,7 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class ListeImage.
@@ -52,6 +53,19 @@ public class ListeImage implements Drawable {
 	
 	public void ajouter(Image i){
 		listImage.add(i);
+	}
+	
+	public Image getImage(int i){
+		return listImage.get(i);
+	}
+	
+	public int size(){
+		return listImage.size();
+	}
+	
+	public void retirer(Image i ){
+		i.stopThread();
+		listImage.remove(i);
 	}
 	
 	/**
