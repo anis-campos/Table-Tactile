@@ -1,16 +1,18 @@
+
 /*
-  * 		Projet Tutore : Table tactile
+ * 		Projet Tutore : Table tactile
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : DA SILVA CAMPOS Anis
- * 			 TEBOULE Linda
+ * Auteurs : BENKIRANE Mohamed Ali
+ * 			 DA SILVA CAMPOS Anis
  * 			 DIALLO Amadou
- * 			 BENKIRAN Mohamed
+ * 			 TEBOULE Linda	 
  * 
  * Date : 2013-2014
  *  
  */
+
 package application;
 
 import gesture.About;

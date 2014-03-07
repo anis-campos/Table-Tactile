@@ -1,16 +1,18 @@
+
 /*
  * 		Projet Tutore : Table tactile
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : DA SILVA CAMPOS Anis
- * 			 TEBOULE Linda
+ * Auteurs : BENKIRANE Mohamed Ali
+ * 			 DA SILVA CAMPOS Anis
  * 			 DIALLO Amadou
- * 			 BENKIRAN Mohamed
+ * 			 TEBOULE Linda	 
  * 
  * Date : 2013-2014
  *  
  */
+
 package image;
 
 import java.awt.Point;
@@ -331,19 +333,19 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 
 	@Override
 	public void addTuioObject(TuioObject tobj) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la methode genere automatiquement
 		
 	}
 
 	@Override
 	public void updateTuioObject(TuioObject tobj) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la methode genere automatiquement
 		
 	}
 
 	@Override
 	public void removeTuioObject(TuioObject tobj) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la methode genere automatiquement
 		
 	}
 
@@ -358,19 +360,19 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 
 	@Override
 	public void updateTuioCursor(TuioCursor tcur) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la methode genere automatiquement
 		
 	}
 
 	@Override
 	public void removeTuioCursor(TuioCursor tcur) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la methode genere automatiquement
 		
 	}
 
 	@Override
 	public void refresh(TuioTime ftime) {
-		// TODO Stub de la méthode généré automatiquement
+		// TODO Stub de la methode genere automatiquement
 		
 	}
 

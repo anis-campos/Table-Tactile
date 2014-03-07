@@ -3,10 +3,10 @@
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : DA SILVA CAMPOS Anis
- * 			 TEBOULE Linda
+ * Auteurs : BENKIRANE Mohamed Ali
+ * 			 DA SILVA CAMPOS Anis
  * 			 DIALLO Amadou
- * 			 BENKIRAN Mohamed
+ * 			 TEBOULE Linda	 
  * 
  * Date : 2013-2014
  *  
