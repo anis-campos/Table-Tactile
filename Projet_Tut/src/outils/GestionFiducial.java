@@ -12,16 +12,10 @@ import TUIO.TuioObject;
 
 public class GestionFiducial {
 
-	TuioObject fiducial;
-	int id;
 	static String url;
-	boolean charger = false;
+
 
 	public GestionFiducial(TuioObject tobj) {
-		System.out.println("instanciation d'un fiducial");
-		this.fiducial = tobj;
-		this.id = tobj.getSymbolID();
-		this.charger = true;
 
 	}
 

@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
+import musique.MusiqueFiducial;
+
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
@@ -398,12 +400,23 @@ public class Systeme implements TuioListener, Serializable {
 		if (verbose){
 			System.out.println("add obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());	
 		}
-		try {
-			System.out.println("ajout d'un fiducial id = " +tobj.getSymbolID());
-			GestionFiducial.actionFiducialAjout(tobj);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(tobj.getSymbolID() < 4){
+			try {
+				System.out.println("ajout d'un fiducial image id = " +tobj.getSymbolID());
+				GestionFiducial.actionFiducialAjout(tobj);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(tobj.getSymbolID() >=4 && tobj.getSymbolID() < 8){
+			try {
+				MusiqueFiducial.actionFiducialAjout(tobj);
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}else{
+			
 		}
+		
 	}
 	
 	/* (non-Javadoc)
@@ -415,12 +428,21 @@ public class Systeme implements TuioListener, Serializable {
 		if (verbose){
 			System.out.println("del obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+")");
 		}
-		try {
-			GestionFiducial.actionFiducialRetrait(tobj);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		
+		if(tobj.getSymbolID() < 4){
+			try {
+				GestionFiducial.actionFiducialRetrait(tobj);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(tobj.getSymbolID() >=4 && tobj.getSymbolID() < 8){
+			MusiqueFiducial.actionFiducialRetrait(tobj);;
+		}else{
+			
+		}
+		
+			
 	}
 	
 	/* (non-Javadoc)
