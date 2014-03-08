@@ -33,7 +33,6 @@ import musique.MusiqueFiducial;
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
-import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
@@ -44,6 +43,7 @@ import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
 import outils.Clavier;
+import outils.DrawObject;
 import outils.GestionFiducial;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
@@ -88,6 +88,7 @@ public class Systeme implements TuioListener, Serializable {
 	
 	/** Menu */
 	static public Menu menu;
+	static public MusiqueFiducial musiqueMenu;
 	
 	/** A propos */
 	static public About about;
@@ -99,6 +100,9 @@ public class Systeme implements TuioListener, Serializable {
 	/** CLAVIER */
 	static public Clavier clavier;
 
+	/** BOOLEAN IS IN OBJECT */
+	static public boolean isInObject=false;
+	
 	/** Texte afficher pour quitter */
 	static public Quitter quitter;
 	
@@ -160,6 +164,7 @@ public class Systeme implements TuioListener, Serializable {
 		quitter 	= new Quitter();
 		leConteneur = new ArrayList<>();
 		clavier 	= new Clavier();
+		musiqueMenu = new MusiqueFiducial();
 	}
 
 	/**
@@ -177,6 +182,7 @@ public class Systeme implements TuioListener, Serializable {
 			window.draw(conteneur);
 			window.draw(quitter);
 			window.draw(clavier);
+			window.draw(musiqueMenu);
 			
 			drawCursors();
 			
@@ -277,25 +283,44 @@ public class Systeme implements TuioListener, Serializable {
 		for (Iterator<TuioObject> iter2 = objectList.iterator(); iter2.hasNext();)
 		{
 			TuioObject tuioObject = iter2.next();
-			if (tuioObject.getSymbolID() < 4){
+			new DrawObject(tuioObject);
+			
+			/*if (tuioObject.getSymbolID() < 4){
+				
+				Texture textObject = new Texture();
+				try {
+					textObject.loadFromFile(Paths.get("images/bouton/photo.png"));
+				} catch (IOException e1) {
+					System.out.println("Erreur texture");
+				}
+				
 				Vector2f ecran  = new Vector2f(window.getSize().x,window.getSize().y);
 				Vector2f position = new Vector2f(tuioObject.getX(),tuioObject.getY());
 				RectangleShape object = new RectangleShape(new Vector2f(40, 40));
 				object.setOrigin(20/2,20/2);
 				object.move(Vector2f.componentwiseMul(position, ecran));
 				object.setRotation(tuioObject.getAngleDegrees());
+				object.setTexture(textObject);
 				drawString(Integer.toString(tuioObject.getSymbolID()),object.getPosition().x-20,object.getPosition().y-20);
 				window.draw(object);	
 			}else if(tuioObject.getSymbolID()>=4 && tuioObject.getSymbolID() < 8){
+				Texture textObject = new Texture();
+				try {
+					textObject.loadFromFile(Paths.get("images/bouton/musique.png"));
+				} catch (IOException e1) {
+					System.out.println("Erreur texture");
+				}
+				
 				Vector2f ecran  = new Vector2f(window.getSize().x,window.getSize().y);
 				Vector2f position = new Vector2f(tuioObject.getX(),tuioObject.getY());
 				CircleShape object = new CircleShape(20);
 				object.setOrigin(20/2,20/2);
 				object.move(Vector2f.componentwiseMul(position, ecran));
 				object.setRotation(tuioObject.getAngleDegrees());
+				object.setTexture(textObject);
 				drawString(Integer.toString(tuioObject.getSymbolID()),object.getPosition().x-20,object.getPosition().y-20);
 				window.draw(object);
-			}
+			}*/
 			
 		}
 	}
@@ -323,7 +348,7 @@ public class Systeme implements TuioListener, Serializable {
 	 * @param x the x
 	 * @param y the y
 	 */
-	void drawString(String str,float x,float y)
+	public static void drawString(String str,float x,float y)
 	{
 		Text txt = new Text(str,font);
 		txt.setCharacterSize(15);
@@ -412,7 +437,6 @@ public class Systeme implements TuioListener, Serializable {
 		}
 		if(tobj.getSymbolID() < 4){
 			try {
-				System.out.println("ajout d'un fiducial image id = " +tobj.getSymbolID());
 				GestionFiducial.actionFiducialAjout(tobj);
 			} catch (Exception e) {
 				e.printStackTrace();

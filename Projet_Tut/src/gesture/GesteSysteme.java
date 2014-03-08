@@ -27,6 +27,7 @@ import mouse.TuioMouse;
 
 import org.jsfml.system.Clock;
 
+import outils.DrawObject;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioPoint;
@@ -88,8 +89,10 @@ public class GesteSysteme implements Runnable {
 			if (Systeme.about.isVisible()) {
 				about(c);
 			} else if (Systeme.clavier.isVisible()){
-				System.out.println("curseur chez clavier");
 				clavier(c);
+			}else if (DrawObject.isInsideFiducialMusique(c) || Systeme.musiqueMenu.isInsidePlay(c) || Systeme.musiqueMenu.isInsidePause(c) || Systeme.musiqueMenu.isInsideStop(c) || Systeme.musiqueMenu.isInsideFermer(c)){
+				//Systeme.musiqueMenu.isVisible()
+				musiqueMenu(c);
 			}else{
 				Systeme.menu.actionMenu(c);
 				menu(c);
@@ -156,8 +159,6 @@ public class GesteSysteme implements Runnable {
 	}
 	
 	public static void validation(){
-		System.out.println("Saisie valide !!");
-		System.out.println("Enregistrement en cours");
 		if(Systeme.clavier.isValide()){
 			try {
 				Systeme.conteneur.sauvegarder(Systeme.clavier.getUrl());
@@ -169,7 +170,7 @@ public class GesteSysteme implements Runnable {
 		Systeme.clavier.setVisible(false);
 	}
 	
-	static void about(TuioCursor c1) {
+	public static void about(TuioCursor c1) {
 		if (!Systeme.about.isVisible()) {
 			Systeme.about.setPosition(c1);
 			Systeme.about.setVisible(true);
@@ -190,9 +191,50 @@ public class GesteSysteme implements Runnable {
 			}
 		}
 	}
-	
 
-	static void ouvrir() {
+	public static void musiqueMenu(TuioCursor c1){
+			if(!Systeme.musiqueMenu.isVisible()){
+				if(DrawObject.isInsideFiducialMusique(c1)){
+					Clock temps = new Clock();
+					TuioPoint position = c1.getPosition();
+					while (c1.getTuioState() != 4) {
+						if (position.getDistance(c1.getPosition()) > 0.01)
+							break;
+						if (temps.getElapsedTime().asMilliseconds() > 1000)
+							break;
+					}
+					if (temps.getElapsedTime().asMilliseconds() < 1000)
+						return;
+					
+					Systeme.musiqueMenu.setVisible(true);
+					Systeme.musiqueMenu.setPosition(c1);	
+				}
+				
+			}else{
+				Clock temps = new Clock();
+				TuioPoint position = c1.getPosition();
+				while (c1.getTuioState() != 4) {
+					if (position.getDistance(c1.getPosition()) > 0.01)
+						break;
+					if (temps.getElapsedTime().asMilliseconds() > 1000)
+						break;
+				}
+				if (temps.getElapsedTime().asMilliseconds() < 1000)
+					return;
+				if (Systeme.musiqueMenu.isInsidePlay(c1)) {
+					Systeme.musiqueMenu.play();
+				}else if (Systeme.musiqueMenu.isInsidePause(c1)){
+					Systeme.musiqueMenu.pause();
+				}else if(Systeme.musiqueMenu.isInsideStop(c1)){
+					Systeme.musiqueMenu.stop();
+				}else if(Systeme.musiqueMenu.isInsideFermer(c1)){
+					Systeme.musiqueMenu.setVisible(false);
+				}
+			}
+			
+	}
+
+	public static void ouvrir() {
 
 		Systeme.tuioClient.disconnect();
 
