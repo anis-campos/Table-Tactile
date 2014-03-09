@@ -87,15 +87,17 @@ public class GesteSysteme implements Runnable {
 		case 1:
 			TuioCursor c = Listcursor.get(0);
 			if (Systeme.about.isVisible()) {
-				about(c);
+				Systeme.about.actionAbout(c);
 			} else if (Systeme.clavier.isVisible()){
 				clavier(c);
+			}else if(Systeme.help.isVisible()){
+				Systeme.help.actionHelp(c);
 			}else if (DrawObject.isInsideFiducialMusique(c) || Systeme.musiqueMenu.isInsidePlay(c) || Systeme.musiqueMenu.isInsidePause(c) || Systeme.musiqueMenu.isInsideStop(c) || Systeme.musiqueMenu.isInsideFermer(c)){
-				//Systeme.musiqueMenu.isVisible()
-				musiqueMenu(c);
-			}else{
+				Systeme.musiqueMenu.isVisible();
+				Systeme.musiqueMenu.musiqueMenu(c);
+			}
+		else{
 				Systeme.menu.actionMenu(c);
-				menu(c);
 			}
 
 			break;
@@ -103,30 +105,6 @@ public class GesteSysteme implements Runnable {
 		}
 		// for (TuioCursor c : Listcursor)
 		// GesteImage.curseurAttribue.remove(new Integer(c.getCursorID()));
-
-	}
-
-	void menu(TuioCursor c1) {
-
-		Clock temps = new Clock();
-		TuioPoint position = c1.getPosition();
-		while (c1.getTuioState() != 4) {
-			if (position.getDistance(c1.getPosition()) > 0.01)
-				break;
-			if (temps.getElapsedTime().asMilliseconds() > 1500)
-				break;
-		}
-		if (temps.getElapsedTime().asMilliseconds() < 1500)
-			return;
-
-		if (!Systeme.menu.isVisible()) {
-			Systeme.menu.setPosition(c1);
-			Systeme.menu.setVisible(true);
-		} else {
-			if (Systeme.menu.isInsideFermer(c1)) {
-				Systeme.menu.setVisible(false);
-			}
-		}
 	}
 
 	static void clavier(TuioCursor c1) {
@@ -168,70 +146,6 @@ public class GesteSysteme implements Runnable {
 	}
 		
 		Systeme.clavier.setVisible(false);
-	}
-	
-	public static void about(TuioCursor c1) {
-		if (!Systeme.about.isVisible()) {
-			Systeme.about.setPosition(c1);
-			Systeme.about.setVisible(true);
-			Systeme.menu.setVisible(false);
-		} else {
-			Clock temps = new Clock();
-			TuioPoint position = c1.getPosition();
-			while (c1.getTuioState() != 4) {
-				if (position.getDistance(c1.getPosition()) > 0.01)
-					break;
-				if (temps.getElapsedTime().asMilliseconds() > 1000)
-					break;
-			}
-			if (temps.getElapsedTime().asMilliseconds() < 1000)
-				return;
-			if (Systeme.about.isInsideCarre(c1)) {
-				Systeme.about.setVisible(false);
-			}
-		}
-	}
-
-	public static void musiqueMenu(TuioCursor c1){
-			if(!Systeme.musiqueMenu.isVisible()){
-				if(DrawObject.isInsideFiducialMusique(c1)){
-					Clock temps = new Clock();
-					TuioPoint position = c1.getPosition();
-					while (c1.getTuioState() != 4) {
-						if (position.getDistance(c1.getPosition()) > 0.01)
-							break;
-						if (temps.getElapsedTime().asMilliseconds() > 1000)
-							break;
-					}
-					if (temps.getElapsedTime().asMilliseconds() < 1000)
-						return;
-					
-					Systeme.musiqueMenu.setVisible(true);
-					Systeme.musiqueMenu.setPosition(c1);	
-				}
-				
-			}else{
-				Clock temps = new Clock();
-				TuioPoint position = c1.getPosition();
-				while (c1.getTuioState() != 4) {
-					if (position.getDistance(c1.getPosition()) > 0.01)
-						break;
-					if (temps.getElapsedTime().asMilliseconds() > 1000)
-						break;
-				}
-				if (temps.getElapsedTime().asMilliseconds() < 1000)
-					return;
-				if (Systeme.musiqueMenu.isInsidePlay(c1)) {
-					Systeme.musiqueMenu.play();
-				}else if (Systeme.musiqueMenu.isInsidePause(c1)){
-					Systeme.musiqueMenu.pause();
-				}else if(Systeme.musiqueMenu.isInsideStop(c1)){
-					Systeme.musiqueMenu.stop();
-				}else if(Systeme.musiqueMenu.isInsideFermer(c1)){
-					Systeme.musiqueMenu.setVisible(false);
-				}
-			}
-			
 	}
 
 	public static void ouvrir() {

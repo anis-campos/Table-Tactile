@@ -24,10 +24,12 @@ import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Texture;
+import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 
 import application.Systeme;
 import TUIO.TuioCursor;
+import TUIO.TuioPoint;
 
 public class Menu implements Drawable{
 
@@ -212,7 +214,22 @@ public class Menu implements Drawable{
 
 	
 	public void actionMenu(TuioCursor c){
-		if (Systeme.menu.isVisible()) {
+		
+		Clock temps = new Clock();
+		TuioPoint position = c.getPosition();
+		while (c.getTuioState() != 4) {
+			if (position.getDistance(c.getPosition()) > 0.01)
+				break;
+			if (temps.getElapsedTime().asMilliseconds() > 1500)
+				break;
+		}
+		if (temps.getElapsedTime().asMilliseconds() < 1500)
+			return;
+
+		if (!Systeme.menu.isVisible()) {
+			Systeme.menu.setPosition(c);
+			Systeme.menu.setVisible(true);
+		} else {
 			if (Systeme.menu.isInsideAjouter(c)) {
 				GesteSysteme.ouvrir();
 			} else if (Systeme.menu.isInsideOuvrir(c)) {
@@ -226,9 +243,11 @@ public class Menu implements Drawable{
 					Systeme.clavier.setPosition(c);
 					Systeme.menu.setVisible(false);
 				}else if (Systeme.menu.isInsideAide(c)) {
-				// TODO a remplir
+					Systeme.help.setVisible(true);
+					Systeme.help.setPosition(c);
+					Systeme.menu.setVisible(false);
 			}else if (Systeme.menu.isInsideAPropos(c)) {
-				GesteSysteme.about(c);
+				Systeme.about.actionAbout(c);
 			}else if (Systeme.menu.isInsideQuitter(c)){
 				Systeme.quitter.setVisible(true);
 				try {
@@ -237,6 +256,8 @@ public class Menu implements Drawable{
 					e.printStackTrace();
 				}
 				System.exit(0);
+			}else if (Systeme.menu.isInsideFermer(c)) {
+				Systeme.menu.setVisible(false);
 			}
 		}
 	}

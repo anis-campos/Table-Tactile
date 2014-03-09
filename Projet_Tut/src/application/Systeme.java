@@ -17,6 +17,7 @@ package application;
 
 import gesture.About;
 import gesture.GesteSysteme;
+import gesture.Help;
 import gesture.Menu;
 import image.Conteneur;
 import image.ListeImage;
@@ -93,6 +94,9 @@ public class Systeme implements TuioListener, Serializable {
 	/** A propos */
 	static public About about;
 	
+	/**  HELP  */
+	static public Help help;
+	
 	/** Conteneur des dossiers*/
 	static public Conteneur conteneur;
 	static public ArrayList<String> leConteneur;
@@ -165,6 +169,7 @@ public class Systeme implements TuioListener, Serializable {
 		leConteneur = new ArrayList<>();
 		clavier 	= new Clavier();
 		musiqueMenu = new MusiqueFiducial();
+		help		= new Help();
 	}
 
 	/**
@@ -179,6 +184,7 @@ public class Systeme implements TuioListener, Serializable {
 			window.draw(listImage);
 			window.draw(menu);
 			window.draw(about);
+			window.draw(help);
 			window.draw(conteneur);
 			window.draw(quitter);
 			window.draw(clavier);

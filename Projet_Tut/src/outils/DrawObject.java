@@ -18,14 +18,16 @@ import application.Systeme;
 public class DrawObject implements Drawable{
 
 	static CircleShape fiducialMusique;
-	static RectangleShape fiducialImage;
+	RectangleShape fiducialImage;
 	
 	Texture textFiducialMusique;
 	Texture textFiducialImage;
 	
 	boolean visible = false;
 	
-	
+	public DrawObject(){
+		
+	}
 	public DrawObject(TuioObject tObj){
 		initialisation(tObj);
 	}
@@ -47,8 +49,9 @@ public class DrawObject implements Drawable{
 			fiducialImage.move(Vector2f.componentwiseMul(position, ecran));
 			fiducialImage.setRotation(tuioObject.getAngleDegrees());
 			fiducialImage.setTexture(textFiducialImage);
+			Systeme.window.draw(fiducialImage);
 			Systeme.drawString(Integer.toString(tuioObject.getSymbolID()),fiducialImage.getPosition().x-20,fiducialImage.getPosition().y-20);
-			Systeme.window.draw(fiducialImage);	
+				
 			setVisible(true);
 		}else if(tuioObject.getSymbolID()>=4 && tuioObject.getSymbolID() < 8){
 			textFiducialMusique = new Texture();
@@ -73,10 +76,14 @@ public class DrawObject implements Drawable{
 	
 	@Override
 	public void draw(RenderTarget arg0, RenderStates arg1) {
-	
+		if(visible){
+			
+			
+		}
+		
 	}
 	
-	public static boolean isInsideFiducialImage(TuioCursor cursor){
+	public boolean isInsideFiducialImage(TuioCursor cursor){
 		return fiducialImage.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
 	

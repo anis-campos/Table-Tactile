@@ -9,10 +9,13 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Texture;
+import org.jsfml.system.Clock;
 
+import outils.DrawObject;
 import application.Systeme;
 import TUIO.TuioCursor;
 import TUIO.TuioObject;
+import TUIO.TuioPoint;
 
 public class MusiqueFiducial implements Drawable{
 
@@ -247,6 +250,47 @@ public class MusiqueFiducial implements Drawable{
 	public boolean isInsideFermer(TuioCursor cursor){
 		return fermer.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 
+	}
+	
+	public void musiqueMenu(TuioCursor c1){
+		if(!Systeme.musiqueMenu.isVisible()){
+			if(DrawObject.isInsideFiducialMusique(c1)){
+				Clock temps = new Clock();
+				TuioPoint position = c1.getPosition();
+				while (c1.getTuioState() != 4) {
+					if (position.getDistance(c1.getPosition()) > 0.01)
+						break;
+					if (temps.getElapsedTime().asMilliseconds() > 1000)
+						break;
+				}
+				if (temps.getElapsedTime().asMilliseconds() < 1000)
+					return;
+				
+				Systeme.musiqueMenu.setVisible(true);
+				Systeme.musiqueMenu.setPosition(c1);	
+			}
+			
+		}else{
+			Clock temps = new Clock();
+			TuioPoint position = c1.getPosition();
+			while (c1.getTuioState() != 4) {
+				if (position.getDistance(c1.getPosition()) > 0.01)
+					break;
+				if (temps.getElapsedTime().asMilliseconds() > 1000)
+					break;
+			}
+			if (temps.getElapsedTime().asMilliseconds() < 1000)
+				return;
+			if (Systeme.musiqueMenu.isInsidePlay(c1)) {
+				Systeme.musiqueMenu.play();
+			}else if (Systeme.musiqueMenu.isInsidePause(c1)){
+				Systeme.musiqueMenu.pause();
+			}else if(Systeme.musiqueMenu.isInsideStop(c1)){
+				Systeme.musiqueMenu.stop();
+			}else if(Systeme.musiqueMenu.isInsideFermer(c1)){
+				Systeme.musiqueMenu.setVisible(false);
+			}
+		}
 	}
 	
 }
