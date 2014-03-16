@@ -92,10 +92,10 @@ public class GesteSysteme implements Runnable {
 				clavier(c);
 			}else if(Systeme.help.isVisible()){
 				Systeme.help.actionHelp(c);
-			}else if (DrawObject.isInsideFiducialMusique(c) || Systeme.musiqueMenu.isInsidePlay(c) || Systeme.musiqueMenu.isInsidePause(c) || Systeme.musiqueMenu.isInsideStop(c) || Systeme.musiqueMenu.isInsideFermer(c)){
+			}/*else if (DrawObject.isInsideFiducialMusique(c) || Systeme.musiqueMenu.isInsidePlay(c) || Systeme.musiqueMenu.isInsidePause(c) || Systeme.musiqueMenu.isInsideStop(c) || Systeme.musiqueMenu.isInsideFermer(c)){
 				Systeme.musiqueMenu.isVisible();
 				Systeme.musiqueMenu.musiqueMenu(c);
-			}
+			}*/
 		else{
 				Systeme.menu.actionMenu(c);
 			}
