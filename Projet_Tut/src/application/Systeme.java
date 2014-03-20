@@ -34,8 +34,10 @@ import musique.MusiqueFiducial;
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
+import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
+import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
@@ -44,7 +46,7 @@ import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
 import outils.Clavier;
-import outils.DrawObject;
+
 import outils.GestionFiducial;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
@@ -64,16 +66,16 @@ public class Systeme implements TuioListener, Serializable {
 	private static final long serialVersionUID = 2937976085789883674L;
 
 	/** The Constant LARGEUR. */
-	final static int LARGEUR = 900;
+	final  int LARGEUR = 900;
 	
 	/** The Constant HAUTEUR. */
-	final static int HAUTEUR = 600;
+	final  int HAUTEUR = 600;
 	
 	/** The running. */
 	boolean verbose,fullscreen,running;
 	
 	/** The window. */
-	static public RenderWindow window;
+	 public RenderWindow window;
 	
 	/** The screen. */
 	static public Vector2i screen;
@@ -289,9 +291,9 @@ public class Systeme implements TuioListener, Serializable {
 		for (Iterator<TuioObject> iter2 = objectList.iterator(); iter2.hasNext();)
 		{
 			TuioObject tuioObject = iter2.next();
-			new DrawObject(tuioObject);
 			
-			/*if (tuioObject.getSymbolID() < 4){
+			
+			if (tuioObject.getSymbolID() < 4){
 				
 				Texture textObject = new Texture();
 				try {
@@ -326,7 +328,7 @@ public class Systeme implements TuioListener, Serializable {
 				object.setTexture(textObject);
 				drawString(Integer.toString(tuioObject.getSymbolID()),object.getPosition().x-20,object.getPosition().y-20);
 				window.draw(object);
-			}*/
+			}
 			
 		}
 	}
@@ -354,7 +356,7 @@ public class Systeme implements TuioListener, Serializable {
 	 * @param x the x
 	 * @param y the y
 	 */
-	public static void drawString(String str,float x,float y)
+	public void drawString(String str,float x,float y)
 	{
 		Text txt = new Text(str,font);
 		txt.setCharacterSize(15);

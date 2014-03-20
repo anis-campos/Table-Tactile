@@ -40,7 +40,7 @@ public class Quitter implements Drawable{
 		t.setCharacterSize(60);
 		t.setStyle(Text.BOLD);
 		t.setColor(Color.RED);
-		t.setPosition(Systeme.window.getSize().x/2, Systeme.window.getSize().y/2);
+		t.setPosition(Systeme.screen.x/2, Systeme.screen.y/2);
 	}
 	
 	public void affiche() throws InterruptedException{

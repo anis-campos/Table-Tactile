@@ -43,10 +43,10 @@ public class Conteneur implements Drawable, Serializable {
 
 	boolean visible = true;
 
-	float width = Systeme.window.getSize().x;
+	
 	float positionWidth = 10;
-	float height = Systeme.window.getSize().y;
-	float positionHeight = height - height / 10 + 2;
+	
+	float positionHeight = Systeme.screen.y - Systeme.screen.y / 10 + 2;
 
 	
 	int nombreImage = 0;
@@ -61,7 +61,7 @@ public class Conteneur implements Drawable, Serializable {
 	/* Methodes */
 
 	public void initialisationConteneur() {
-		conteneur = new RectangleShape(new Vector2f(width - 10, height / 10));
+		conteneur = new RectangleShape(new Vector2f(Systeme.screen.x - 10, Systeme.screen.y / 10));
 		conteneur.setOutlineColor(Color.WHITE);
 		conteneur.setOutlineThickness(3);
 		conteneur.setFillColor(new Color(255, 255, 255, 50));
@@ -77,13 +77,13 @@ public class Conteneur implements Drawable, Serializable {
 	}
 
 	public void setSizeConteneur() {
-		conteneur.setSize(new Vector2f(Systeme.window.getSize().x - 10,
-				Systeme.window.getSize().y / 10));
+		conteneur.setSize(new Vector2f(Systeme.screen.x - 10,
+				Systeme.screen.y / 10));
 	}
 
 	public void setPositionConteneur() {
 		conteneur.setPosition(5,
-				Systeme.window.getSize().y - (Systeme.window.getSize().y / 10));
+				Systeme.screen.y - (Systeme.screen.y / 10));
 	}
 
 	public void addDossier(ListeImage l) {
@@ -102,7 +102,7 @@ public class Conteneur implements Drawable, Serializable {
 			i.setIsInConteneur(true);
 			nombreImage = nombreImage + 1;
 			i.setSize(20, 20);
-			i.sprite.setPosition(nombreImage * 50, Systeme.window.getSize().y - 20);
+			i.sprite.setPosition(nombreImage * 50, Systeme.screen.y - 20);
 			Systeme.leConteneur.add(i.getPath());
 			System.out.println(Systeme.leConteneur.size());
 		}

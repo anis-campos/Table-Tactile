@@ -53,7 +53,7 @@ public class Help implements Drawable{
 	}
 	
 	public void setPosition(){
-		carre.setPosition(Systeme.window.getSize().x/2, Systeme.window.getSize().y/2);
+		carre.setPosition(Systeme.screen.x/2, Systeme.screen.y/2);
 	}
 
 	public boolean isInsideCarre(TuioCursor cursor){

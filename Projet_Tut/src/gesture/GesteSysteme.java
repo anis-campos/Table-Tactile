@@ -27,7 +27,6 @@ import mouse.TuioMouse;
 
 import org.jsfml.system.Clock;
 
-import outils.DrawObject;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioPoint;

@@ -11,7 +11,6 @@ import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Clock;
 
-import outils.DrawObject;
 import application.Systeme;
 import TUIO.TuioCursor;
 import TUIO.TuioObject;
@@ -254,7 +253,7 @@ public class MusiqueFiducial implements Drawable{
 	
 	public void musiqueMenu(TuioCursor c1){
 		if(!Systeme.musiqueMenu.isVisible()){
-			if(DrawObject.isInsideFiducialMusique(c1)){
+			/*if(DrawObject.isInsideFiducialMusique(c1)){
 				Clock temps = new Clock();
 				TuioPoint position = c1.getPosition();
 				while (c1.getTuioState() != 4) {
@@ -268,7 +267,7 @@ public class MusiqueFiducial implements Drawable{
 				
 				Systeme.musiqueMenu.setVisible(true);
 				Systeme.musiqueMenu.setPosition(c1);	
-			}
+			}*/
 			
 		}else{
 			Clock temps = new Clock();
