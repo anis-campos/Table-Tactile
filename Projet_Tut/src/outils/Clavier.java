@@ -111,11 +111,17 @@ public class Clavier implements Drawable {
 	boolean validation = false;
 	
 	boolean visible = false;
-
+	
+	private final static Clavier clavier =new Clavier();
+	
 	/** Constructeur */
 
-	public Clavier() {
+	private Clavier() {
 		initialisation();
+	}
+	
+	public static Clavier getInstance(){
+		return clavier;
 	}
 
 	/** Methode */
@@ -632,236 +638,73 @@ public class Clavier implements Drawable {
 		this.visible = visible;
 	}
 
-	public boolean isInsideA(TuioCursor cursor) {
-		return a.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideB(TuioCursor cursor) {
-		return b.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideC(TuioCursor cursor) {
-		return c.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideD(TuioCursor cursor) {
-		return d.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideE(TuioCursor cursor) {
-		return e.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideF(TuioCursor cursor) {
-		return f.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideG(TuioCursor cursor) {
-		return g.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideH(TuioCursor cursor) {
-		return h.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideI(TuioCursor cursor) {
-		return i.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideJ(TuioCursor cursor) {
-		return j.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideK(TuioCursor cursor) {
-		return k.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideL(TuioCursor cursor) {
-		return l.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideM(TuioCursor cursor) {
-		return m.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideN(TuioCursor cursor) {
-		return n.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideO(TuioCursor cursor) {
-		return o.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideP(TuioCursor cursor) {
-		return p.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideQ(TuioCursor cursor) {
-		return q.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideR(TuioCursor cursor) {
-		return r.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideS(TuioCursor cursor) {
-		return s.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideT(TuioCursor cursor) {
-		return t.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideU(TuioCursor cursor) {
-		return u.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideV(TuioCursor cursor) {
-		return v.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideW(TuioCursor cursor) {
-		return w.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideX(TuioCursor cursor) {
-		return x.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideY(TuioCursor cursor) {
-		return y.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideZ(TuioCursor cursor) {
-		return z.getGlobalBounds().contains(cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideEntrer(TuioCursor cursor) {
-		return entrer.getGlobalBounds().contains(
-				cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsidePoint(TuioCursor cursor) {
-		return point.getGlobalBounds().contains(
-				cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideTire(TuioCursor cursor) {
-		return tire.getGlobalBounds().contains(
-				cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideTrait(TuioCursor cursor) {
-		return trait.getGlobalBounds().contains(
-				cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-
-	public boolean isInsideFermer(TuioCursor cursor) {
-		return fermer.getGlobalBounds().contains(
-				cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
-	
-	public boolean isInsideSuppr(TuioCursor cursor) {
-		return suppr.getGlobalBounds().contains(
-				cursor.getX() * Systeme.screen.x,
-				cursor.getY() * Systeme.screen.y);
-	}
 
 	public char actionClavier(TuioCursor cursor) {
 			char lettre = ' ';
-		if (Systeme.clavier.isVisible()) {
-			if (Systeme.clavier.isInsideA(cursor)) {
+			Vector2f coord = new Vector2f(cursor.getX() * Systeme.screen.x,
+				cursor.getY() * Systeme.screen.y);
+		if (isVisible()) {
+			if (a.getGlobalBounds().contains(coord)) {
 				lettre = 'a';
-			} else if (Systeme.clavier.isInsideB(cursor)) {
+			} else if (b.getGlobalBounds().contains(coord)) {
 				lettre = 'b';
-			} else if (Systeme.clavier.isInsideC(cursor)) {
+			} else if (c.getGlobalBounds().contains(coord)) {
 				lettre = 'c';
-			} else if (Systeme.clavier.isInsideD(cursor)) {
+			} else if (d.getGlobalBounds().contains(coord)) {
 				lettre = 'd';
-			} else if (Systeme.clavier.isInsideE(cursor)) {
+			} else if (e.getGlobalBounds().contains(coord)) {
 				lettre = 'e';
-			} else if (Systeme.clavier.isInsideF(cursor)) {
+			} else if (f.getGlobalBounds().contains(coord)) {
 				lettre = 'f';
-			} else if (Systeme.clavier.isInsideG(cursor)) {
+			} else if (g.getGlobalBounds().contains(coord)) {
 				lettre = 'g';
-			} else if (Systeme.clavier.isInsideH(cursor)) {
+			} else if (h.getGlobalBounds().contains(coord)) {
 				lettre = 'h';
-			} else if (Systeme.clavier.isInsideI(cursor)) {
+			} else if (i.getGlobalBounds().contains(coord)) {
 				lettre = 'i';
-			} else if (Systeme.clavier.isInsideJ(cursor)) {
+			} else if (j.getGlobalBounds().contains(coord)) {
 				lettre = 'j';
-			} else if (Systeme.clavier.isInsideK(cursor)) {
+			} else if (k.getGlobalBounds().contains(coord)) {
 				lettre = 'k';
-			} else if (Systeme.clavier.isInsideL(cursor)) {
+			} else if (l.getGlobalBounds().contains(coord)) {
 				lettre = 'l';
-			} else if (Systeme.clavier.isInsideM(cursor)) {
+			} else if (m.getGlobalBounds().contains(coord)) {
 				lettre = 'm';
-			} else if (Systeme.clavier.isInsideN(cursor)) {
+			} else if (n.getGlobalBounds().contains(coord)) {
 				lettre = 'n';
-			} else if (Systeme.clavier.isInsideO(cursor)) {
+			} else if (o.getGlobalBounds().contains(coord)) {
 				lettre = 'o';
-			} else if (Systeme.clavier.isInsideP(cursor)) {
+			} else if (p.getGlobalBounds().contains(coord)) {
 				lettre = 'p';
-			} else if (Systeme.clavier.isInsideQ(cursor)) {
+			} else if (q.getGlobalBounds().contains(coord)) {
 				lettre = 'q';
-			} else if (Systeme.clavier.isInsideR(cursor)) {
+			} else if (r.getGlobalBounds().contains(coord)) {
 				lettre = 'r';
-			} else if (Systeme.clavier.isInsideS(cursor)) {
+			} else if (s.getGlobalBounds().contains(coord)) {
 				lettre = 's';
-			} else if (Systeme.clavier.isInsideT(cursor)) {
+			} else if (t.getGlobalBounds().contains(coord)) {
 				lettre = 't';
-			} else if (Systeme.clavier.isInsideU(cursor)) {
+			} else if (u.getGlobalBounds().contains(coord)) {
 				lettre = 'u';
-			} else if (Systeme.clavier.isInsideV(cursor)) {
+			} else if (v.getGlobalBounds().contains(coord)) {
 				lettre = 'v';
-			} else if (Systeme.clavier.isInsideW(cursor)) {
+			} else if (w.getGlobalBounds().contains(coord)) {
 				lettre = 'w';
-			} else if (Systeme.clavier.isInsideX(cursor)) {
+			} else if (x.getGlobalBounds().contains(coord)) {
 				lettre = 'x';
-			} else if (Systeme.clavier.isInsideY(cursor)) {
+			} else if (y.getGlobalBounds().contains(coord)) {
 				lettre = 'y';
-			} else if (Systeme.clavier.isInsideZ(cursor)) {
+			} else if (z.getGlobalBounds().contains(coord)) {
 				lettre = 'z';
-			} else if (Systeme.clavier.isInsidePoint(cursor)) {
+			} else if (point.getGlobalBounds().contains(coord)) {
 				lettre = '.';
-			} else if (Systeme.clavier.isInsideTire(cursor)) {
+			} else if (tire.getGlobalBounds().contains(coord)) {
 				lettre = '-';
-			} else if (Systeme.clavier.isInsideTrait(cursor)) {
+			} else if (trait.getGlobalBounds().contains(coord)) {
 				lettre = '_';
-			} else if(Systeme.clavier.isInsideSuppr(cursor)){
+			} else if(barre.getGlobalBounds().contains(coord)){
 				lettre =' ';
-			} else if(Systeme.clavier.isInsideEntrer(cursor)){
+			} else if(entrer.getGlobalBounds().contains(coord)){
 				lettre = '=';
 			}
 		} 
@@ -890,5 +733,11 @@ public class Clavier implements Drawable {
 
 	public String getUrl(){
 		return this.url;
+	}
+
+	public boolean isInsideFermer(TuioCursor cursor) {
+		
+		return fermer.getGlobalBounds().contains( cursor.getX() * Systeme.screen.x,
+				cursor.getY() * Systeme.screen.y);
 	}
 }//end Clavier

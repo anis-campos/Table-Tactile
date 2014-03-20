@@ -1,4 +1,4 @@
-package mouse;
+package outils;
 
 /*
 	TUIO Mouse Driver - part of the reacTIVision project
@@ -74,7 +74,7 @@ public class TuioMouse implements TuioListener {
 		height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	}
 
-	public static void main(String argv[]) {
+	/*public static void main(String argv[]) {
 	
 		int port = 3333;
  
@@ -89,5 +89,5 @@ public class TuioMouse implements TuioListener {
 		System.out.println("listening to TUIO messages at port "+port);
 		client.addTuioListener(mouse);
 		client.connect();
-	}
+	}*/
 }

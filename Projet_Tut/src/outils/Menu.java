@@ -13,7 +13,7 @@
  *  
  */
 
-package gesture;
+package outils;
 
 
 import java.io.IOException;

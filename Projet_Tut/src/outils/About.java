@@ -1,4 +1,19 @@
-package gesture;
+
+/*
+ * 		Projet Tutore : Table tactile
+ * 
+ * Sujet : Application gestion image
+ * 
+ * Auteurs : BENKIRANE Mohamed Ali
+ * 			 DA SILVA CAMPOS Anis
+ * 			 DIALLO Amadou
+ * 			 TEBOULE Linda	 
+ * 
+ * Date : 2013-2014
+ *  
+ */
+
+package outils;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -16,36 +31,37 @@ import TUIO.TuioCursor;
 import TUIO.TuioPoint;
 import application.Systeme;
 
-public class Help implements Drawable{
+public class About implements Drawable{
 
 	RectangleShape carre;
 	Texture texture;
-	float taille = 100;
+	float taille = 50;
 	boolean visible=false;
 	
-	public Help(){
+	public About(){
 		initialisation();
 	}
 	
 	public void initialisation(){
 		texture = new Texture();
 		try {
-			texture.loadFromFile(Paths.get("images/help.png"));
+			texture.loadFromFile(Paths.get("images/apropos.png"));
 		} catch (IOException e1) {
 			System.out.println("Erreur texture");
 		}
-		carre = new RectangleShape(new Vector2f(5*taille, 7*taille));
-		carre.setOrigin((5*taille)/2, (7*taille)/2);
+		carre = new RectangleShape(new Vector2f(4*taille, 6*taille));
+		carre.setOrigin(2*taille, 3*taille);
 		carre.setOutlineColor(Color.RED);
 		carre.setOutlineThickness(taille/10);
 		carre.setTexture(texture);
+		
 	}
 	
 	@Override
 	public void draw(RenderTarget arg0, RenderStates arg1) {
-		if(visible){
+		if (visible){
 			carre.draw(arg0, arg1);
-		}
+		}	
 	}
 	
 	public void setPosition(TuioCursor cursor){
@@ -67,9 +83,13 @@ public class Help implements Drawable{
 	public boolean isVisible(){
 		return this.visible;
 	}
-
-	public void actionHelp(TuioCursor c1){
-		if (Systeme.help.isVisible()) {
+	
+	public void actionAbout(TuioCursor c1){
+		if (!Systeme.about.isVisible()) {
+			Systeme.about.setPosition(c1);
+			Systeme.about.setVisible(true);
+			Systeme.menu.setVisible(false);
+		} else {
 			Clock temps = new Clock();
 			TuioPoint position = c1.getPosition();
 			while (c1.getTuioState() != 4) {
@@ -80,8 +100,8 @@ public class Help implements Drawable{
 			}
 			if (temps.getElapsedTime().asMilliseconds() < 1000)
 				return;
-			if (Systeme.help.isInsideCarre(c1)) {
-				Systeme.help.setVisible(false);
+			if (Systeme.about.isInsideCarre(c1)) {
+				Systeme.about.setVisible(false);
 			}
 		}
 	}

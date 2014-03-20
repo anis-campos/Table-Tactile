@@ -13,7 +13,7 @@
  *  
  */
 
-package gesture;
+package outils;
 
 import image.GesteImage;
 
@@ -22,8 +22,6 @@ import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import mouse.TuioMouse;
 
 import org.jsfml.system.Clock;
 
@@ -148,24 +146,27 @@ public class GesteSysteme implements Runnable {
 	}
 
 	public static void ouvrir() {
-
+		//Deconexion du clientTuio du systeme afin de connecter la souris
 		Systeme.tuioClient.disconnect();
-
+		
+		//Connexion de la souris - on peut controler la souris. Pour cliquer il faut apuyer avec un deuxieme doigt
 		TuioMouse mouse = new TuioMouse();
 		TuioClient client = new TuioClient(3333);
 		client.addTuioListener(mouse);
 		client.connect();
-
+		
 		JFileChooser chooser = new JFileChooser();
+		//Filtrer les fichiers images
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				"JPG & GIF Images", "jpg", "gif");
+				"Images Files", "jpg", "gif","png","jpeg","bmp");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
-			Systeme.listImage.ajouter(chooser.getSelectedFile()
-					.getAbsolutePath());
-
+			Systeme.listImage.ajouter(chooser.getSelectedFile().getAbsolutePath());
+		
+		//deconnexion de la souris
 		client.disconnect();
+		//Reconnexion du Client Tuio du Systeme
 		Systeme.tuioClient.connect();
 
 	}

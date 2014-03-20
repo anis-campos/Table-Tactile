@@ -1,4 +1,4 @@
-package musique;
+package outils;
 
 import java.io.IOException;
 import java.nio.file.Paths;
