@@ -261,11 +261,9 @@ public class Menu implements Drawable{
 					Systeme.clavier.setPosition(c);
 					if (Systeme.clavier.getSupprBounds().x < Systeme.screen.x && Systeme.clavier.getSupprBounds().y < Systeme.screen.y){
 						Systeme.clavier.setPosition(c);
-						System.out.println("tototototo");
 					}else{
 						Vector2f vect = new Vector2f(Systeme.screen.x/2,Systeme.screen.y/2);
 						Systeme.clavier.setPosition(vect);
-						System.out.println("titiii");
 					}
 					Systeme.clavier.setVisible(true);
 					Systeme.menu.setVisible(false);

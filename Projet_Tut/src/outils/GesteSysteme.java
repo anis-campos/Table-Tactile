@@ -110,9 +110,6 @@ public class GesteSysteme implements Runnable {
 		// GesteImage.curseurAttribue.remove(new Integer(c.getCursorID()));
 	}
 
-	static void clavier(TuioCursor c1) {
-		
-	}
 	
 	
 

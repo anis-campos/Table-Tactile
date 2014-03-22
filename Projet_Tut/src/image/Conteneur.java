@@ -44,6 +44,7 @@ public class Conteneur implements Drawable, Serializable {
 	boolean visible = true;
 
 	
+	
 	float positionWidth = 10;
 	
 	float positionHeight = Systeme.screen.y - Systeme.screen.y / 10 + 2;
@@ -104,7 +105,6 @@ public class Conteneur implements Drawable, Serializable {
 			i.setSize(20, 20);
 			i.sprite.setPosition(nombreImage * 50, Systeme.screen.y - 20);
 			Systeme.leConteneur.add(i.getPath());
-			System.out.println(Systeme.leConteneur.size());
 		}
 	}
 
@@ -114,7 +114,6 @@ public class Conteneur implements Drawable, Serializable {
 			nombreImage = nombreImage - 1;
 			i.setSize(20, 20);
 			Systeme.leConteneur.remove(i.getPath());
-			System.out.println(Systeme.leConteneur.size());
 		}
 	}
 
