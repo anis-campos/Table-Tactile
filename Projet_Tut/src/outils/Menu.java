@@ -176,6 +176,25 @@ public class Menu implements Drawable{
 		fermer.setPosition(x-(0.4f*taille)/2, y+(0.4f*taille)/2);
 	}
 	
+	public void setPosition(Vector2f vect){
+		float x = vect.x;
+		float y = vect.y;
+		
+		ajouter.setPosition(x+taille/2,y-(3*taille)/2);
+		ouvrir.setPosition(x+(3*taille)/2, y-(3*taille)/2);
+		enregistrer.setPosition(x+(5*taille)/2, y-(3*taille)/2);
+		
+		aide.setPosition(x+taille/2, y-taille/2);
+		aPropos.setPosition(x+(3*taille)/2, y-taille/2);
+		quitter.setPosition(x+(5*taille)/2, y-taille/2);
+		
+		fermer.setPosition(x-(0.4f*taille)/2, y+(0.4f*taille)/2);
+	}
+
+	public Vector2f getEnregistrerBounds(){
+		return new Vector2f(enregistrer.getPosition().x, enregistrer.getPosition().y);
+	}
+	
 	public void setVisible(boolean visible){
 		this.visible = visible;
 	}
@@ -239,9 +258,18 @@ public class Menu implements Drawable{
 					e.printStackTrace();
 				}
 			} else if (Systeme.menu.isInsideEnregistrer(c)) {
-					Systeme.clavier.setVisible(true);
 					Systeme.clavier.setPosition(c);
+					if (Systeme.clavier.getSupprBounds().x < Systeme.screen.x && Systeme.clavier.getSupprBounds().y < Systeme.screen.y){
+						Systeme.clavier.setPosition(c);
+						System.out.println("tototototo");
+					}else{
+						Vector2f vect = new Vector2f(Systeme.screen.x/2,Systeme.screen.y/2);
+						Systeme.clavier.setPosition(vect);
+						System.out.println("titiii");
+					}
+					Systeme.clavier.setVisible(true);
 					Systeme.menu.setVisible(false);
+					
 				}else if (Systeme.menu.isInsideAide(c)) {
 					Systeme.help.setVisible(true);
 					Systeme.help.setPosition(c);

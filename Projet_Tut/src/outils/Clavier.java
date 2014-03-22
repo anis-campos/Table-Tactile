@@ -27,10 +27,12 @@ import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Text;
 import org.jsfml.graphics.Texture;
+import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 
 import application.Systeme;
 import TUIO.TuioCursor;
+import TUIO.TuioPoint;
 
 public class Clavier implements Drawable {
 
@@ -544,6 +546,10 @@ public class Clavier implements Drawable {
 		textAfficher.setStyle(Text.BOLD);
 	}
 
+	public Vector2f getSupprBounds(){
+		return suppr.getPosition();
+	}
+	
 	public void setPosition(TuioCursor cursor) {
 		float coorX = cursor.getX() * Systeme.screen.x;
 		float coorY = cursor.getY() * Systeme.screen.y;
@@ -589,6 +595,52 @@ public class Clavier implements Drawable {
 		textAfficher.setPosition(coorX+ (taille / 2), coorY- ((19 * taille) / 4));
 	}
 
+	public void setPosition(Vector2f vect) {
+		
+		float coorX = vect.x;
+		float coorY = vect.y;
+		a.setPosition(coorX + (taille / 2), coorY - (7 * taille / 2));
+		z.setPosition(coorX + (3 * taille / 2), coorY - (7 * taille / 2));
+		e.setPosition(coorX + (5 * taille / 2), coorY - (7 * taille / 2));
+		r.setPosition(coorX + (7 * taille / 2), coorY - (7 * taille / 2));
+		t.setPosition(coorX + (9 * taille / 2), coorY - (7 * taille / 2));
+		y.setPosition(coorX + (11 * taille / 2), coorY - (7 * taille / 2));
+		u.setPosition(coorX + (13 * taille / 2), coorY - (7 * taille / 2));
+		i.setPosition(coorX + (15 * taille / 2), coorY - (7 * taille / 2));
+		o.setPosition(coorX + (17 * taille / 2), coorY - (7 * taille / 2));
+		p.setPosition(coorX + (19 * taille / 2), coorY - (7 * taille / 2));
+
+		q.setPosition(coorX + (taille / 2), coorY - (5 * taille / 2));
+		s.setPosition(coorX + (3 * taille / 2), coorY - (5 * taille / 2));
+		d.setPosition(coorX + (5 * taille / 2), coorY - (5 * taille / 2));
+		f.setPosition(coorX + (7 * taille / 2), coorY - (5 * taille / 2));
+		g.setPosition(coorX + (9 * taille / 2), coorY - (5 * taille / 2));
+		h.setPosition(coorX + (11 * taille / 2), coorY - (5 * taille / 2));
+		j.setPosition(coorX + (13 * taille / 2), coorY - (5 * taille / 2));
+		k.setPosition(coorX + (15 * taille / 2), coorY - (5 * taille / 2));
+		l.setPosition(coorX + (17 * taille / 2), coorY - (5 * taille / 2));
+		m.setPosition(coorX + (19 * taille / 2), coorY - (5 * taille / 2));
+
+		w.setPosition(coorX + (taille / 2), coorY - (3 * taille / 2));
+		x.setPosition(coorX + (3 * taille / 2), coorY - (3 * taille / 2));
+		c.setPosition(coorX + (5 * taille / 2), coorY - (3 * taille / 2));
+		v.setPosition(coorX + (7 * taille / 2), coorY - (3 * taille / 2));
+		b.setPosition(coorX + (9 * taille / 2), coorY - (3 * taille / 2));
+		n.setPosition(coorX + (11 * taille / 2), coorY - (3 * taille / 2));
+		point.setPosition(coorX + (13 * taille / 2), coorY - (3 * taille / 2));
+		tire.setPosition(coorX + (15 * taille / 2), coorY - (3 * taille / 2));
+		trait.setPosition(coorX + (17 * taille / 2), coorY - (3 * taille / 2));
+		entrer.setPosition(coorX + (19 * taille / 2), coorY - (3 * taille / 2));
+
+		fermer.setPosition(coorX + (taille / 2), coorY - (taille / 2));
+		
+		suppr.setPosition(coorX + (19 * taille / 2), coorY- (9 * taille / 2));
+		
+		barre.setPosition(coorX + (9 * taille / 2), coorY- (9 * taille / 2));
+		
+		textAfficher.setPosition(coorX+ (taille / 2), coorY- ((19 * taille) / 4));
+	}
+	
 	@Override
 	public void draw(RenderTarget arg0, RenderStates arg1) {
 		if (visible) {
@@ -638,7 +690,43 @@ public class Clavier implements Drawable {
 		this.visible = visible;
 	}
 
-
+	public void ouvrirClavier(TuioCursor c1){
+		if(Systeme.clavier.isVisible()) {
+			Clock temps = new Clock();
+			TuioPoint position = c1.getPosition();
+			while (c1.getTuioState() != 4) {
+				if (position.getDistance(c1.getPosition()) > 0.01)
+					break;
+				if (temps.getElapsedTime().asMilliseconds() > 500)
+					break;
+			}
+			if (temps.getElapsedTime().asMilliseconds() < 500)
+				return;
+			if (Systeme.clavier.isInsideFermer(c1)) {
+					Systeme.clavier.setVisible(false);
+			}else{
+				if(Systeme.clavier.isValide()){
+					validationSaisie();
+				}else{
+					Systeme.clavier.saisie(c1);
+				}
+					
+			}
+		}
+	}
+	
+	public void validationSaisie(){
+		if(Systeme.clavier.isValide()){
+			try {
+				Systeme.conteneur.sauvegarder(Systeme.clavier.getUrl());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+		
+		Systeme.clavier.setVisible(false);
+	}
+	
 	public char actionClavier(TuioCursor cursor) {
 			char lettre = ' ';
 			Vector2f coord = new Vector2f(cursor.getX() * Systeme.screen.x,

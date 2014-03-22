@@ -23,11 +23,10 @@ import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.jsfml.system.Clock;
+import org.jsfml.system.Vector2f;
 
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
-import TUIO.TuioPoint;
 import application.Systeme;
 
 public class GesteSysteme implements Runnable {
@@ -86,7 +85,7 @@ public class GesteSysteme implements Runnable {
 			if (Systeme.about.isVisible()) {
 				Systeme.about.actionAbout(c);
 			} else if (Systeme.clavier.isVisible()){
-				clavier(c);
+				Systeme.clavier.ouvrirClavier(c);
 			}else if(Systeme.help.isVisible()){
 				Systeme.help.actionHelp(c);
 			}/*else if (DrawObject.isInsideFiducialMusique(c) || Systeme.musiqueMenu.isInsidePlay(c) || Systeme.musiqueMenu.isInsidePause(c) || Systeme.musiqueMenu.isInsideStop(c) || Systeme.musiqueMenu.isInsideFermer(c)){
@@ -94,7 +93,14 @@ public class GesteSysteme implements Runnable {
 				Systeme.musiqueMenu.musiqueMenu(c);
 			}*/
 		else{
+			if (Systeme.menu.getEnregistrerBounds().x < Systeme.screen.x && Systeme.menu.getEnregistrerBounds().y < Systeme.screen.y){
 				Systeme.menu.actionMenu(c);
+			}else{
+				
+				Vector2f vect = new Vector2f(Systeme.screen.x/2,Systeme.screen.y/2);
+				Systeme.menu.setPosition(vect);
+				Systeme.menu.actionMenu(c);	
+			}
 			}
 
 			break;
@@ -105,45 +111,10 @@ public class GesteSysteme implements Runnable {
 	}
 
 	static void clavier(TuioCursor c1) {
-		if (!Systeme.clavier.isVisible()) {
-			Systeme.clavier.setPosition(c1);
-			Systeme.clavier.setVisible(true);
-			Systeme.menu.setVisible(false);
-		} else {
-			Clock temps = new Clock();
-			TuioPoint position = c1.getPosition();
-			while (c1.getTuioState() != 4) {
-				if (position.getDistance(c1.getPosition()) > 0.01)
-					break;
-				if (temps.getElapsedTime().asMilliseconds() > 500)
-					break;
-			}
-			if (temps.getElapsedTime().asMilliseconds() < 500)
-				return;
-			if (Systeme.clavier.isInsideFermer(c1)) {
-					Systeme.clavier.setVisible(false);
-			}else{
-				if(Systeme.clavier.isValide()){
-					validation();
-				}else{
-					Systeme.clavier.saisie(c1);
-				}
-					
-			}
-		}
+		
 	}
 	
-	public static void validation(){
-		if(Systeme.clavier.isValide()){
-			try {
-				Systeme.conteneur.sauvegarder(Systeme.clavier.getUrl());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
-		
-		Systeme.clavier.setVisible(false);
-	}
+	
 
 	public static void ouvrir() {
 		//Deconexion du clientTuio du systeme afin de connecter la souris
