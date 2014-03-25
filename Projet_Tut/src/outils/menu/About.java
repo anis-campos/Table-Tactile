@@ -13,7 +13,7 @@
  *  
  */
 
-package outils;
+package outils.menu;
 
 import java.io.IOException;
 import java.nio.file.Paths;

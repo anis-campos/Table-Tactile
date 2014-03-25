@@ -39,13 +39,14 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
-import outils.About;
-import outils.Clavier;
 import outils.GesteSysteme;
 import outils.GestionFiducial;
-import outils.Help;
-import outils.Menu;
 import outils.MusiqueFiducial;
+import outils.menu.About;
+import outils.menu.Clavier;
+import outils.menu.Help;
+import outils.menu.Menu;
+import outils.menu.Quitter;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
@@ -59,9 +60,18 @@ import TUIO.TuioTime;
  */
 public class Systeme implements TuioListener, Serializable {
 
-    /**
-	 * 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
 	 */
+	public static void main(String[] args) {
+	Systeme app = new Systeme();
+	app.run();
+	
+	return;
+	}
+	
     private static final long serialVersionUID = 2937976085789883674L;
 
     /** The Constant LARGEUR. */
@@ -248,22 +258,6 @@ public class Systeme implements TuioListener, Serializable {
 
     }
 
-    /*
-     * boolean deplacementDroite(TuioCursor c){ boolean droite = false;
-     * if(c.getXSpeed() > 0){ droite = true; } return droite; }
-     * 
-     * boolean deplacementHaut(TuioCursor c){ boolean haut = false;
-     * if(c.getYSpeed() < 0){ haut = true; } return haut; }
-     * 
-     * Vector2f drawDeplacement(TuioCursor c){ float x =
-     * c.getPosition().getX()*window.getSize().x; float y =
-     * c.getPosition().getY()*window.getSize().y; if(deplacementDroite(c)){
-     * if(deplacementHaut(c)){ Vector2f v = new Vector2f(x-10, y+10); return v;
-     * }else{ Vector2f v = new Vector2f(x-10, y-10); return v; } }else{
-     * if(deplacementHaut(c)){ Vector2f v = new Vector2f(x+10, y+10); return v;
-     * }else{ Vector2f v = new Vector2f(x+10, y-10); return v; } } }
-     */
-
     /**
      * Draw objects.
      */
@@ -295,13 +289,13 @@ public class Systeme implements TuioListener, Serializable {
 		object = new CircleShape(20, 6);
 		object.setFillColor(Color.MAGENTA);
 	    }
-	    object.setOrigin(20 / 2, 20 / 2);
+	    object.setOrigin(20 , 20 );
 	    object.setPosition(screen.x * tuioObject.getX(), screen.y
 		    * tuioObject.getY());
 	    object.setRotation(tuioObject.getAngleDegrees());
-
-	    drawString(Integer.toString(tuioObject.getSymbolID()),
-		    object.getPosition().x - 20, object.getPosition().y - 20);
+	    float x =  object.getPosition().x - 35 ;
+	    float y = object.getPosition().y - 35;
+	    drawString(Integer.toString(tuioObject.getSymbolID()),x, y );
 
 	    window.draw(object);
 	}

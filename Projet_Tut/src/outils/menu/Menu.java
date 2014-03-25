@@ -13,7 +13,7 @@
  *  
  */
 
-package outils;
+package outils.menu;
 
 
 import java.io.IOException;
@@ -27,6 +27,7 @@ import org.jsfml.graphics.Texture;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 
+import outils.GesteSysteme;
 import application.Systeme;
 import TUIO.TuioCursor;
 import TUIO.TuioPoint;

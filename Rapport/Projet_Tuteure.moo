@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{4B856C9F-D4FF-4194-8CCE-95829EE1A80C}" Label="" LastModificationDate="1395333004" Name="Projet_Tuteure" Objects="570" Symbols="82" Target="Java" TargetLink="Reference" Type="{18112060-1A4B-11D1-83D9-444553540000}" signature="CLD_OBJECT_MODEL" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{4B856C9F-D4FF-4194-8CCE-95829EE1A80C}" Label="" LastModificationDate="1395498891" Name="Projet_Tuteure" Objects="560" Symbols="74" Target="Java" TargetLink="Reference" Type="{18112060-1A4B-11D1-83D9-444553540000}" signature="CLD_OBJECT_MODEL" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -1393,7 +1393,6 @@ Shadow=0</a:DisplayPreferences>
 <a:PageMargins>((315,354), (433,354))</a:PageMargins>
 <a:PageOrientation>1</a:PageOrientation>
 <a:PaperSource>278</a:PaperSource>
-<a:Flags>1</a:Flags>
 <c:Symbols>
 <o:PackageSymbol Id="o6">
 <a:ModificationDate>1395332931</a:ModificationDate>
@@ -13081,7 +13080,7 @@ MULA 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o528">
 <a:ModificationDate>1395332930</a:ModificationDate>
-<a:Rect>((-17791,-75901), (-12195,8170))</a:Rect>
+<a:Rect>((-17791,-75901), (-12233,8170))</a:Rect>
 <a:ListOfPoints>((-17791,8170),(-17791,-22422),(-12233,-22422),(-12233,-75901))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
@@ -13101,7 +13100,7 @@ MULA 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o531">
 <a:ModificationDate>1395332930</a:ModificationDate>
-<a:Rect>((-47110,-45228), (-17641,8320))</a:Rect>
+<a:Rect>((-47148,-45228), (-17641,8320))</a:Rect>
 <a:ListOfPoints>((-17641,8320),(-42948,8320),(-42948,-45228))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
@@ -13121,7 +13120,7 @@ MULA 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o534">
 <a:ModificationDate>1395332930</a:ModificationDate>
-<a:Rect>((-17491,-41333), (14274,8470))</a:Rect>
+<a:Rect>((-17491,-41333), (14236,8470))</a:Rect>
 <a:ListOfPoints>((-17491,8470),(14236,8470),(14236,-41333))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
@@ -13181,7 +13180,7 @@ MULA 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o543">
 <a:ModificationDate>1395332930</a:ModificationDate>
-<a:Rect>((-70649,-140825), (-17041,8920))</a:Rect>
+<a:Rect>((-70687,-140825), (-17041,8920))</a:Rect>
 <a:ListOfPoints>((-17041,8920),(-67987,8920),(-67987,-140825))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
@@ -13201,7 +13200,7 @@ MULA 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o546">
 <a:ModificationDate>1395332930</a:ModificationDate>
-<a:Rect>((-44802,-131088), (-16891,9070))</a:Rect>
+<a:Rect>((-44840,-131088), (-16891,9070))</a:Rect>
 <a:ListOfPoints>((-16891,9070),(-40940,9070),(-40940,-131088))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
@@ -15295,8 +15294,8 @@ if (verbose)
 <a:Code>Java</a:Code>
 <a:CreationDate>1395332899</a:CreationDate>
 <a:Creator>TheKing973</a:Creator>
-<a:ModificationDate>1395332899</a:ModificationDate>
-<a:Modifier>TheKing973</a:Modifier>
+<a:ModificationDate>1395498891</a:ModificationDate>
+<a:Modifier>Anis</a:Modifier>
 <a:TargetModelURL>file:///%_OBJLANG%/java5-j2ee14.xol</a:TargetModelURL>
 <a:TargetModelID>0DEDDB90-46E2-45A0-886E-411709DA0DC9</a:TargetModelID>
 <a:TargetModelClassID>1811206C-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
@@ -15310,8 +15309,8 @@ if (verbose)
 <a:Code>WSDLJava</a:Code>
 <a:CreationDate>1395332899</a:CreationDate>
 <a:Creator>TheKing973</a:Creator>
-<a:ModificationDate>1395332899</a:ModificationDate>
-<a:Modifier>TheKing973</a:Modifier>
+<a:ModificationDate>1395498891</a:ModificationDate>
+<a:Modifier>Anis</a:Modifier>
 <a:TargetModelURL>file:///%_XEM%/WSDLJ2EE.xem</a:TargetModelURL>
 <a:TargetModelID>C8F5F7B2-CF9D-4E98-8301-959BB6E86C8A</a:TargetModelID>
 <a:TargetModelClassID>186C8AC3-D3DC-11D3-881C-00508B03C75C</a:TargetModelClassID>
@@ -15325,8 +15324,8 @@ if (verbose)
 <a:Code>Projet_Tuteure</a:Code>
 <a:CreationDate>1395332928</a:CreationDate>
 <a:Creator>TheKing973</a:Creator>
-<a:ModificationDate>1395333004</a:ModificationDate>
-<a:Modifier>TheKing973</a:Modifier>
+<a:ModificationDate>1395570172</a:ModificationDate>
+<a:Modifier>Anis</a:Modifier>
 <a:TargetModelURL>file:///.</a:TargetModelURL>
 <a:TargetModelID>4B856C9F-D4FF-4194-8CCE-95829EE1A80C</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
