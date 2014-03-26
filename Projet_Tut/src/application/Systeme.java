@@ -1,12 +1,12 @@
 /*
- * 		Projet Tutoré : Table tactile
+ * 		Projet Tutoré : Picture 4 Table 
  * 
  * Sujet : Application gestion image
  * 
  * Auteurs : DA SILVA CAMPOS Anis
  * 			 TEBOULE Linda
  * 			 DIALLO Amadou
- * 			 BENKIRAN Mohamed
+ * 			 BENKIRANE Mohamed Ali
  * 
  * Date : 2013-2014
  *  
@@ -54,6 +54,7 @@ import TUIO.TuioObject;
 import TUIO.TuioTime;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * La Classe Systeme est le coeur de notre application. Son rôle est de </BR>
  * créer la fenêtre et de gerer l'affichage.</BR> 
@@ -92,7 +93,7 @@ public class Systeme implements TuioListener, Serializable {
     /** La Fênetre principale. */
     RenderWindow window;
 
-    /** La dimension de l'écran*/
+    /** La dimension de l'écran. */
     static public Vector2i screen;
 
     /** Le Client Tuio. Le port de la connexion </BR> 
@@ -130,10 +131,10 @@ public class Systeme implements TuioListener, Serializable {
 
 
 
-    /** Texte afficher pour quitter */
+    /** Texte afficher pour quitter. */
     static public Quitter quitter;
 
-    /** Le Geste System */
+    /** Le Geste System. */
     GesteSysteme gesteSystem;
 
     /** Le thread de Geste System. */

@@ -1,12 +1,12 @@
 /*
- * 		Projet Tutoré : Table tactile
+ * 		Projet Tutoré : Picture 4 Table 
  * 
  * Sujet : Application gestion image
  * 
  * Auteurs : DA SILVA CAMPOS Anis
  * 			 TEBOULE Linda
  * 			 DIALLO Amadou
- * 			 BENKIRAN Mohamed
+ * 			 BENKIRANE Mohamed Ali
  * 
  * Date : 2013-2014
  *  
@@ -117,6 +117,9 @@ public class ListeImage implements Drawable {
 
 	}
 
+	/**
+	 * Removed image.
+	 */
 	private void removedImage() {
 		ArrayList<Image> removed = new ArrayList<>();
 		for (Image image : listImage){
