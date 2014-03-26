@@ -33,7 +33,7 @@ import application.Systeme;
 /**
  * The Class Image.
  */
-public class Image implements Cloneable, Drawable,Comparable<Image>, Serializable{
+public class Image implements Drawable, Comparable<Image>, Serializable{
 	
 	
 	/** The Constant serialVersionUID. */
@@ -118,6 +118,12 @@ public class Image implements Cloneable, Drawable,Comparable<Image>, Serializabl
 		dernierID = dernierID + 1;
 	}
 	
+	
+	public boolean isRemoved(){
+		return !gesture.isRunning();
+	}
+	
+	
 	/**
      * Checks if is in conteneur.
      * 
@@ -154,30 +160,15 @@ public class Image implements Cloneable, Drawable,Comparable<Image>, Serializabl
 	public String getPath(){
 		return this.url;
 	}
-	
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#clone()
-	 */
-	public Image clone () {
-		Image tmp = null;
-		try {
-			tmp = (Image) super.clone();
-		} catch (CloneNotSupportedException e) {
-			System.out.println("Erreur clonage");
-			return null;
-		}
-		tmp.sprite=this.sprite;
-		
-		return tmp;
-	}
 
 	/* (non-Javadoc)
 	 * @see org.jsfml.graphics.Drawable#draw(org.jsfml.graphics.RenderTarget, org.jsfml.graphics.RenderStates)
 	 */
 	@Override
 	public void draw(RenderTarget target, RenderStates states) {
+		if(gesture.isRunning()){ 
 		sprite.draw(target, states);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -200,6 +191,7 @@ public class Image implements Cloneable, Drawable,Comparable<Image>, Serializabl
 		this.gesture.stop();
 		try {
 			this.thread.join();
+			
 		} catch (InterruptedException e) {
 			// TODO Bloc catch genere automatiquement
 			e.printStackTrace();

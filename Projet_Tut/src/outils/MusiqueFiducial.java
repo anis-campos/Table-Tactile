@@ -22,12 +22,10 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Texture;
-import org.jsfml.system.Clock;
 
-import application.Systeme;
 import TUIO.TuioCursor;
 import TUIO.TuioObject;
-import TUIO.TuioPoint;
+import application.Systeme;
 
 // TODO: Auto-generated Javadoc
 /**
