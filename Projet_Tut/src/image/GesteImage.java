@@ -99,7 +99,7 @@ public class GesteImage implements Runnable, Serializable, TuioListener {
 			rotation = (float) (rotation + angle * 30);
 			rotation = (rotation > 360) ? rotation - 360 : rotation;
 			rotation = (rotation < -360) ? rotation + 360 : rotation;
-			monimage.sprite.setRotation(rotation);
+			monimage.setRotation(rotation);
 
 			// -----------------------------------------------------
 			// Zoom
@@ -116,11 +116,11 @@ public class GesteImage implements Runnable, Serializable, TuioListener {
 
 				if (tmp - distance > 3) {
 					scale = Vector2f.add(scale, new Vector2f(0.1f, 0.1f));
-					monimage.sprite.setScale(scale);
+					monimage.setScale(scale);
 				}
 				if (distance - tmp > 3 && scale.x > 0.2) {
 					scale = Vector2f.sub(scale, new Vector2f(0.1f, 0.1f));
-					monimage.sprite.setScale(scale);
+					monimage.setScale(scale);
 				}
 				enzoom = false;
 
@@ -146,12 +146,12 @@ public class GesteImage implements Runnable, Serializable, TuioListener {
 			Vector2f posCurseur_ap = cursorToPoint(curseur);
 			Vector2f deplacement = Vector2f.sub(posCurseur_ap, posCurseur_av);
 			Vector2f posImage = Vector2f.add(deplacement,
-					monimage.sprite.getPosition());
+					monimage.getPosition());
 
 			if (posImage.x > 0 && posImage.y > 0
 					&& posImage.x < Systeme.screen.x
 					&& posImage.y < Systeme.screen.y)
-				monimage.sprite.setPosition(posImage);
+				monimage.setPosition(posImage);
 		}
 	}
 
@@ -177,7 +177,7 @@ public class GesteImage implements Runnable, Serializable, TuioListener {
 	 * @return true, if successful
 	 */
 	boolean inImage(Vector2f point) {
-		return monimage.sprite.getGlobalBounds().contains(point);
+		return monimage.getGlobalBounds().contains(point);
 	}
 
 	/**
@@ -216,8 +216,8 @@ public class GesteImage implements Runnable, Serializable, TuioListener {
 
 		Systeme.tuioClient.addTuioListener(this);
 		monimage = image;
-		this.scale = monimage.sprite.getScale();
-		this.rotation = monimage.sprite.getRotation();
+		this.scale = monimage.getScale();
+		this.rotation = monimage.getRotation();
 	}
 
 	/**

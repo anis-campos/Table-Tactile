@@ -19,9 +19,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Paths;
 
-import org.jsfml.graphics.Drawable;
-import org.jsfml.graphics.RenderStates;
-import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
@@ -33,17 +30,15 @@ import application.Systeme;
 /**
  * The Class Image.
  */
-public class Image implements Drawable, Comparable<Image>, Serializable{
+public class Image extends Sprite implements Comparable<Image>, Serializable{
 	
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3268929958255928707L;
 
-	/** The sprite. */
-	public Sprite sprite;
-	
+
 	/** The path of the image. */
-	public String url;
+	private String path;
 	
 	/** The gesture. */
 	private GesteImage  gesture;
@@ -55,22 +50,22 @@ public class Image implements Drawable, Comparable<Image>, Serializable{
 	public long dernierAcces = 0;
 
 	/** The position. */
-	static Vector2f position = new Vector2f(100f,100f);
+	static private Vector2f position = new Vector2f(100f,100f);
 	
 	/** The compteur. */
-	static int compteur=0;
+	private static int compteur=0;
 	
 	/** Id image. */
-	static int dernierID=0;
+	private static int dernierID=0;
 	
 	/** The id. */
-	String id;
+	private String id;
 	
 	/** The ecart. */
-	final Vector2f ecart = new Vector2f(50f,50f);
+	private final Vector2f ecart = new Vector2f(50f,50f);
 	
 	/** Is in Conteneur. */
-	boolean isInConteneur = false;
+	private boolean isInConteneur = false;
 	
 	/**
      * Sets the size.
@@ -81,7 +76,7 @@ public class Image implements Drawable, Comparable<Image>, Serializable{
      *            the height
      */
 	public void setSize(float width, float height){
-		sprite.setScale(width/sprite.getGlobalBounds().width, height/sprite.getGlobalBounds().height);
+		this.setScale(width/getLocalBounds().width, height/getLocalBounds().height);
 		
 	}
 	
@@ -91,7 +86,8 @@ public class Image implements Drawable, Comparable<Image>, Serializable{
 	 * @param path the path
 	 */
 	public Image (String path){
-		this.url = path;
+		super();		
+		this.path = path;
 		this.id = "i"+String.valueOf(dernierID + 1);
 		Texture texture = new Texture();
 		try {
@@ -100,16 +96,16 @@ public class Image implements Drawable, Comparable<Image>, Serializable{
 			System.out.println("Erreur texture");
 		}
 		Vector2i taille = texture.getSize();
-		sprite = new Sprite(texture);
-		sprite.setOrigin(new Vector2f(Vector2i.div(taille, 2)));
-		sprite.setPosition(position);
+		this.setTexture(texture);
+		setOrigin(new Vector2f(Vector2i.div(taille, 2)));
+		setPosition(position);
 		if (position.x < Systeme.screen.x && position.y<Systeme.screen.y)
 				position=Vector2f.add(position, ecart);
 		else{
 			compteur++;
 			position = new Vector2f(100+compteur*150,100);
 		}
-		sprite.scale((float)200/taille.x,(float)200/taille.y);
+		scale((float)200/taille.x,(float)200/taille.y);
 		
 
 		gesture = new GesteImage(this);
@@ -158,18 +154,9 @@ public class Image implements Drawable, Comparable<Image>, Serializable{
      * @return the path
      */
 	public String getPath(){
-		return this.url;
+		return this.path;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jsfml.graphics.Drawable#draw(org.jsfml.graphics.RenderTarget, org.jsfml.graphics.RenderStates)
-	 */
-	@Override
-	public void draw(RenderTarget target, RenderStates states) {
-		if(gesture.isRunning()){ 
-		sprite.draw(target, states);
-		}
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)

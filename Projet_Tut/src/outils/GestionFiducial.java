@@ -120,7 +120,7 @@ public class GestionFiducial {
 	    for (String url : Systeme.pathImages) {
 		for (int i = 0; i < Systeme.listImage.size(); i++) {
 		    Image img = Systeme.listImage.getImage(i);
-		    String path = img.url;
+		    String path = img.getPath();
 		    if (url.equals(path)) {
 			System.out.println("URL = " + url);
 			Systeme.listImage.retirer(img);
