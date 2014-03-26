@@ -1,3 +1,16 @@
+/*
+ * 		Projet Tutoré : Table tactile
+ * 
+ * Sujet : Application gestion image
+ * 
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
+ * 			 DIALLO Amadou
+ * 			 BENKIRAN Mohamed
+ * 
+ * Date : 2013-2014
+ *  
+ */
 package outils;
 
 /*
@@ -25,18 +38,47 @@ import java.awt.*;
 import java.awt.event.*;
 import TUIO.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TuioMouse.
+ */
 public class TuioMouse implements TuioListener {
 	
+	/** The robot. */
 	private Robot robot = null;
+	
+	/** The width. */
 	private int width = 0;
+	
+	/** The height. */
 	private int height = 0;
+	
+	/** The mouse. */
 	private long mouse = -1;
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioObject(TUIO.TuioObject)
+	 */
 	public void addTuioObject(TuioObject tobj) {}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioObject(TUIO.TuioObject)
+	 */
 	public void updateTuioObject(TuioObject tobj) {}	
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioObject(TUIO.TuioObject)
+	 */
 	public void removeTuioObject(TuioObject tobj) {}
+	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#refresh(TUIO.TuioTime)
+	 */
 	public void refresh(TuioTime bundleTime) {}
 	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioCursor(TUIO.TuioCursor)
+	 */
 	public void addTuioCursor(TuioCursor tcur) {
 		if (mouse<0) {
 			mouse = tcur.getSessionID();
@@ -48,12 +90,18 @@ public class TuioMouse implements TuioListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioCursor(TUIO.TuioCursor)
+	 */
 	public void updateTuioCursor(TuioCursor tcur) {
 		if (mouse==tcur.getSessionID()) {
 			if (robot!=null) robot.mouseMove(tcur.getScreenX(width),tcur.getScreenY(height));
 		} 
 	}
 	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioCursor(TUIO.TuioCursor)
+	 */
 	public void removeTuioCursor(TuioCursor tcur) {
 		if (mouse==tcur.getSessionID()) {
 			mouse=-1;
@@ -63,6 +111,9 @@ public class TuioMouse implements TuioListener {
 		
 	}
 	
+	/**
+     * Instantiates a new tuio mouse.
+     */
 	public TuioMouse() {
 		try { robot = new Robot(); }
 		catch (Exception e) {
@@ -74,20 +125,5 @@ public class TuioMouse implements TuioListener {
 		height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	}
 
-	/*public static void main(String argv[]) {
-	
-		int port = 3333;
- 
-		if (argv.length==1) {
-			try { port = Integer.parseInt(argv[1]); }
-			catch (Exception e) { System.out.println("usage: java TuioMouse [port]"); }
-		}
 
- 		TuioMouse mouse = new TuioMouse();
-		TuioClient client = new TuioClient(port);
-
-		System.out.println("listening to TUIO messages at port "+port);
-		client.addTuioListener(mouse);
-		client.connect();
-	}*/
 }

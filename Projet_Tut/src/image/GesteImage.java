@@ -1,13 +1,13 @@
 
 /*
- * 		Projet Tutore : Table tactile
+ * 		Projet Tutoré : Table tactile
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : BENKIRANE Mohamed Ali
- * 			 DA SILVA CAMPOS Anis
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
  * 			 DIALLO Amadou
- * 			 TEBOULE Linda	 
+ * 			 BENKIRAN Mohamed
  * 
  * Date : 2013-2014
  *  
@@ -39,9 +39,7 @@ import application.Systeme;
 public class GesteImage implements Runnable, Serializable,TuioListener {	
 
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2981768527400215076L;
 
 	/** The monimage. */
@@ -50,6 +48,7 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 	/** The running. */
 	private boolean running=true;
 
+	/** The continu. */
 	private boolean continu=true;
 	/** The scale. */
 	private Vector2f scale ;
@@ -61,6 +60,9 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 	public static List<Integer> curseurAttribue = new ArrayList<Integer>();
 	 
 	
+	/**
+     * Stop.
+     */
 	public void stop (){
 		 this.running=false;
 	 }
@@ -329,23 +331,35 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 		return angle;
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioObject(TUIO.TuioObject)
+	 */
 	@Override
 	public void addTuioObject(TuioObject tobj) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioObject(TUIO.TuioObject)
+	 */
 	@Override
 	public void updateTuioObject(TuioObject tobj) {
 		// TODO Stub de la methode genere automatiquement
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioObject(TUIO.TuioObject)
+	 */
 	@Override
 	public void removeTuioObject(TuioObject tobj) {
 		// TODO Stub de la methode genere automatiquement
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioCursor(TUIO.TuioCursor)
+	 */
 	@Override
 	public void addTuioCursor(TuioCursor tcur) {
 
@@ -355,18 +369,27 @@ public class GesteImage implements Runnable, Serializable,TuioListener {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioCursor(TUIO.TuioCursor)
+	 */
 	@Override
 	public void updateTuioCursor(TuioCursor tcur) {
 		// TODO Stub de la methode genere automatiquement
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioCursor(TUIO.TuioCursor)
+	 */
 	@Override
 	public void removeTuioCursor(TuioCursor tcur) {
 		// TODO Stub de la methode genere automatiquement
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#refresh(TUIO.TuioTime)
+	 */
 	@Override
 	public void refresh(TuioTime ftime) {
 		// TODO Stub de la methode genere automatiquement

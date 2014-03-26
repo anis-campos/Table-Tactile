@@ -1,13 +1,13 @@
 
 /*
- * 		Projet Tutore : Table tactile
+ * 		Projet Tutoré : Table tactile
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : BENKIRANE Mohamed Ali
- * 			 DA SILVA CAMPOS Anis
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
  * 			 DIALLO Amadou
- * 			 TEBOULE Linda	 
+ * 			 BENKIRAN Mohamed
  * 
  * Date : 2013-2014
  *  
@@ -36,15 +36,13 @@ import application.Systeme;
 public class Image implements Cloneable, Drawable,Comparable<Image>, Serializable{
 	
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3268929958255928707L;
 
 	/** The sprite. */
 	public Sprite sprite;
 	
-	/** The path of the image*/
+	/** The path of the image. */
 	public String url;
 	
 	/** The gesture. */
@@ -62,16 +60,26 @@ public class Image implements Cloneable, Drawable,Comparable<Image>, Serializabl
 	/** The compteur. */
 	static int compteur=0;
 	
-	/** Id image*/
+	/** Id image. */
 	static int dernierID=0;
+	
+	/** The id. */
 	String id;
 	
 	/** The ecart. */
 	final Vector2f ecart = new Vector2f(50f,50f);
 	
-	/** Is in Conteneur*/
+	/** Is in Conteneur. */
 	boolean isInConteneur = false;
 	
+	/**
+     * Sets the size.
+     * 
+     * @param width
+     *            the width
+     * @param height
+     *            the height
+     */
 	public void setSize(float width, float height){
 		sprite.setScale(width/sprite.getGlobalBounds().width, height/sprite.getGlobalBounds().height);
 		
@@ -110,18 +118,39 @@ public class Image implements Cloneable, Drawable,Comparable<Image>, Serializabl
 		dernierID = dernierID + 1;
 	}
 	
+	/**
+     * Checks if is in conteneur.
+     * 
+     * @return true, if is in conteneur
+     */
 	public boolean isInConteneur(){
 		return isInConteneur;
 	}
 	
+	/**
+     * Sets the checks if is in conteneur.
+     * 
+     * @param isInC
+     *            the new checks if is in conteneur
+     */
 	public void setIsInConteneur(boolean isInC){
 		isInConteneur = isInC;
 	}
 
+	/**
+     * Gets the id.
+     * 
+     * @return the id
+     */
 	public String getId(){
 		return this.id;
 	}
 	
+	/**
+     * Gets the path.
+     * 
+     * @return the path
+     */
 	public String getPath(){
 		return this.url;
 	}
@@ -164,6 +193,9 @@ public class Image implements Cloneable, Drawable,Comparable<Image>, Serializabl
 			return 1;
 	}
 	
+	/**
+     * Stop thread.
+     */
 	public void stopThread (){
 		this.gesture.stop();
 		try {

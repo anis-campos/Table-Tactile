@@ -1,3 +1,16 @@
+/*
+ * 		Projet Tutoré : Table tactile
+ * 
+ * Sujet : Application gestion image
+ * 
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
+ * 			 DIALLO Amadou
+ * 			 BENKIRAN Mohamed
+ * 
+ * Date : 2013-2014
+ *  
+ */
 package outils;
 
 import java.io.IOException;
@@ -16,22 +29,54 @@ import TUIO.TuioCursor;
 import TUIO.TuioObject;
 import TUIO.TuioPoint;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MusiqueFiducial.
+ */
 public class MusiqueFiducial implements Drawable{
 
+	/** The url. */
 	static String 	url;
+	
+	/** The music. */
 	static Music 	music = new Music();
+	
+	/** The en jeu. */
 	static int		enJeu;
+	
+	/** The is play. */
 	static boolean 	isPlay = false;
+	
+	/** The visible. */
 	boolean	visible= false;
+	
+	/** The fiducial is visible. */
 	static boolean fiducialIsVisible = false;
+	
+	/** The fermer. */
 	static CircleShape play, pause, stop, fermer;
+	
+	/** The text fermer. */
 	static Texture		textPlay, textPause, textStop, textFermer;
+	
+	/** The taille. */
 	static float taille = 20;
 	
+	/**
+     * Instantiates a new musique fiducial.
+     */
 	public MusiqueFiducial(){
 		initialisation();
 	}
 	
+	/**
+     * Action fiducial ajout.
+     * 
+     * @param tobj
+     *            the tobj
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
 	public static void actionFiducialAjout(TuioObject tobj) throws IOException {
 		switch ((int) tobj.getSymbolID()) {
 		case 4:
@@ -83,6 +128,12 @@ public class MusiqueFiducial implements Drawable{
 
 	}
 	
+	/**
+     * Action fiducial retrait.
+     * 
+     * @param tobj
+     *            the tobj
+     */
 	public static void actionFiducialRetrait(TuioObject tobj){
 		switch ((int) tobj.getSymbolID()){
 			case 4:
@@ -122,6 +173,9 @@ public class MusiqueFiducial implements Drawable{
 		}
 	}
 	
+	/**
+     * Initialisation.
+     */
 	public static void initialisation(){
 		
 		textPlay = new Texture();
@@ -172,6 +226,12 @@ public class MusiqueFiducial implements Drawable{
 		
 	}
 
+	/**
+     * Sets the position.
+     * 
+     * @param cursor
+     *            the new position
+     */
 	public void setPosition(TuioCursor cursor){
 		
 		float x = cursor.getX()*Systeme.screen.x;
@@ -183,6 +243,9 @@ public class MusiqueFiducial implements Drawable{
 		fermer.setPosition(x+90, y-60);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jsfml.graphics.Drawable#draw(org.jsfml.graphics.RenderTarget, org.jsfml.graphics.RenderStates)
+	 */
 	@Override
 	public void draw(RenderTarget arg0, RenderStates arg1) {
 		if(visible){
@@ -193,67 +256,142 @@ public class MusiqueFiducial implements Drawable{
 		}
 	}
 
+	/**
+     * Sets the visible.
+     * 
+     * @param visible
+     *            the new visible
+     */
 	public void setVisible(boolean visible){
 		this.visible = visible;
 	}
 
+	/**
+     * Gets the en jeu.
+     * 
+     * @return the en jeu
+     */
 	public int getEnJeu(){
 		return MusiqueFiducial.enJeu;
 	}
 	
+	/**
+     * Checks if is play.
+     * 
+     * @return true, if is play
+     */
 	@SuppressWarnings("static-access")
 	public boolean isPlay(){
 		return this.isPlay;
 	}
 	
+	/**
+     * Play.
+     */
 	public void play(){
 		music.play();
 	}
 	
+	/**
+     * Pause.
+     */
 	public void pause(){
 		music.pause();
 		isPlay=false;
 	}
 	
+	/**
+     * Stop.
+     */
 	public void stop(){
 		music.stop();
 		isPlay=false;
 	}
 	
+	/**
+     * Checks if is visible.
+     * 
+     * @return true, if is visible
+     */
 	public boolean isVisible(){
 		return this.visible;
 	}
 	
+	/**
+     * Fiducial is visible.
+     * 
+     * @return true, if successful
+     */
 	public boolean fiducialIsVisible(){
 		return MusiqueFiducial.fiducialIsVisible;
 	}
 
+	/**
+     * Sets the fiducial is visible.
+     * 
+     * @param visible
+     *            the new fiducial is visible
+     */
 	public void setFiducialIsVisible(boolean visible){
 		MusiqueFiducial.fiducialIsVisible = visible;
 	}
 	
+	/**
+     * Checks if is inside play.
+     * 
+     * @param cursor
+     *            the cursor
+     * @return true, if is inside play
+     */
 	public boolean isInsidePlay(TuioCursor cursor){
 		return play.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 
 	}
 	
+	/**
+     * Checks if is inside pause.
+     * 
+     * @param cursor
+     *            the cursor
+     * @return true, if is inside pause
+     */
 	public boolean isInsidePause(TuioCursor cursor){
 		return pause.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 
 	}
 	
+	/**
+     * Checks if is inside stop.
+     * 
+     * @param cursor
+     *            the cursor
+     * @return true, if is inside stop
+     */
 	public boolean isInsideStop(TuioCursor cursor){
 		return stop.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
 
+	/**
+     * Checks if is inside fermer.
+     * 
+     * @param cursor
+     *            the cursor
+     * @return true, if is inside fermer
+     */
 	public boolean isInsideFermer(TuioCursor cursor){
 		return fermer.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 
 	}
 	
-	public void musiqueMenu(TuioCursor c1){
+	/**
+     * Musique menu.
+     * 
+     * @param c1
+     *            the c1
+     */
+	/*public void musiqueMenu(TuioCursor c1){
 		if(!Systeme.musiqueMenu.isVisible()){
-			/*if(DrawObject.isInsideFiducialMusique(c1)){
+			if(DrawObject.isInsideFiducialMusique(c1)){
 				Clock temps = new Clock();
 				TuioPoint position = c1.getPosition();
 				while (c1.getTuioState() != 4) {
@@ -267,7 +405,7 @@ public class MusiqueFiducial implements Drawable{
 				
 				Systeme.musiqueMenu.setVisible(true);
 				Systeme.musiqueMenu.setPosition(c1);	
-			}*/
+			}
 			
 		}else{
 			Clock temps = new Clock();
@@ -290,6 +428,6 @@ public class MusiqueFiducial implements Drawable{
 				Systeme.musiqueMenu.setVisible(false);
 			}
 		}
-	}
+	}*/
 	
 }

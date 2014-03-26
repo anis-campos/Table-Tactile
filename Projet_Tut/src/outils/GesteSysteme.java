@@ -1,13 +1,13 @@
 
 /*
- * 		Projet Tutore : Table tactile
+ * 		Projet Tutoré : Table tactile
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : BENKIRANE Mohamed Ali
- * 			 DA SILVA CAMPOS Anis
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
  * 			 DIALLO Amadou
- * 			 TEBOULE Linda	 
+ * 			 BENKIRAN Mohamed
  * 
  * Date : 2013-2014
  *  
@@ -29,18 +29,32 @@ import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import application.Systeme;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GesteSysteme.
+ */
 public class GesteSysteme implements Runnable {
 
+	/** The running. */
 	private boolean running;
 
+	/**
+     * Instantiates a new geste systeme.
+     */
 	public GesteSysteme() {
 		running = true;
 	}
 
+	/**
+     * Stop.
+     */
 	public void stop() {
 		this.running = false;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		while (running) {
@@ -54,6 +68,12 @@ public class GesteSysteme implements Runnable {
 
 	}
 
+	/**
+     * Pause.
+     * 
+     * @param milliseconde
+     *            the milliseconde
+     */
 	void pause(int milliseconde) {
 		try {
 			Thread.sleep(milliseconde);
@@ -62,6 +82,12 @@ public class GesteSysteme implements Runnable {
 		}
 	}
 
+	/**
+     * Event.
+     * 
+     * @throws Exception
+     *             the exception
+     */
 	void event() throws Exception {
 		Vector<TuioCursor> cursorList = Systeme.tuioClient.getTuioCursors();
 
@@ -113,6 +139,9 @@ public class GesteSysteme implements Runnable {
 	
 	
 
+	/**
+     * Ouvrir.
+     */
 	public static void ouvrir() {
 		//Deconexion du clientTuio du systeme afin de connecter la souris
 		Systeme.tuioClient.disconnect();

@@ -1,12 +1,12 @@
 /*
- * 		Projet Tutore : Table tactile
+ * 		Projet Tutoré : Table tactile
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : BENKIRANE Mohamed Ali
- * 			 DA SILVA CAMPOS Anis
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
  * 			 DIALLO Amadou
- * 			 TEBOULE Linda	 
+ * 			 BENKIRAN Mohamed
  * 
  * Date : 2013-2014
  *  
@@ -53,82 +53,100 @@ import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
 
-// TODO: Auto-generated Javadoc
 
 /**
- * The Class Systeme.
+ * La Classe Systeme est le coeur de notre application. Son rôle est de </BR>
+ * créer la fenêtre et de gerer l'affichage.</BR> 
+ * Elle contient toutes les éléments qui seronts affichés :</BR> 
+ * <p LEFTMARGIN='10'>
+ * 	-  Liste d'Image
+ * </p>
  */
 public class Systeme implements TuioListener, Serializable {
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 */
-	public static void main(String[] args) {
+    /**
+     * Le main du projet.
+     * 
+     * @param args
+     *            les arguments initiaux
+     */
+    public static void main(String[] args) {
 	Systeme app = new Systeme();
 	app.run();
-	
+
 	return;
-	}
-	
+    }
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2937976085789883674L;
 
-    /** The Constant LARGEUR. */
+    /** La LARGEUR initiale de la fenêtre. */
     final int LARGEUR = 900;
 
-    /** The Constant HAUTEUR. */
+    /** La HAUTEUR initiale de la fenêtre. */
     final int HAUTEUR = 600;
 
-    /** The running. */
+    /** Quelques états du programme. */
     boolean verbose, fullscreen, running;
 
-    /** The window. */
-    public RenderWindow window;
+    /** La Fênetre principale. */
+    RenderWindow window;
 
-    /** The screen. */
+    /** La dimension de l'écran*/
     static public Vector2i screen;
 
-    /** The tuio client. */
+    /** Le Client Tuio. Le port de la connexion </BR> 
+     * est celui par défaut (3333) 
+     **/
     static public TuioClient tuioClient;
 
-    /** The font. */
+    /** La police utilisé dans tout le programme. */
     static public Font font;
 
-    /** The list image. */
+    /** La liste d'image afficher à l'écran. */
     static public ListeImage listImage;
 
-    /** Menu */
+    /** Le menu . */
     static public Menu menu;
-    static public MusiqueFiducial musiqueMenu;
 
-    /** A propos */
+    /** The musique menu. */
+   // static public MusiqueFiducial musiqueMenu;
+
+    /** A propos. */
     static public About about;
 
-    /** HELP */
+    /** HELP. */
     static public Help help;
 
-    /** Conteneur des dossiers */
+    /** Conteneur des dossiers. */
     static public Conteneur conteneur;
-    static public ArrayList<String> leConteneur;
 
-    /** CLAVIER */
+    /** Les chemins d'accès aux images du conteurs.</BR> 
+     *  Utilisé lors de la sérialisation et la désérialisation */
+    static public ArrayList<String> pathImages;
+
+    /** Le Clavier. */
     static public Clavier clavier;
 
-    /** BOOLEAN IS IN OBJECT */
-    // static public boolean isInObject=false;
+
 
     /** Texte afficher pour quitter */
     static public Quitter quitter;
 
-    GesteSysteme gestesys;
-    Thread thread;
+    /** Le Geste System */
+    GesteSysteme gesteSystem;
 
+    /** Le thread de Geste System. */
+    Thread threadGesteSystem;
+
+    /** La texture du fiducial "musique" . */
     Texture textureFidMusique;
+
+    /** La texture du fiducial "photo" . */
     Texture TextureFidPhoto;
 
     /**
-     * Instantiates a new systeme.
+     * Constucteur apr défaut de System.
      */
     Systeme() {
 	screen = new Vector2i(LARGEUR, HAUTEUR);
@@ -177,9 +195,9 @@ public class Systeme implements TuioListener, Serializable {
 	 * (Math.random()*255))); }
 	 */
 
-	gestesys = new GesteSysteme();
-	thread = new Thread(gestesys);
-	thread.start();
+	gesteSystem = new GesteSysteme();
+	threadGesteSystem = new Thread(gesteSystem);
+	threadGesteSystem.start();
 
 	font = new Font();
 	try {
@@ -193,14 +211,17 @@ public class Systeme implements TuioListener, Serializable {
 	about = new About();
 	conteneur = new Conteneur();
 	quitter = new Quitter();
-	leConteneur = new ArrayList<>();
+	pathImages = new ArrayList<>();
 	clavier = Clavier.getInstance();
-	musiqueMenu = new MusiqueFiducial();
+	//musiqueMenu = new MusiqueFiducial();
 	help = new Help();
     }
 
     /**
-     * Run.
+     * Boucle de dessin et de gestion d'évènement</BR>
+     * La méthode run est boucle infiniment, tant que </BR>
+     * l'utilisateur ne quite l'application.
+     * 
      */
     public void run() {
 
@@ -213,7 +234,7 @@ public class Systeme implements TuioListener, Serializable {
 	    window.draw(conteneur);
 	    window.draw(quitter);
 	    window.draw(clavier);
-	    window.draw(musiqueMenu);
+	   // window.draw(musiqueMenu);
 
 	    drawCursors();
 
@@ -224,9 +245,9 @@ public class Systeme implements TuioListener, Serializable {
 	    processEvents();
 	    window.clear();
 	}
-	gestesys.stop();
+	gesteSystem.stop();
 	try {
-	    thread.join();
+	    threadGesteSystem.join();
 	} catch (InterruptedException e) {
 	    e.printStackTrace();
 	}
@@ -289,13 +310,13 @@ public class Systeme implements TuioListener, Serializable {
 		object = new CircleShape(20, 6);
 		object.setFillColor(Color.MAGENTA);
 	    }
-	    object.setOrigin(20 , 20 );
+	    object.setOrigin(20, 20);
 	    object.setPosition(screen.x * tuioObject.getX(), screen.y
 		    * tuioObject.getY());
 	    object.setRotation(tuioObject.getAngleDegrees());
-	    float x =  object.getPosition().x - 35 ;
+	    float x = object.getPosition().x - 35;
 	    float y = object.getPosition().y - 35;
-	    drawString(Integer.toString(tuioObject.getSymbolID()),x, y );
+	    drawString(Integer.toString(tuioObject.getSymbolID()), x, y);
 
 	    window.draw(object);
 	}
@@ -448,8 +469,8 @@ public class Systeme implements TuioListener, Serializable {
 	    }
 	} else if (tobj.getSymbolID() < 8) {
 	    MusiqueFiducial.actionFiducialRetrait(tobj);
-	    
-	} 
+
+	}
 
     }
 

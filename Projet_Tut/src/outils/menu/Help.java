@@ -1,3 +1,16 @@
+/*
+ * 		Projet Tutoré : Table tactile
+ * 
+ * Sujet : Application gestion image
+ * 
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
+ * 			 DIALLO Amadou
+ * 			 BENKIRAN Mohamed
+ * 
+ * Date : 2013-2014
+ *  
+ */
 package outils.menu;
 
 import java.io.IOException;
@@ -16,17 +29,34 @@ import TUIO.TuioCursor;
 import TUIO.TuioPoint;
 import application.Systeme;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Help.
+ */
 public class Help implements Drawable{
 
+	/** The carre. */
 	RectangleShape carre;
+	
+	/** The texture. */
 	Texture texture;
+	
+	/** The taille. */
 	float taille = 100;
+	
+	/** The visible. */
 	boolean visible=false;
 	
+	/**
+     * Instantiates a new help.
+     */
 	public Help(){
 		initialisation();
 	}
 	
+	/**
+     * Initialisation.
+     */
 	public void initialisation(){
 		texture = new Texture();
 		try {
@@ -41,6 +71,9 @@ public class Help implements Drawable{
 		carre.setTexture(texture);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jsfml.graphics.Drawable#draw(org.jsfml.graphics.RenderTarget, org.jsfml.graphics.RenderStates)
+	 */
 	@Override
 	public void draw(RenderTarget arg0, RenderStates arg1) {
 		if(visible){
@@ -48,26 +81,59 @@ public class Help implements Drawable{
 		}
 	}
 	
+	/**
+     * Sets the position.
+     * 
+     * @param cursor
+     *            the new position
+     */
 	public void setPosition(TuioCursor cursor){
 		carre.setPosition(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
 	
+	/**
+     * Sets the position.
+     */
 	public void setPosition(){
 		carre.setPosition(Systeme.screen.x/2, Systeme.screen.y/2);
 	}
 
+	/**
+     * Checks if is inside carre.
+     * 
+     * @param cursor
+     *            the cursor
+     * @return true, if is inside carre
+     */
 	public boolean isInsideCarre(TuioCursor cursor){
 		return carre.getGlobalBounds().contains(cursor.getX()*Systeme.screen.x, cursor.getY()*Systeme.screen.y);
 	}
 	
+	/**
+     * Sets the visible.
+     * 
+     * @param visible
+     *            the new visible
+     */
 	public void setVisible(boolean visible){
 		this.visible = visible;
 	}
 	
+	/**
+     * Checks if is visible.
+     * 
+     * @return true, if is visible
+     */
 	public boolean isVisible(){
 		return this.visible;
 	}
 
+	/**
+     * Action help.
+     * 
+     * @param c1
+     *            the c1
+     */
 	public void actionHelp(TuioCursor c1){
 		if (Systeme.help.isVisible()) {
 			Clock temps = new Clock();

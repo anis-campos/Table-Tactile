@@ -1,13 +1,13 @@
 
 /*
- * 		Projet Tutore : Table tactile
+ * 		Projet Tutoré : Table tactile
  * 
  * Sujet : Application gestion image
  * 
- * Auteurs : BENKIRANE Mohamed Ali
- * 			 DA SILVA CAMPOS Anis
+ * Auteurs : DA SILVA CAMPOS Anis
+ * 			 TEBOULE Linda
  * 			 DIALLO Amadou
- * 			 TEBOULE Linda	 
+ * 			 BENKIRAN Mohamed
  * 
  * Date : 2013-2014
  *  
@@ -51,18 +51,42 @@ public class ListeImage implements Drawable {
 		listImage.add(new Image(path));
 	}
 	
+	/**
+     * Ajouter.
+     * 
+     * @param i
+     *            the i
+     */
 	public void ajouter(Image i){
 		listImage.add(i);
 	}
 	
+	/**
+     * Gets the image.
+     * 
+     * @param i
+     *            the i
+     * @return the image
+     */
 	public Image getImage(int i){
 		return listImage.get(i);
 	}
 	
+	/**
+     * Size.
+     * 
+     * @return the int
+     */
 	public int size(){
 		return listImage.size();
 	}
 	
+	/**
+     * Retirer.
+     * 
+     * @param i
+     *            the i
+     */
 	public void retirer(Image i ){
 		i.stopThread();
 		listImage.remove(i);
