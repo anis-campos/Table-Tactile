@@ -119,7 +119,7 @@ public class GesteSysteme implements Runnable {
 				Systeme.musiqueMenu.musiqueMenu(c);
 			}*/
 		else{
-			if (Systeme.menu.getEnregistrerBounds().x < Systeme.screen.x && Systeme.menu.getEnregistrerBounds().y < Systeme.screen.y){
+			if (Systeme.menu.getEnregistrerBounds().x < Systeme.screen.x && Systeme.menu.getEnregistrerBounds().y >0){
 				Systeme.menu.actionMenu(c);
 			}else{
 				
@@ -152,7 +152,7 @@ public class GesteSysteme implements Runnable {
 		client.addTuioListener(mouse);
 		client.connect();
 		
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser("C:/Users/Public/Pictures/Sample Pictures");
 		//Filtrer les fichiers images
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				"Images Files", "jpg", "gif","png","jpeg","bmp");

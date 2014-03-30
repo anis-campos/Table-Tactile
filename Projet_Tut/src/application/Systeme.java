@@ -368,6 +368,7 @@ public class Systeme implements TuioListener, Serializable {
 		    window.close();
 		    running = false;
 		    break;
+		    
 		case F:
 		    this.toggleFullscreen();
 		    Systeme.conteneur.setSizeConteneur();

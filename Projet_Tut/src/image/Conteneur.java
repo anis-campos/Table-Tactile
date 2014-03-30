@@ -195,7 +195,15 @@ public class Conteneur extends RectangleShape implements  Serializable {
 	 *             the exception
 	 */
 	public void sauvegarder(String nomFic) throws Exception {
-		File f1 = new File(nomFic); // declaration du fichier
+	    
+	    if(!new File(nomFic).exists())
+	        {
+	            // Créer le dossier avec tous ses parents
+	            new File(nomFic).mkdirs();
+	 
+	        }
+	    
+		File f1 = new File(nomFic+".sauv"); // declaration du fichier
 		FileOutputStream fs = new FileOutputStream(f1);
 		ObjectOutputStream fsObj = new ObjectOutputStream(fs);
 		fsObj.writeObject(Systeme.pathImages); // ecriture du conteneur

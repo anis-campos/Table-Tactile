@@ -19,6 +19,9 @@ package outils.menu;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderStates;
@@ -28,7 +31,9 @@ import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 
 import outils.GesteSysteme;
+import outils.TuioMouse;
 import application.Systeme;
+import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioPoint;
 
@@ -370,13 +375,14 @@ public class Menu implements Drawable{
 				GesteSysteme.ouvrir();
 			} else if (Systeme.menu.isInsideOuvrir(c)) {
 				try {
-					Systeme.conteneur.charger("testImg");
+					//Systeme.conteneur.charger("testImg");
+				    this.ouvrir();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else if (Systeme.menu.isInsideEnregistrer(c)) {
 					Systeme.clavier.setPosition(c);
-					if (Systeme.clavier.getSupprBounds().x < Systeme.screen.x && Systeme.clavier.getSupprBounds().y < Systeme.screen.y){
+					if (Systeme.clavier.getSupprBounds().x < Systeme.screen.x && Systeme.clavier.getSupprBounds().y > 0){
 						Systeme.clavier.setPosition(c);
 					}else{
 						Vector2f vect = new Vector2f(Systeme.screen.x/2,Systeme.screen.y/2);
@@ -403,6 +409,37 @@ public class Menu implements Drawable{
 				Systeme.menu.setVisible(false);
 			}
 		}
+	}
+	
+	public void ouvrir() {
+		//Deconexion du clientTuio du systeme afin de connecter la souris
+		Systeme.tuioClient.disconnect();
+		
+		//Connexion de la souris - on peut controler la souris. Pour cliquer il faut apuyer avec un deuxieme doigt
+		TuioMouse mouse = new TuioMouse();
+		TuioClient client = new TuioClient(3333);
+		client.addTuioListener(mouse);
+		client.connect();
+		
+		JFileChooser chooser = new JFileChooser("./images");
+		//Filtrer les fichiers images
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"Serialized images Files", "sauv");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION)
+		    try {
+			Systeme.conteneur.charger(chooser.getSelectedFile().getAbsolutePath());
+		    } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		    }
+		
+		//deconnexion de la souris
+		client.disconnect();
+		//Reconnexion du Client Tuio du Systeme
+		Systeme.tuioClient.connect();
+
 	}
 	
 	}// end Menu

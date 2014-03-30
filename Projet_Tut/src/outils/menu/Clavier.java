@@ -937,7 +937,7 @@ public class Clavier implements Drawable {
 	    } else if (z.getGlobalBounds().contains(coord)) {
 		lettre = 'z';
 	    } else if (point.getGlobalBounds().contains(coord)) {
-		lettre = '.';
+		lettre = '/';
 	    } else if (tire.getGlobalBounds().contains(coord)) {
 		lettre = '-';
 	    } else if (trait.getGlobalBounds().contains(coord)) {
